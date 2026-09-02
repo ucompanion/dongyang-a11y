@@ -69,7 +69,7 @@
     }
     
     th, td {
-      padding: 16px 20px;
+      padding: 8px 12px;
       border-bottom: 1px solid var(--secondary);
       font-size: 14px;
     }
@@ -174,59 +174,43 @@
           </tr>
           <tr>
             <td>1</td>
-            <td>개인정보_교직원 <span class="badge">견적</span></td>
+            <td>개인정보_교직원</td>
             <td class="path">/stf/STF_00.jsp</td>
             <td><a href="html/mportal/stf/STF_00.html" target="_blank">/html/mportal/stf/STF_00.html</a></td>
-            <td><span class="status done">완료</span></td>
+            <td><span class="status done">변환완료</span></td>
             <td></td>
           </tr>
           <tr>
             <td>2</td>
-            <td>개인정보_학생 <span class="badge">견적</span></td>
+            <td>개인정보_학생</td>
             <td class="path">/stu/STU_00.jsp</td>
             <td><a href="html/mportal/stu/STU_00.html" target="_blank">/html/mportal/stu/STU_00.html</a></td>
-            <td><span class="status done">완료</span></td>
+            <td><span class="status done">변환완료</span></td>
             <td></td>
           </tr>
           <tr>
             <td>3</td>
-            <td>도서관출입증_교직원 <span class="badge">견적</span></td>
+            <td>도서관출입증_교직원</td>
             <td class="path">/stu/LIB_00.jsp</td>
             <td><a href="html/mportal/stu/LIB_00.html" target="_blank">/html/mportal/stu/LIB_00.html</a></td>
-            <td><span class="status done">완료</span></td>
+            <td><span class="status done">변환완료</span></td>
             <td></td>
           </tr>
           <tr>
             <td>4</td>
-            <td>도서관출입증_학생 <span class="badge">견적</span></td>
+            <td>도서관출입증_학생</td>
             <td class="path">/stu/LIB_00.jsp</td>
             <td><a href="html/mportal/stu/LIB_00.html" target="_blank">/html/mportal/stu/LIB_00.html</a></td>
-            <td><span class="status done">완료</span></td>
+            <td><span class="status done">변환완료</span></td>
             <td></td>
           </tr>
           <tr>
             <td>5</td>
-            <td>환경설정 <span class="badge">견적</span></td>
+            <td>환경설정</td>
             <td class="path">/main/config.jsp</td>
             <td><a href="html/mportal/main/config.html" target="_blank">/html/mportal/main/config.html</a></td>
-            <td><span class="status done">완료</span></td>
+            <td><span class="status done">변환완료</span></td>
             <td></td>
-          </tr>
-          <tr>
-            <td>6</td>
-            <td>메인사이트메뉴_학생 <span class="badge">견적</span></td>
-            <td class="path">/common/incSideMenu.jsp</td>
-            <td class="path">- (레이아웃 병합) -</td>
-            <td><span class="status">대기</span></td>
-            <td>개별 페이지 아님</td>
-          </tr>
-          <tr>
-            <td>7</td>
-            <td>메인상단_교직원/학생 <span class="badge">견적</span></td>
-            <td class="path">/common/incTop.jsp, incHeader.jsp</td>
-            <td class="path">- (레이아웃 병합) -</td>
-            <td><span class="status">대기</span></td>
-            <td>개별 페이지 아님</td>
           </tr>
           
           <!-- 기타 변환 화면 -->
@@ -235,7 +219,7 @@
             <td>로그인화면</td>
             <td class="path">/login.jsp</td>
             <td><a href="html/mportal/login.html" target="_blank">/html/mportal/login.html</a></td>
-            <td><span class="status done">완료</span></td>
+            <td><span class="status done">변환완료</span></td>
             <td></td>
           </tr>
           <tr>
@@ -243,16 +227,24 @@
             <td>패스워드체크</td>
             <td class="path">/common/passChk.jsp</td>
             <td><a href="html/mportal/common/passChk.html" target="_blank">/html/mportal/common/passChk.html</a></td>
-            <td><span class="status done">완료</span></td>
+            <td><span class="status done">변환완료</span></td>
             <td></td>
           </tr>
           <tr>
             <td>10</td>
-            <td>메인</td>
+            <td>메인 (학생용)</td>
             <td class="path">/main/default.jsp</td>
-            <td><a href="html/mportal/main/default.html" target="_blank">/html/mportal/main/default.html</a></td>
-            <td><span class="status done">완료</span></td>
-            <td></td>
+            <td><a href="html/mportal/main/default_stu.html" target="_blank">/html/mportal/main/default_stu.html</a></td>
+            <td><span class="status done">변환완료</span></td>
+            <td>학생용 UI 분리</td>
+          </tr>
+          <tr>
+            <td>10-1</td>
+            <td>메인 (교직원용)</td>
+            <td class="path">/main/default.jsp</td>
+            <td><a href="html/mportal/main/default_stf.html" target="_blank">/html/mportal/main/default_stf.html</a></td>
+            <td><span class="status done">변환완료</span></td>
+            <td>교직원용 UI 분리</td>
           </tr>
 
           <!-- 교직원수첩 (mnote) -->
@@ -261,60 +253,51 @@
           </tr>
           <tr>
             <td>11</td>
-            <td>교직원수첩_홈 <span class="badge">견적</span></td>
+            <td>교직원수첩_홈</td>
             <td class="path">/note/home.jsp</td>
             <td><a href="html/mnote/note/home.html" target="_blank">/html/mnote/note/home.html</a></td>
-            <td><span class="status done">완료</span></td>
+            <td><span class="status done">변환완료</span></td>
             <td></td>
           </tr>
           <tr>
             <td>12</td>
-            <td>교직원수첩_검색 <span class="badge">견적</span></td>
+            <td>교직원수첩_검색</td>
             <td class="path">/note/search.jsp</td>
             <td><a href="html/mnote/note/search.html" target="_blank">/html/mnote/note/search.html</a></td>
-            <td><span class="status done">완료</span></td>
+            <td><span class="status done">변환완료</span></td>
             <td></td>
           </tr>
           <tr>
             <td>13</td>
-            <td>교직원수첩_검색상세 <span class="badge">견적</span></td>
+            <td>교직원수첩_검색상세</td>
             <td class="path">/note/detail.jsp</td>
             <td><a href="html/mnote/note/detail.html" target="_blank">/html/mnote/note/detail.html</a></td>
-            <td><span class="status done">완료</span></td>
+            <td><span class="status done">변환완료</span></td>
             <td></td>
           </tr>
           <tr>
             <td>14</td>
-            <td>교직원수첩_부서별(1) <span class="badge">견적</span></td>
+            <td>교직원수첩_부서별</td>
             <td class="path">/note/main.jsp</td>
             <td><a href="html/mnote/note/main.html" target="_blank">/html/mnote/note/main.html</a></td>
-            <td><span class="status done">완료</span></td>
+            <td><span class="status done">변환완료</span></td>
             <td></td>
           </tr>
-          <tr>
-            <td>15</td>
-            <td>교직원수첩_부서별(2) <span class="badge">견적</span></td>
-            <td class="path">/note/main_1.jsp</td>
-            <td><a href="html/mnote/note/main_1.html" target="_blank">/html/mnote/note/main_1.html</a></td>
-            <td><span class="status done">완료</span></td>
-            <td></td>
-          </tr>
-          
           <!-- 기타 변환 화면 -->
           <tr>
-            <td>16</td>
-            <td>수첩_즐겨찾기 <span class="badge">견적</span></td>
+            <td>15</td>
+            <td>수첩_즐겨찾기</td>
             <td class="path">/note/favorite.jsp</td>
             <td><a href="html/mnote/note/favorite.html" target="_blank">/html/mnote/note/favorite.html</a></td>
-            <td><span class="status done">완료</span></td>
+            <td><span class="status done">변환완료</span></td>
             <td></td>
           </tr>
           <tr>
-            <td>17</td>
-            <td>수첩_에러 <span class="badge">견적</span></td>
+            <td>16</td>
+            <td>수첩_에러</td>
             <td class="path">/common/error.jsp</td>
             <td><a href="html/mnote/common/error.html" target="_blank">/html/mnote/common/error.html</a></td>
-            <td><span class="status done">완료</span></td>
+            <td><span class="status done">변환완료</span></td>
             <td></td>
           </tr>
         </tbody>

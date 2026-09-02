@@ -5,16 +5,85 @@
     <meta name="viewport" content="width=device-width,user-scalable=no" /> 
     <meta name="format-detection" content="telephone=no, address=no, email=no" />
     <title>부서별 조회 - 교직원 수첩</title>
-    <link rel="stylesheet" type="text/css" href="../dtis/css/dju_mobile.css"/>
+    <link rel="stylesheet" type="text/css" href="../dtis/css/dju_mobile_test.css"/>
     <script type="text/javascript" src="../dtis/js/jquery-1.11.2.min.js"></script>
     <script type="text/javascript" src="../dtis/js/beta.fix.js"></script>
     <script type="text/javascript" src="../dtis/js/mj.viewport.js"></script>
+    <script type="text/javascript" src="../dtis/js/iscroll.js"></script>
     <script type="text/javascript" src="../dtis/js/common.js"></script>
     <script type="text/javascript">
         function update(scale) {}
         mj.viewport({ width : 720, onAdjustment : update});
         if (mj.viewport.isIos()) { window.addEventListener("load", function() { update(null); }); }
         window.addEventListener('load', function() { setTimeout(scrollTo, 0, 0, 1); }, false);
+    
+    jQuery(function() {
+        var clientHeight = window.innerHeight || document.body.clientHeight || document.documentElement.clientHeight;
+        if (mj.viewport.isIos()){
+            var contentHeight = clientHeight-104;
+            jQuery(".gnb_depth02").css("height", contentHeight);
+            jQuery(".content").css("height", contentHeight);
+            jQuery("#scroller1").css("height", contentHeight);
+            jQuery("#scroller2").css("height", contentHeight);
+        } else {
+            clientHeight = (screen.height)+30;
+            var orientation = window.orientation; 
+            if(90 == orientation || -90 == orientation) {
+                if (clientHeight<370) {
+                    if(clientHeight<288) {
+                        clientHeight = clientHeight*2.1;
+                        var contentHeight = clientHeight-390;
+                    } else{
+                        if (navigator.userAgent.indexOf("Safari") > 0) {
+                            clientHeight = clientHeight*2;
+                        } else if (navigator.userAgent.indexOf("Chrome") > 0) {
+                            clientHeight = clientHeight*1.83;
+                        }
+                        var contentHeight = clientHeight-340;
+                    }
+                    jQuery(".sub_bg").css("height", clientHeight);
+                    jQuery(".gnb_depth02").css("height", contentHeight);
+                    jQuery(".content").css("height", contentHeight);
+                    jQuery("#scroller1").css("height", contentHeight);
+                    jQuery("#scroller2").css("height", contentHeight);
+                } else {
+                    jQuery(".sub_bg").css("height", clientHeight);
+                    var contentHeight = clientHeight-240;
+                    jQuery(".gnb_depth02").css("height", contentHeight);
+                    jQuery(".content").css("height", contentHeight);
+                    jQuery("#scroller1").css("height", contentHeight);
+                    jQuery("#scroller2").css("height", contentHeight);
+                }
+            } else { 
+                if (clientHeight<700) {
+                    if(clientHeight<520) {
+                        if (navigator.userAgent.indexOf("Safari") > 0) {
+                            clientHeight = clientHeight*2.2;
+                        } else if (navigator.userAgent.indexOf("Chrome") > 0) {
+                            clientHeight = clientHeight*1.83;
+                        }
+                        var contentHeight = clientHeight-214;
+                    } else{
+                        clientHeight = clientHeight*1.81;
+                        var contentHeight = clientHeight-184;
+                    }
+                    jQuery(".sub_bg").css("height", clientHeight);
+                    jQuery(".gnb_depth02").css("height", contentHeight);
+                    jQuery(".content").css("height", contentHeight);
+                    jQuery("#scroller1").css("height", contentHeight);
+                    jQuery("#scroller2").css("height", contentHeight);
+                } else {
+                    jQuery(".sub_bg").css("height", clientHeight);
+                    var contentHeight = clientHeight-134;
+                    jQuery(".gnb_depth02").css("height", contentHeight);
+                    jQuery(".content").css("height", contentHeight);
+                    jQuery("#scroller1").css("height", contentHeight);
+                    jQuery("#scroller2").css("height", contentHeight);
+                }
+            }
+        }
+    });
+
     </script>
     <style type="text/css">
         .scrolldiv {}
@@ -24,7 +93,39 @@
         #scroller1, #scroller2 { overflow: auto; }
         .sub_bg { height:100% !important; }
         .blind { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; }
-    </style>
+    
+        /* 원본 main_1.jsp 인라인 스타일 복구 */
+        .detail_info table { width:100%; }
+        .detail_info h2 { padding-left: 20px; font-size: 20px; line-height: 50px; color: #fefefe; border: 1px solid #838383; background: #999 url(../dtis/images/icon_dot.png) no-repeat 19px; }
+        .detail_info th { font-size: 20px; color: #323232; border-bottom: 1px solid #b2b2b2; background: #ebebeb; }
+        .detail_info td { position: relative; padding-left: 10px; font-weight: bold; font-size: 20px; line-height: 34px; color: #323232; border-bottom: 1px solid #b2b2b2; }
+        .detail_info tr { line-height: 50px; }
+        .staff_info > p { font-size: 20px !important; }
+
+        @font-face {
+             font-family: 'S-CoreDream-4Regular';
+             src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-4Regular.woff') format('woff');
+             font-weight: normal;
+             font-style: normal;
+        }
+        * { font-family: 'S-CoreDream-4Regular' !important; font-size: 25px !important; }
+        h1 { font-family: 'S-CoreDream-4Regular' !important; font-size: 32px !important; }
+        
+        .sub .staff_wrap .staff_info dt .thum img, .sub .all_search .search_list .staff_info dt .thum img { width: 170px; height: 200px; }
+        .sub .staff_wrap .staff_info dt, .sub .all_search .search_list .staff_info dt { position: relative; height: 200px; padding-left: 200px; }
+        .sub .staff_wrap .staff_info dt .btn, .sub .all_search .search_list .staff_info dt .btn { position: absolute; right: 0px; top: 60px; margin: 20px; }
+        .sub .staff_wrap .staff_info dt p.position, .sub .all_search .search_list .staff_info dt p.position { margin-top: 3px !important; font-weight: bold; color: #858585; font-size: 20px !important; }
+
+                /* 스크롤 복구 및 모던 높이 계산 */
+        .gnb_depth02, .content, #scroller, #scroller2 { 
+            overflow-y: auto !important; 
+            -webkit-overflow-scrolling: touch; 
+             
+        }
+        /* 스크롤바 커스텀 복구 */
+        .gnb_depth02::-webkit-scrollbar, .content::-webkit-scrollbar { width: 5px; }
+        .gnb_depth02::-webkit-scrollbar-thumb, .content::-webkit-scrollbar-thumb { background-color: #ccc; border-radius: 5px; }
+</style>
 </head>
 
 <body class="sub">
@@ -46,55 +147,168 @@
         <div class="staff_wrap">
             <!-- .gnb_depth02 (좌측 부서목록) -->
             <div class="gnb_depth02" aria-label="상세 부서 메뉴">
-                <ul>
-                    <li class="on" tabindex="0" role="button"><a href="javascript:void(0);">기계공학과</a></li>
-                    <li tabindex="0" role="button"><a href="javascript:void(0);">기계설계공학과</a></li>
-                    <li tabindex="0" role="button"><a href="javascript:void(0);">자동화공학과</a></li>
-                    <li tabindex="0" role="button"><a href="javascript:void(0);">로봇공학과</a></li>
-                    <li tabindex="0" role="button"><a href="javascript:void(0);">전기공학과</a></li>
-                    <li tabindex="0" role="button"><a href="javascript:void(0);">컴퓨터공학과</a></li>
-                </ul>
+                <div id="scroller"><div class="scroller">
+                    <ul>
+                    <li class="on" tabindex="0" role="button"><a href="javascript:void(0);">기계공학부</a></li>
+                    <li tabindex="0" role="button"><a href="javascript:void(0);">로봇자동화<br/>공학부</a></li>
+                    <li tabindex="0" role="button"><a href="javascript:void(0);">전기전자통<br/>신공학부</a></li>
+                    <li tabindex="0" role="button"><a href="javascript:void(0);">컴퓨터공학부</a></li>
+                    <li tabindex="0" role="button"><a href="javascript:void(0);">생활환경공<br/>학부</a></li>
+                    <li tabindex="0" role="button"><a href="javascript:void(0);">경영학부</a></li>
+                    <li tabindex="0" role="button"><a href="javascript:void(0);">자유전공학과</a></li>
+                    <li tabindex="0" role="button"><a href="javascript:void(0);">교양과</a></li>
+</ul>
+                </div></div>
             </div>
             
             <!-- .content (우측 교직원목록) -->
             <div class="content" aria-label="부서 소속 교직원 목록">
-                <div id="scroller_div">
-                    <ul>
-                        <li>
-                            <div class="staff_info">
-                                <p class="thum"><a href="detail.html" tabindex="-1"><img src="../dtis/images/thum_97_97.png" alt="" /></a></p>
-                                <div class="info_txt">
-                                    <h3>
-                                        <a href="detail.html" style="text-decoration:none; color:inherit;">김교수</a>
-                                        <span class="favicon" role="button" aria-label="즐겨찾기 해제/추가" tabindex="0">
-                                            <img src="../dtis/images/icon_favicon_off.png" alt="즐겨찾기 해제 상태" />
-                                        </span>
-                                    </h3>
-                                    <p class="position">[컴퓨터공학과] 교수</p>
-                                </div>
+                <div id="scroller2"><div class="scroller" id="scroller_div">
+
+                    <!-- 개별 교직원 (학부에 직속된 교직원) -->
+                    <dl class="staff_info">
+                        <dt>
+                            <p class="thum"><a href="detail.html" tabindex="-1"><img src="../dtis/images/dummy_photo.png" alt="" /></a></p>
+                            <h3>
+                                <a href="detail.html" style="text-decoration:none; color:inherit;">강형민</a>
+                                <span class="favicon" role="button" aria-label="즐겨찾기 해제/추가" tabindex="0">
+                                    <img src="../dtis/images/icon_favicon_off.png" alt="즐겨찾기 해제 상태" />
+                                </span>
+                            </h3>
+                            <p class="position">기계공학부 학부장</p>
+                            <div class="btn"><img src="../dtis/images/depth03_list_down.png" class="staff_down" alt="상세정보 열기" /></div>  
+                        </dt>
+                        <dd style="display:none;">
+                            <div class="detail_info">
+                                <table>
+                                    <caption>소속, 보직 정보</caption>
+                                    <colgroup><col width="30%" /><col width="70%" /></colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">연락처</th>
+                                            <td class="btn_call" style="border-width: 1px 1px 1px 1px; z-index:100;background: url('../dtis/images/btn_tel.png') right 20px no-repeat;background-size:40px 40px;-webkit-background-size:40px 40px;background-position: right 10% bottom 50%;">
+                                                <a href="tel:0226105134" style="display:block; text-decoration:none; color:inherit;"><p style="font-size: 20px !important;">02-2610-5134</p></a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                        </li>
-                        <li>
-                            <div class="staff_info">
+                        </dd>
+                    </dl>
+
+                    <!-- 하위 부서 (기계공학과) -->
+                    <div class="gnb_depth03" onClick="clickChild(this)">
+                        <h2>기계공학과</h2>
+                        <img src="../dtis/images/depth03_btn_up.png" alt="기계공학과 교직원 목록 닫기" id="section_img01" class="section_up" /> 
+                    </div>
+                    
+                    <div class="cont_depth03" id="depth03_01" style="display:block;">
+                        <!-- 부서 소속 교직원 1 (펼쳐짐) -->
+                        <dl class="staff_info">
+                            <dt>
                                 <p class="thum"><a href="detail.html" tabindex="-1"><img src="../dtis/images/dummy_photo.png" alt="" /></a></p>
-                                <div class="info_txt">
-                                    <h3>
-                                        <a href="detail.html" style="text-decoration:none; color:inherit;">이조교</a>
-                                        <span class="favicon" role="button" aria-label="즐겨찾기 해제/추가" tabindex="0">
-                                            <img src="../dtis/images/icon_favicon_on.png" alt="즐겨찾기 추가 상태" />
-                                        </span>
-                                    </h3>
-                                    <p class="position">[컴퓨터공학과] 조교</p>
+                                <h3>
+                                    <a href="detail.html" style="text-decoration:none; color:inherit;">강형민</a>
+                                    <span class="favicon" role="button" aria-label="즐겨찾기 해제/추가" tabindex="0">
+                                        <img src="../dtis/images/icon_favicon_off.png" alt="즐겨찾기 해제 상태" />
+                                    </span>
+                                </h3>
+                                <p class="position">기계공학과 학과장</p>
+                                <div class="btn"><img src="../dtis/images/depth03_list_up.png" class="staff_up" alt="상세정보 닫기" /></div> 
+                            </dt>
+                            <dd style="display:block;">
+                                <div class="detail_info">
+                                    <table>
+                                        <caption>소속, 보직 정보</caption>
+                                        <colgroup><col width="30%" /><col width="70%" /></colgroup>
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">연락처</th>
+                                                <td class="btn_call" style="border-width: 1px 1px 1px 1px; z-index:100;background: url('../dtis/images/btn_tel.png') right 20px no-repeat;background-size:40px 40px;-webkit-background-size:40px 40px;background-position: right 10% bottom 50%;">
+                                                    <a href="tel:0226105134" style="display:block; text-decoration:none; color:inherit;"><p style="font-size: 20px !important;">02-2610-5134</p></a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">모바일</th>
+                                                <td class="btn_call" style="border-width: 1px 1px 1px 1px; z-index:100;background: url('../dtis/images/btn_hp.png') right 20px no-repeat;background-size:40px 40px;-webkit-background-size:40px 40px;background-position: right 10% bottom 50%;">
+                                                    <a href="tel:01093439401" style="display:block; text-decoration:none; color:inherit;"><p style="font-size: 20px !important;">010-9343-9401</p></a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">연구실</th>
+                                                <td><p>6호관 507호</p></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">이메일</th>
+                                                <td><p>hmkang@dongyang.ac.kr</p></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">보직</th>
+                                                <td><p>기계공학과 학과장</p></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+                            </dd>
+                        </dl>
+                        <!-- 부서 소속 교직원 2 -->
+                        <dl class="staff_info">
+                            <dt>
+                                <p class="thum"><a href="detail.html" tabindex="-1"><img src="../dtis/images/thum_97_97.png" alt="" /></a></p>
+                                <h3>
+                                    <a href="detail.html" style="text-decoration:none; color:inherit;">오태균</a>
+                                    <span class="favicon" role="button" aria-label="즐겨찾기 해제/추가" tabindex="0">
+                                        <img src="../dtis/images/icon_favicon_on.png" alt="즐겨찾기 추가 상태" />
+                                    </span>
+                                </h3>
+                                <p class="position"></p>
+                                <div class="btn"><img src="../dtis/images/depth03_list_down.png" class="staff_down" alt="상세정보 열기" /></div> 
+                            </dt>
+                            <dd style="display:none;">
+                                <div class="detail_info">
+                                    <table>
+                                        <tbody><tr><th scope="row">연구실</th><td><p>-</p></td></tr></tbody>
+                                    </table>
+                                </div>
+                            </dd>
+                        </dl>
+                        <!-- 부서 소속 교직원 3 -->
+                        <dl class="staff_info">
+                            <dt>
+                                <p class="thum"><a href="detail.html" tabindex="-1"><img src="../dtis/images/dummy_photo.png" alt="" /></a></p>
+                                <h3>
+                                    <a href="detail.html" style="text-decoration:none; color:inherit;">김영흡</a>
+                                    <span class="favicon" role="button" aria-label="즐겨찾기 해제/추가" tabindex="0">
+                                        <img src="../dtis/images/icon_favicon_off.png" alt="즐겨찾기 해제 상태" />
+                                    </span>
+                                </h3>
+                                <p class="position"></p>
+                                <div class="btn"><img src="../dtis/images/depth03_list_down.png" class="staff_down" alt="상세정보 열기" /></div> 
+                            </dt>
+                            <dd style="display:none;">
+                                <div class="detail_info">
+                                    <table>
+                                        <tbody><tr><th scope="row">연구실</th><td><p>-</p></td></tr></tbody>
+                                    </table>
+                                </div>
+                            </dd>
+                        </dl>
+                    </div>
+
+</div>
+
+</div>
+</div>
+            </div></div>
         </div>
     </div>
 
     <script type="text/javascript">
+        
+        function clickChild(parent) {
+            $(parent).find('.section_down, .section_up').trigger('click');
+        }
+
         $(document).ready(function() {
             // 좌측 메뉴 탭 전환 (퍼블리싱)
             $(".gnb_depth02 ul li").on("click keydown", function(e) {
@@ -118,6 +332,55 @@
                     }
                 }
             });
+
+            // 개별 교직원 아코디언 토글
+            $("img.staff_down, img.staff_up").on("click keydown", function(e) {
+                if(e.type === "click" || e.keyCode === 13 || e.keyCode === 32) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    var $img = $(this);
+                    var src = $img.attr("src");
+                    if($img.parent().parent().next("dd").is(":hidden")) { 
+                        $img.attr("src", src.replace("down", "up"));
+                        $img.attr("class", "staff_up");
+                        $img.parent().parent().next("dd").show();
+                    } else { 
+                        $img.attr("src", src.replace("up", "down"));
+                        $img.attr("class", "staff_down");
+                        $img.parent().parent().next("dd").hide();
+                    } 
+                }
+            });
+
+            // 하위 부서 아코디언 토글
+            $("img.section_down, img.section_up").on("click keydown", function(e) {
+                if(e.type === "click" || e.keyCode === 13 || e.keyCode === 32) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    var $img = $(this);
+                    var Searchid = $img.attr("id").replace("section_img", "depth03_");
+                    if($("#" + Searchid).is(":hidden")){
+                        // 다른 열린 부서 닫기
+                        $("img.section_up").each(function() {
+                            var currentSrc = $(this).attr("src");
+                            $(this).attr("src", currentSrc.replace("up", "down"));
+                            $(this).attr("class", "section_down");
+                        });
+                        $(".cont_depth03").hide();
+                        
+                        var src = $img.attr("src");
+                        $img.attr("src", src.replace("down", "up"));
+                        $img.attr("class", "section_up");
+                        $("#" + Searchid).show();
+                    } else {
+                        var src = $img.attr("src");
+                        $img.attr("src", src.replace("up", "down"));
+                        $img.attr("class", "section_down");
+                        $("#" + Searchid).hide();
+                    }
+                }
+            });
+
         });
     </script>
 </body>

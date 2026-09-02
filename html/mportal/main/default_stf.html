@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=2" />
+    <title>메인 - 동양미래대학교 모바일 캠퍼스</title>
+    <!-- 퍼블리싱용 상대경로 css -->
+    <link rel="stylesheet" type="text/css" href="../dtis/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../dtis/css/board.css"/>
+    <link rel="stylesheet" type="text/css" href="../dtis/js/jquery.slidebars/slidebars.css">
+    
+    <style type="text/css">
+        #header {z-index: 300; top: 0; left: 0; position: fixed; height: 50px; width: 100%;}
+        #wrapper.main #header {height: 50px;}
+        
+        #sb-site {background-color:#ebebeb;}
+        #contents .personalArea {position:absolute;top:50px;width:100%;height:32px;background-color:#4594db;font-size:12px;color:#fff;line-height:32px;text-align:center;}
+        #contents .personalArea.login ul {position:absolute;top:6px;left:15px;}
+        #contents .personalArea.login ul li {float:left;height:16px;width:60px;line-height:16px;color:#fff;-webkit-box-sizing:border-box;background:url("../dtis/images/main_personal_icon.png") 0 0 no-repeat;background-size:20px 96px;-webkit-background-size:20px 96px;}
+        #contents .personalArea.login span.info {position:absolute;top:0;right:10px;}
+        
+        #contents .mainMenu {position:absolute;top:82px;left:0;width:100%;display:-webkit-box;background:url("../dtis/images/main_menu_bg.png") 0 0 repeat-x;background-size:100% 40px;-webkit-background-size:100% 40px;text-align:center;}
+        #contents .mainMenu li {height:40px;-webkit-box-flex:1;line-height:40px;font-size:16px;background:url("../dtis/images/main_menu_bar.png") right 0 no-repeat;background-size:1px 40px;-webkit-background-size:1px 40px; cursor:pointer;}
+        #contents .mainMenu li:last-child {background:none;}
+        
+        .mainVisual img { width:98%;  height: 108px;}
+        .mainListBoxWrap {margin: 5px 5px 10px 5px;}
+        .mainServiceMenu li {border-width: 0px 1px 1px 0px; border-color: #e9e9e9; cursor:pointer;}
+        .mainServiceMenu li span {display:block; padding-top:45px; font-size:12px; color:#555;}
+        
+        .social-footer {padding: 1rem; background: #333; display: flex; align-items: center; justify-content: space-between;}
+        .social-footer-icons {width: 90%; text-align: right;}
+        .social-footer-icons a {display:inline-block; margin-left:5px;}
+    </style>
+    
+    <!-- jQuery 등 스크립트 -->
+    <script type="text/javascript" src="../dtis/js/jquery/jquery-1.8.3.js"></script>
+    <script type="text/javascript" src="../dtis/js/jquery.slidebars/slidebars.js"></script>
+</head>
+
+<body>
+    <div id="sb-site">
+        <div id="wrapper" class="main">
+            <!-- header (incHeader.jsp 병합) -->
+            <header id="header">
+                <div>
+                    <a href="default.html" title="메인 페이지로 이동"><span class="logo"></span></a>
+                    <span class="bt menu sb-toggle-left"></span>
+                    <span class="bt logout"></span>
+                </div>
+                <div class="shadow"></div>    
+            </header>
+            
+            <!-- content -->
+            <main id="contents">
+                <div class="personalArea login" style="background: url('') !important; background-color: #003cab !important">
+                    <ul>
+                    </ul>
+                    <span style="position:absolute; left:10px;">박민철 (직원/종합정보지원실)</span>
+                    <span id="appVersion" style="position:absolute; right:10px;">Ver 2.1.7</span>
+                </div>
+                
+                <ul class="mainMenu">
+                    <li onclick="goPortal()" style="background: url('') !important; background-color: #ffffff !important">포털</li>
+                    <li onclick="location.href='https://www.dongyang.ac.kr';" style="background: url('') !important; background-color: #ffffff !important">대학홈</li>
+                    <li onclick="location.href='https://ipsi.dongyang.ac.kr';" style="background: url('') !important; background-color: #ffffff !important">입학홈</li>
+                    <li onclick="location.href='https://www.dongyang.ac.kr/dmu/4451/subview.do';" style="background: url('') !important; background-color: #ffffff !important">학부홈</li>
+                </ul>
+                
+                <!-- 더미 비주얼 배너 -->
+                <div class="mainVisual">
+                    <div class="simpleBanner" id="banner_list">
+                        <div class="bannerListWpr">
+                            <ul class="bannerList"></ul>
+                        </div>
+                        <div class="bannerIndicators"><ul></ul></div>
+                    </div>          
+                </div>
+                
+                <!-- 공지사항 -->
+                <section class="mainListBoxWrap">
+                    <div class="header" style="background: url('') !important; background-color: #ffffff !important">
+                        <h2>대학공지</h2>
+                        <button onclick="goBoard()" class="bt_list"></button>
+                    </div>
+                    <ul class="list" id="noticeList" style="display:block;">
+                        <li style="padding:5px 10px 5px 30px !important;">
+                            <p class="title">[공지] 2024학년도 1학기 수강신청 안내</p>
+                            <p class="date">2024.02.15</p>
+                        </li>
+                        <li style="padding:5px 10px 5px 30px !important;">
+                            <p class="title">[장학] 국가장학금 2차 신청 안내</p>
+                            <p class="date">2024.02.10</p>
+                        </li>
+                    </ul>
+                </section>
+                
+                <!-- 정보 서비스 -->
+                <section class="mainListBoxWrap">
+                    <div class="header" style="background: url('') !important; background-color: #ffffff !important">
+                        <h2>정보 서비스</h2>
+                    </div>
+                    <ul class="mainServiceMenu smart">
+                        <li onclick="location.href='#'" style="z-index:100;background: url('../dtis/images/new/icon_main_notice.png') center 8px no-repeat;background-size:40px 40px;-webkit-background-size:40px 40px;">
+                            <span>교내공지</span></li>
+                        <li onclick="location.href='#'" style="z-index:100;background: url('../dtis/images/new/icon_people.png') center 8px no-repeat;background-size:40px 40px;-webkit-background-size:40px 40px;">
+                            <span>교직원 한마당</span></li>
+                        <li onclick="goNoticeStd()" style="z-index:100;background: url('../dtis/images/new/icon_major_notice.png') center 8px no-repeat;background-size:40px 40px;-webkit-background-size:40px 40px;">
+                            <span>학과공지</span></li>
+                        <li onclick="goNote()" style="z-index:100;background: url('../dtis/images/new/icon_addressbook.png') center 8px no-repeat;background-size:40px 40px;-webkit-background-size:40px 40px;">
+                            <span>교직원수첩</span></li>
+                        <li onclick="location.href='#'" style="z-index:100;background: url('../dtis/images/new/manage.png') center 8px no-repeat;background-size:40px 40px;-webkit-background-size:40px 40px;">
+                            <span>전자결재</span></li>
+                        <li onclick="location.href='https://doit.dongyang.ac.kr'" style="z-index:100;background: url('../dtis/images/new/icon_student_Manage.png') center 8px no-repeat;background-size:40px 40px;-webkit-background-size:40px 40px;">
+                            <span>학생종합관리</span></li>
+                        <li onclick="location.href='https://ncs.dongyang.ac.kr'" style="z-index:100;background: url('../dtis/images/new/manage.png') center 8px no-repeat;background-size:40px 40px;-webkit-background-size:40px 40px;">
+                            <span>교육역량관리</span></li>
+                        <li></li>
+                        <li onclick="goRemote()" style="z-index:100;background: url('../dtis/images/new/icon_learing.png') center 8px no-repeat;background-size:40px 40px;-webkit-background-size:40px 40px;">
+                            <span>원격수업</span></li>
+                        <li onclick="goAttendance()" style="z-index:100;background: url('../dtis/images/new/attendance.png') center 8px no-repeat;background-size:40px 40px;-webkit-background-size:40px 40px;">
+                            <span>전자출결</span></li>
+                        <li onclick="goLib()" style="z-index:100;background: url('../dtis/images/new/icon_libraray.png') center 8px no-repeat;background-size:40px 40px;-webkit-background-size:40px 40px;">
+                            <span>e-도서관</span></li>
+                        <li onclick="location.href='../stu/LIB_00.html'" style="z-index:100;background: url('../dtis/images/new/icon_libpass.png') center 8px no-repeat;background-size:40px 40px;-webkit-background-size:40px 40px;">
+                            <span>도서관이용증</span></li>
+
+                        <!-- Google -->
+                        <li onclick="goGoogleMail()" style="z-index:100;background: url('../dtis/images/new/icon_gmail.png') center 8px no-repeat;background-size:40px 40px;-webkit-background-size:40px 40px;">
+                            <span>Google 메일</span></li>
+                        <li onclick="goGoogleDrive()" style="z-index:100;background: url('../dtis/images/new/icon_drive.png') center 8px no-repeat;background-size:40px 40px;-webkit-background-size:40px 40px;">
+                            <span>Google 드라이브</span></li>
+                        <li onclick="goGoogleCalendar()" style="z-index:100;background: url('../dtis/images/new/icon_calender.png') center 8px no-repeat;background-size:40px 40px;-webkit-background-size:40px 40px;">
+                            <span>Google 캘린더</span></li>
+                        <li onclick="goGoogleChat()" style="z-index:100;background: url('../dtis/images/new/icon_gchat.png') center 8px no-repeat;background-size:40px 40px;-webkit-background-size:40px 40px;">
+                            <span>Google 채팅</span></li>
+                        
+                        <!-- MS -->
+                        <li onclick="goMsOffice()" style="z-index:100;background: url('../dtis/images/new/icon_ms_office.png') center 8px no-repeat;background-size:40px 40px;-webkit-background-size:40px 40px;">
+                            <span>MS 오피스</span></li>
+                        <li onclick="goOneDrive()" style="z-index:100;background: url('../dtis/images/new/icon_ms_drive.png') center 8px no-repeat;background-size:40px 40px;-webkit-background-size:40px 40px;">
+                            <span>MS 원드라이브</span></li>
+                        <li onclick="goMsMail()" style="z-index:100;background: url('../dtis/images/new/icon_ms_mail.png') center 8px no-repeat;background-size:40px 40px;-webkit-background-size:40px 40px;">
+                            <span>MS 메일</span></li>
+                    </ul>
+                </section>
+            </main>
+            
+            <footer class="social-footer">
+                <div class="social-footer-left">
+                    <span style="font-size:12px; color:white;">© 2024. Dongyang Mirae University.<br> all rights reserved.</span>
+                </div>
+                <div class="social-footer-icons">
+                    <a href="#" title="유튜브 새창열림" target="_blank"><img style="width:30px;height:30px;" src="../dtis/images/new/footer_ytube.png" alt="유튜브"></a>
+                    <a href="#" title="인스타그램 새창열림" target="_blank"><img style="width:30px;height:30px;" src="../dtis/images/new/footer_insta.png" alt="인스타그램"></a>
+                    <a href="#" title="페이스북 새창열림" target="_blank"><img style="width:30px;height:30px;" src="../dtis/images/new/footer_face.png" alt="페이스북"></a>
+                    <a href="#" title="블로그 새창열림" target="_blank"><img style="width:30px;height:30px;" src="../dtis/images/new/footer_blog.png" alt="네이버 블로그"></a>
+                    <a href="#" title="포스트 새창열림" target="_blank"><img style="width:30px;height:30px;" src="../dtis/images/new/footer_post.png" alt="네이버 포스트"></a>
+                </div>
+            </footer>
+        </div>
+    </div>
+    
+    <!-- side menu (incSideMenu.jsp 병합) -->
+    <div class="sb-slidebar sb-left sb-style-push sb-width-custom" data-sb-width="80%">
+        <div id="menuWrap">
+            <div class="searchArea">
+                <input type="text" id="searchWord" name="searchWord" placeholder="검색어 입력"/>
+                <button class="bt_search"></button>
+            </div>
+            <a href="default.html"><div class="logo"><span></span></div></a>
+            <ul class="personalIcon">
+                <li class="m01">
+                    <a href="../stf/STF_00.html" class="sb-close"><span>개인정보</span></a>
+                </li>
+                <li class="m02">
+                    <a href="config.html" class="sb-close"><span>환경설정</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>    
+    <div id="site_mask" style="width:100%;z-index:9000;background:#fff;opacity:0.0;position:absolute;top:0;left:80%; display:none;"></div>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $.slidebars();
+        });
+    </script>
+</body>
+</html>

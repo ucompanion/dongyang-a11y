@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>동양미래대학교 웹 접근성 고도화 산출물 리스트</title>
   <style>
     @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
-    
+
     :root {
-      --primary: #0f4c81; /* 동양미래대학교를 상징할 만한 블루 계열 */
+      --primary: #0f4c81;
+      /* 동양미래대학교를 상징할 만한 블루 계열 */
       --secondary: #e2e8f0;
       --bg: #f4f7fb;
       --surface: #ffffff;
@@ -20,7 +22,7 @@
       --status-ing: #f59e0b;
       --status-done: #10b981;
     }
-    
+
     body {
       font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
       background: var(--bg);
@@ -28,67 +30,68 @@
       margin: 0;
       padding: 40px 20px;
     }
-    
+
     .container {
       max-width: 1100px;
       margin: 0 auto;
     }
-    
+
     header {
       margin-bottom: 30px;
       background: var(--surface);
       padding: 30px;
       border-radius: 12px;
-      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     }
-    
+
     h1 {
       font-size: 26px;
       margin: 0 0 10px 0;
       color: var(--primary);
       letter-spacing: -0.5px;
     }
-    
+
     p {
       color: var(--text-sub);
       margin: 0;
       font-size: 15px;
     }
-    
+
     .table-wrap {
       background: var(--surface);
       border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     }
-    
+
     table {
       width: 100%;
       border-collapse: collapse;
       text-align: left;
     }
-    
-    th, td {
+
+    th,
+    td {
       padding: 8px 12px;
       border-bottom: 1px solid var(--secondary);
       font-size: 14px;
     }
-    
+
     th {
       background: var(--primary);
       color: white;
       font-weight: 600;
       white-space: nowrap;
     }
-    
+
     tr:last-child td {
       border-bottom: none;
     }
-    
+
     tr:not(.category):hover td {
       background: var(--hover);
     }
-    
+
     .category td {
       background: #eef2f6;
       font-weight: 700;
@@ -96,7 +99,7 @@
       font-size: 15px;
       border-bottom: 2px solid var(--border);
     }
-    
+
     .status {
       display: inline-block;
       padding: 4px 12px;
@@ -108,10 +111,15 @@
       text-align: center;
       min-width: 40px;
     }
-    
-    .status.ing { background: var(--status-ing); }
-    .status.done { background: var(--status-done); }
-    
+
+    .status.ing {
+      background: var(--status-ing);
+    }
+
+    .status.done {
+      background: var(--status-done);
+    }
+
     .badge {
       display: inline-block;
       padding: 3px 8px;
@@ -122,17 +130,17 @@
       color: #ef4444;
       margin-left: 6px;
     }
-    
+
     a {
       color: #2563eb;
       text-decoration: none;
       font-weight: 500;
     }
-    
+
     a:hover {
       text-decoration: underline;
     }
-    
+
     .path {
       color: var(--text-sub);
       font-family: monospace;
@@ -140,6 +148,7 @@
     }
   </style>
 </head>
+
 <body>
   <div class="container">
     <header>
@@ -212,7 +221,7 @@
             <td><span class="status done">변환완료</span></td>
             <td></td>
           </tr>
-          
+
           <!-- 기타 변환 화면 -->
           <tr>
             <td>8</td>
@@ -234,7 +243,8 @@
             <td>10</td>
             <td>메인 (학생용)</td>
             <td class="path">/main/default.jsp</td>
-            <td><a href="html/mportal/main/default_stu.html" target="_blank">/html/mportal/main/default_stu.html</a></td>
+            <td><a href="html/mportal/main/default_stu.html" target="_blank">/html/mportal/main/default_stu.html</a>
+            </td>
             <td><span class="status done">변환완료</span></td>
             <td>학생용 UI 분리</td>
           </tr>
@@ -242,7 +252,8 @@
             <td>10-1</td>
             <td>메인 (교직원용)</td>
             <td class="path">/main/default.jsp</td>
-            <td><a href="html/mportal/main/default_stf.html" target="_blank">/html/mportal/main/default_stf.html</a></td>
+            <td><a href="html/mportal/main/default_stf.html" target="_blank">/html/mportal/main/default_stf.html</a>
+            </td>
             <td><span class="status done">변환완료</span></td>
             <td>교직원용 UI 분리</td>
           </tr>
@@ -292,17 +303,18 @@
             <td><span class="status done">변환완료</span></td>
             <td></td>
           </tr>
-          <tr>
+          <!-- <tr>
             <td>16</td>
             <td>수첩_에러</td>
             <td class="path">/common/error.jsp</td>
             <td><a href="html/mnote/common/error.html" target="_blank">/html/mnote/common/error.html</a></td>
             <td><span class="status done">변환완료</span></td>
             <td></td>
-          </tr>
+          </tr> -->
         </tbody>
       </table>
     </div>
   </div>
 </body>
+
 </html>

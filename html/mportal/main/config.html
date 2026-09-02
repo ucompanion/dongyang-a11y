@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=2" />
+    <title>환경설정 - 동양미래대학교 모바일 캠퍼스</title>
+    <!-- 퍼블리싱용 상대경로 css -->
+    <link rel="stylesheet" type="text/css" href="../../dtis/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../../dtis/css/board.css"/>
+    <link rel="stylesheet" type="text/css" href="../../dtis/js/jquery.slidebars/slidebars.css">
+    
+    <style type="text/css">
+        #header {z-index: 300; top: 0; left: 0; position: fixed; height: 50px; width: 100%;}
+        #wrapper.main #header {height: 50px;}
+        #contents h1 {position: absolute; top: 50px; left: 0; width: 100%; height: 43px; background-color: #4594db; text-align: center; font-size: 16px; color: #fff; line-height: 43px;}
+        
+        .blind, .sr-only {position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;}
+    </style>
+    
+    <!-- jQuery 등 스크립트 -->
+    <script type="text/javascript" src="../../dtis/js/jquery/jquery-1.8.3.js"></script>
+    <script type="text/javascript" src="../../dtis/js/jquery.slidebars/slidebars.js"></script>
+</head>
+
+<body>
+    <div id="sb-site">
+        <div id="wrapper">
+            <!-- header (incHeader.jsp 병합) -->
+            <header id="header">
+                <div>
+                    <a href="../main/default.html" title="메인 페이지로 이동"><span class="logo"></span></a>
+                    <button type="button" class="bt menu sb-toggle-left" title="전체 메뉴 열기"><span class="blind">메뉴 열기</span></button>
+                    <!-- 로그인 상태 (퍼블리싱 더미) -->
+                    <button type="button" class="bt logout" title="로그아웃"><span class="blind">로그아웃</span></button>
+                </div>
+                <div class="shadow"></div>    
+            </header>
+            
+            <!-- content -->
+            <main id="contents">
+                <div class="shadow"></div>
+                <h1>환경설정</h1>
+                
+                <!-- 설정 폼 시작 -->
+                <ul class="settingWrap">
+                    <li id="autologin_yn">
+                        <span>
+                            <h3>자동 로그인</h3>
+                            <p>APP 실행시 자동 로그인 여부를 설정합니다.</p>
+                        </span>
+                        <!-- checkbox label for a11y -->
+                        <label for="chk_autologin" class="blind">자동 로그인 설정</label>
+                        <input type="checkbox" id="chk_autologin" style="display:none;" />
+                        <span class="setting_chk" role="switch" aria-checked="false" tabindex="0" title="자동 로그인 설정 스위치" onclick="$('#chk_autologin').click(); $(this).toggleClass('on').attr('aria-checked', $(this).hasClass('on'));"></span>
+                    </li>
+                    <li id="sapp_ver">
+                        <span>
+                            <h3>스토어 정보</h3>
+                            <p id="appVersion">Ver : 1.0.0</p>
+                        </span>
+                        <span class="button"><button type="button" class="small">최신버전 업데이트</button></span>
+                    </li>
+                </ul>
+            </main>
+        </div>
+    </div>
+    
+    <!-- side menu (incSideMenu.jsp 병합) -->
+    <div class="sb-slidebar sb-left sb-style-push sb-width-custom" data-sb-width="80%">
+        <div id="menuWrap">
+            <div class="searchArea">
+                <label for="searchWord" class="blind">메뉴 검색</label>
+                <input type="text" id="searchWord" name="searchWord" placeholder="검색어 입력"/>
+                <button type="button" class="bt_search" title="검색"><span class="blind">검색</span></button>
+            </div>
+            <a href="../main/default.html"><div class="logo"><span class="blind">동양미래대학교 모바일 캠퍼스</span></div></a>
+            <ul class="personalIcon">
+                <li class="m01">
+                    <a href="../stf/STF_00.html" class="sb-close"><span>개인정보</span></a>
+                </li>
+                <li class="m02">
+                    <a href="../main/config.html" class="sb-close"><span>환경설정</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>    
+    <div id="site_mask" style="width:100%;z-index:9000;background:#fff;opacity:0.0;position:absolute;top:0;left:80%; display:none;"></div>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $.slidebars();
+            
+            // 키보드 엔터 접근성 (Switch 토글)
+            $(".setting_chk").on("keydown", function(e) {
+                if(e.keyCode === 13 || e.keyCode === 32) {
+                    e.preventDefault();
+                    $(this).click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

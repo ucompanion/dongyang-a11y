@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=2" />
+    <title>상세정보 - 교직원 수첩</title>
+    <!-- 퍼블리싱용 상대경로 css -->
+    <link rel="stylesheet" type="text/css" href="../dtis/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../dtis/css/sub.css"/>
+    <script type="text/javascript" src="../dtis/js/jquery/jquery-1.8.3.js"></script>
+
+    <style type="text/css">
+        @font-face {
+            font-family: 'S-CoreDream-4Regular';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-4Regular.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        
+        * {
+            font-family: 'S-CoreDream-4Regular', sans-serif !important;
+        }
+
+        .sub_bg {
+            height: 100vh !important;
+            position: fixed;
+            width: 100%;
+            z-index: -1;
+            background: #f4f4f4;
+        }
+
+        .blind {
+            position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;
+        }
+
+        .page_title {position:relative; height:50px; background:#4594db; text-align:center; line-height:50px; color:#fff; font-size:18px;}
+        .page_title h1 {margin:0; font-size:18px;}
+        .page_title h1 img {vertical-align:middle; margin-right:5px; margin-top:-3px;}
+        .page_title .btn_l {position:absolute; top:0; left:10px; height:50px; display:flex; align-items:center;}
+        .page_title .btn_l img {height:20px;}
+
+        .sendto_info {padding:20px;}
+        .base_info {text-align:center; margin-bottom:15px;}
+        .base_info .thum {width:120px; height:120px; border-radius:50%; overflow:hidden; margin:0 auto; border:3px solid #fff; box-shadow:0 2px 5px rgba(0,0,0,0.1);}
+        .base_info .thum img {width:100%; height:100%; object-fit:cover;}
+        
+        .base_info_txt {text-align:center; margin-bottom:25px;}
+        .base_info_txt h2 {font-size:28px; margin:0 0 5px 0; color:#333; display:flex; align-items:center; justify-content:center; gap:10px;}
+        .base_info_txt h2 .favicon {cursor:pointer;}
+        .base_info_txt h2 .favicon img {width:24px;}
+        .base_info_txt p {margin:0; font-size:14px; color:#666; line-height:1.4;}
+
+        .detail_info {background:#fff; border-radius:10px; padding:20px; box-shadow:0 2px 5px rgba(0,0,0,0.05);}
+        .detail_info table {width:100%; border-collapse:collapse;}
+        .detail_info table th, .detail_info table td {padding:12px 0; border-bottom:1px solid #eee; text-align:left;}
+        .detail_info table th {width:30%; color:#555; font-size:14px; font-weight:normal;}
+        .detail_info table td {width:70%; color:#333; font-size:15px; font-weight:bold;}
+        .detail_info table tr:last-child th, .detail_info table tr:last-child td {border-bottom:0;}
+        
+        .tel_btn {display:inline-block; padding-right:25px; background:url('../dtis/images/btn_tel.png') right center no-repeat; background-size:18px; cursor:pointer;}
+        .hp_btn {display:inline-block; padding-right:25px; background:url('../dtis/images/btn_hp.png') right center no-repeat; background-size:15px; cursor:pointer;}
+    </style>
+</head>
+
+<body class="sub">
+    <div class="sub_bg" aria-hidden="true"></div>
+    <div id="wrap">
+        <!-- .page_title -->
+        <header class="page_title">
+            <h1><img src="../dtis/images/icon_logo.gif" alt="" aria-hidden="true" />상세정보</h1>
+            <div class="btn_l"><a href="search.html" title="이전 페이지로 이동"><img src="../dtis/images/btn_back.png" alt="이전" /></a></div>
+        </header>
+
+        <!-- .sendto_info -->
+        <main class="sendto_info report">
+            <!-- .base_info -->
+            <section class="base_info">
+                <div class="thum"><img src="../dtis/images/thum_232_279.png" alt="김교직원 증명사진" /></div>
+            </section>
+            
+            <section class="base_info_txt">
+                <h2>
+                    김교직원
+                    <span class="favicon" role="button" aria-label="즐겨찾기 추가/해제" tabindex="0">
+                        <img src="../dtis/images/icon_favicon_off2.png" alt="즐겨찾기 해제 상태" />
+                    </span>
+                </h2>
+                <p>Kim Gyo-jik-won</p>
+                <p>金敎職員</p>
+            </section>
+            
+            <section class="detail_info">
+                <table>
+                    <caption>교직원 상세 정보: 소속, 연락처, 모바일, 사무실, 이메일 정보 제공</caption>
+                    <tbody>
+                        <tr>
+                            <th scope="row">소속</th>
+                            <td><p>컴퓨터공학과</p></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">연락처</th>
+                            <td><span class="tel_btn" role="button" tabindex="0" title="전화걸기">02-2610-0000</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">모바일</th>
+                            <td><span class="hp_btn" role="button" tabindex="0" title="휴대폰 전화걸기">010-1234-5678</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">사무실</th>
+                            <td><p>공학관 201호</p></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">이메일</th>
+                            <td><p>example@dongyang.ac.kr</p></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // 즐겨찾기 토글
+            $(".favicon").on("click keydown", function(e) {
+                if(e.type === "click" || e.keyCode === 13 || e.keyCode === 32) {
+                    e.preventDefault();
+                    var $img = $(this).find("img");
+                    var src = $img.attr("src");
+                    if(src.indexOf("off2") > -1) {
+                        $img.attr("src", src.replace("off2", "on2")).attr("alt", "즐겨찾기 추가 상태");
+                    } else {
+                        $img.attr("src", src.replace("on2", "off2")).attr("alt", "즐겨찾기 해제 상태");
+                    }
+                }
+            });
+
+            // 전화걸기 토글 (퍼블리싱 확인용)
+            $(".tel_btn, .hp_btn").on("click keydown", function(e) {
+                if(e.type === "click" || e.keyCode === 13 || e.keyCode === 32) {
+                    e.preventDefault();
+                    alert($(this).text() + " 번호로 전화를 겁니다.");
+                }
+            });
+        });
+    </script>
+</body>
+</html>

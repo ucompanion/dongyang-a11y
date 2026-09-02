@@ -1,0 +1,54 @@
+@charset "utf-8";
+/**************************************************
+프로그램 ID : board.css
+프로그램 명 : 동양미래대학 Cascading Style Sheets
+최초 작성일 : 2011-01-28
+**************************************************** */
+table {color:#666;font-size:11px;}
+table a:link, table a:visited {color:#666;}
+table a:hover {color:#1996BF;}
+table caption {display:none;}
+
+.table {border-top:4px solid #009dc4;border-bottom:1px solid #009dc4;zoom:1;}
+.table.bbn {border-bottom:none;}
+
+.rss {position:absolute;right:0; top:163px;}
+.rss.st01 {top:138px;}
+
+.file{float:left;border:1px solid #e4e4e4;width:617px;margin-top:3px;padding:3px;}
+.file li{float:left;width:527px;}
+.file li.line{float:left;text-align:right;width:90px;}
+
+.file1{float:left;width:617px;}
+
+.list {width:100%;}
+.list th {background:url(/images/common/bg/thBg.gif) no-repeat 0 0;height:31px;padding:0 2px;}
+.list th.fir {background:url(/images/common/bg/theadBg.gif) no-repeat 0 0;}
+.list th.las {background:url(/images/common/bg/theadBg.gif) no-repeat right;}
+.list th.las p {background:url(/images/common/bg/thBg.gif) no-repeat 0 -12px;padding-bottom:2px;margin-top:2px;}
+.list td {text-align:center;padding:5px 0;border-top:1px solid #e6e6e6;}
+.list td img {vertical-align:middle;}
+.list td.tit {font-size:12px;text-align:left;padding-left:5px;}
+.list td.buy {font-weight:bold;font-size:12px;color:#9d6464;}
+.list td.sell {font-weight:bold;font-size:12px;color:#6385a8;}
+.list td.loss {font-weight:bold;font-size:12px;color:#628c64;}
+
+.list.btLine {border-bottom:1px solid #009dc4;}
+
+.view {width:100%;}
+.view th {background:#f5f5f5;border-bottom:1px solid #e6e6e6;padding:7px 0;}
+.view th.las {border-bottom:none;}
+.view td {border-bottom:1px solid #e6e6e6;padding:7px 0 7px 5px;}
+.view td.tit {font-size:12px;font-weight:bold;}
+.view td.con {font-size:12px;padding:0;line-height:18px;}
+.view td.con .conQ {margin-top:7px;}
+.view td.con .conA {margin-top:18px;}
+.view td.con .titM {border-bottom:1px solid #e6e6e6;padding:5px 0;}
+.view td.con .conM {padding:10px;}
+.view td.con .info {float:right;margin-top:20px;font-size:11px;padding-bottom:10px;}
+.view td.con .info a:link, .view td.con .info a:visited {color:#1b8baf;text-decoration:underline;}
+.view td.con .info li {float:left;margin-left:5px;}
+.view td.las {border-bottom:none;}
+
+.view.pre {border-top:1px solid #009dc4;border-bottom:1px solid #009dc4;font-size:12px;}
+

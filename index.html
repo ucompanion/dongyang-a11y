@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>동양미래대학교 웹 접근성 고도화 산출물 리스트</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+    
+    :root {
+      --primary: #0f4c81; /* 동양미래대학교를 상징할 만한 블루 계열 */
+      --secondary: #e2e8f0;
+      --bg: #f4f7fb;
+      --surface: #ffffff;
+      --text-main: #1e293b;
+      --text-sub: #64748b;
+      --border: #cbd5e1;
+      --hover: #f1f5f9;
+      --status-todo: #94a3b8;
+      --status-ing: #f59e0b;
+      --status-done: #10b981;
+    }
+    
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      margin: 0;
+      padding: 40px 20px;
+    }
+    
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    
+    header {
+      margin-bottom: 30px;
+      background: var(--surface);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    }
+    
+    h1 {
+      font-size: 26px;
+      margin: 0 0 10px 0;
+      color: var(--primary);
+      letter-spacing: -0.5px;
+    }
+    
+    p {
+      color: var(--text-sub);
+      margin: 0;
+      font-size: 15px;
+    }
+    
+    .table-wrap {
+      background: var(--surface);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+    
+    th, td {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--secondary);
+      font-size: 14px;
+    }
+    
+    th {
+      background: var(--primary);
+      color: white;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    
+    tr:last-child td {
+      border-bottom: none;
+    }
+    
+    tr:not(.category):hover td {
+      background: var(--hover);
+    }
+    
+    .category td {
+      background: #eef2f6;
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 15px;
+      border-bottom: 2px solid var(--border);
+    }
+    
+    .status {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      background: var(--status-todo);
+      color: white;
+      text-align: center;
+      min-width: 40px;
+    }
+    
+    .status.ing { background: var(--status-ing); }
+    .status.done { background: var(--status-done); }
+    
+    .badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      background: #fee2e2;
+      color: #ef4444;
+      margin-left: 6px;
+    }
+    
+    a {
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    
+    a:hover {
+      text-decoration: underline;
+    }
+    
+    .path {
+      color: var(--text-sub);
+      font-family: monospace;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>동양미래대학교 앱 접근성(A11y) 개선 퍼블리싱</h1>
+      <p>개발된 JSP 파일을 웹 접근성 기준에 맞춰 HTML 마크업으로 변환하는 작업 산출물 리스트입니다.</p>
+    </header>
+
+    <div class="table-wrap">
+      <table>
+        <colgroup>
+          <col width="5%">
+          <col width="20%">
+          <col width="25%">
+          <col width="25%">
+          <col width="10%">
+          <col width="15%">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>화면명</th>
+            <th>원본 JSP 경로</th>
+            <th>변환 HTML 경로 (링크)</th>
+            <th>상태</th>
+            <th>비고</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- 스마트 서비스 (mportal) -->
+          <tr class="category">
+            <td colspan="6">▶ 스마트 서비스 (/a11y-jsp/mportal)</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>개인정보_교직원 <span class="badge">견적</span></td>
+            <td class="path">/stf/STF_00.jsp</td>
+            <td><a href="html/mportal/stf/STF_00.html" target="_blank">/html/mportal/stf/STF_00.html</a></td>
+            <td><span class="status done">완료</span></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>개인정보_학생 <span class="badge">견적</span></td>
+            <td class="path">/stu/STU_00.jsp</td>
+            <td><a href="html/mportal/stu/STU_00.html" target="_blank">/html/mportal/stu/STU_00.html</a></td>
+            <td><span class="status done">완료</span></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>도서관출입증_교직원 <span class="badge">견적</span></td>
+            <td class="path">/stu/LIB_00.jsp</td>
+            <td><a href="html/mportal/stu/LIB_00.html" target="_blank">/html/mportal/stu/LIB_00.html</a></td>
+            <td><span class="status done">완료</span></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>도서관출입증_학생 <span class="badge">견적</span></td>
+            <td class="path">/stu/LIB_00.jsp</td>
+            <td><a href="html/mportal/stu/LIB_00.html" target="_blank">/html/mportal/stu/LIB_00.html</a></td>
+            <td><span class="status done">완료</span></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>환경설정 <span class="badge">견적</span></td>
+            <td class="path">/main/config.jsp</td>
+            <td><a href="html/mportal/main/config.html" target="_blank">/html/mportal/main/config.html</a></td>
+            <td><span class="status done">완료</span></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>메인사이트메뉴_학생 <span class="badge">견적</span></td>
+            <td class="path">/common/incSideMenu.jsp</td>
+            <td class="path">- (레이아웃 병합) -</td>
+            <td><span class="status">대기</span></td>
+            <td>개별 페이지 아님</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>메인상단_교직원/학생 <span class="badge">견적</span></td>
+            <td class="path">/common/incTop.jsp, incHeader.jsp</td>
+            <td class="path">- (레이아웃 병합) -</td>
+            <td><span class="status">대기</span></td>
+            <td>개별 페이지 아님</td>
+          </tr>
+          
+          <!-- 기타 변환 화면 -->
+          <tr>
+            <td>8</td>
+            <td>로그인화면</td>
+            <td class="path">/login.jsp</td>
+            <td><a href="html/mportal/login.html" target="_blank">/html/mportal/login.html</a></td>
+            <td><span class="status done">완료</span></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td>패스워드체크</td>
+            <td class="path">/common/passChk.jsp</td>
+            <td><a href="html/mportal/common/passChk.html" target="_blank">/html/mportal/common/passChk.html</a></td>
+            <td><span class="status done">완료</span></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td>메인</td>
+            <td class="path">/main/default.jsp</td>
+            <td><a href="html/mportal/main/default.html" target="_blank">/html/mportal/main/default.html</a></td>
+            <td><span class="status done">완료</span></td>
+            <td></td>
+          </tr>
+
+          <!-- 교직원수첩 (mnote) -->
+          <tr class="category">
+            <td colspan="6">▶ 교직원수첩 (/a11y-jsp/mnote)</td>
+          </tr>
+          <tr>
+            <td>11</td>
+            <td>교직원수첩_홈 <span class="badge">견적</span></td>
+            <td class="path">/note/home.jsp</td>
+            <td><a href="html/mnote/note/home.html" target="_blank">/html/mnote/note/home.html</a></td>
+            <td><span class="status done">완료</span></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>12</td>
+            <td>교직원수첩_검색 <span class="badge">견적</span></td>
+            <td class="path">/note/search.jsp</td>
+            <td><a href="html/mnote/note/search.html" target="_blank">/html/mnote/note/search.html</a></td>
+            <td><span class="status done">완료</span></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>13</td>
+            <td>교직원수첩_검색상세 <span class="badge">견적</span></td>
+            <td class="path">/note/detail.jsp</td>
+            <td><a href="html/mnote/note/detail.html" target="_blank">/html/mnote/note/detail.html</a></td>
+            <td><span class="status done">완료</span></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>14</td>
+            <td>교직원수첩_부서별(1) <span class="badge">견적</span></td>
+            <td class="path">/note/main.jsp</td>
+            <td><a href="html/mnote/note/main.html" target="_blank">/html/mnote/note/main.html</a></td>
+            <td><span class="status done">완료</span></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>15</td>
+            <td>교직원수첩_부서별(2) <span class="badge">견적</span></td>
+            <td class="path">/note/main_1.jsp</td>
+            <td><a href="html/mnote/note/main_1.html" target="_blank">/html/mnote/note/main_1.html</a></td>
+            <td><span class="status done">완료</span></td>
+            <td></td>
+          </tr>
+          
+          <!-- 기타 변환 화면 -->
+          <tr>
+            <td>16</td>
+            <td>수첩_즐겨찾기 <span class="badge">견적</span></td>
+            <td class="path">/note/favorite.jsp</td>
+            <td><a href="html/mnote/note/favorite.html" target="_blank">/html/mnote/note/favorite.html</a></td>
+            <td><span class="status done">완료</span></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>17</td>
+            <td>수첩_에러 <span class="badge">견적</span></td>
+            <td class="path">/common/error.jsp</td>
+            <td><a href="html/mnote/common/error.html" target="_blank">/html/mnote/common/error.html</a></td>
+            <td><span class="status done">완료</span></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=2" />
+    <title>교직원 수첩 - 동양미래대학교 모바일 캠퍼스</title>
+    <!-- 퍼블리싱용 상대경로 css -->
+    <link rel="stylesheet" type="text/css" href="../dtis/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../dtis/css/sub.css"/>
+    <script type="text/javascript" src="../dtis/js/jquery/jquery-1.8.3.js"></script>
+
+    <style type="text/css">
+        @font-face {
+            font-family: 'S-CoreDream-4Regular';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-4Regular.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        
+        * {
+            font-family: 'S-CoreDream-4Regular', sans-serif !important;
+        }
+        
+        .main_bg {
+            height: 100vh !important;
+            position: fixed;
+            width: 100%;
+            z-index: -1;
+            background: url("../dtis/images/main_bg.png") 0 0 no-repeat;
+            background-size: cover;
+        }
+        
+        /* A11y: 숨김 텍스트 클래스 */
+        .blind {
+            position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;
+        }
+
+        #wrap h1, #wrap h2 {text-align:center;}
+        #wrap h1 img {max-width:100%; height:auto;}
+        #wrap h2 img {max-width:100%; height:auto;}
+
+        .quick ul {display:flex; justify-content:center; gap:10px; margin-top:20px;}
+        .quick ul li a img {width:50px;}
+
+        .gnb ul {display:flex; flex-wrap:wrap; margin-top:20px;}
+        .gnb ul li {width:50%; text-align:center; box-sizing:border-box;}
+        .gnb ul li a {display:block; padding:20px 0; color:#fff; font-size:18px; text-decoration:none;}
+    </style>
+</head>
+
+<body class="main">
+    <div class="main_bg" aria-hidden="true"></div>
+    <div id="wrap">
+        <header>
+            <h1><img src="../dtis/images/main_logo.png" alt="동양미래대학교" /></h1>
+            <h2><img src="../dtis/images/main_title.png" alt="교직원 수첩" /></h2>
+        </header>
+
+        <nav class="quick" aria-label="빠른 메뉴">
+            <ul>
+                <li><a href="favorite.html" title="즐겨찾기로 이동"><img src="../dtis/images2/main_quick01.png" alt="즐겨찾기" /></a></li>
+                <li class="search"><a href="search.html" title="검색으로 이동"><img src="../dtis/images2/main_quick02.png" alt="검색" /></a></li>
+            </ul>
+        </nav>
+
+        <nav class="gnb" aria-label="부서별 메뉴">
+            <ul>
+                <!-- 더미 데이터 구성 -->
+                <li class="odd">
+                    <a href="main.html" style="font-size:25px;">부속기관</a>
+                </li>
+                <li>
+                    <a href="main.html" style="font-size:25px;">학부학과</a>
+                </li>
+                <li class="odd">
+                    <a href="main.html" style="font-size:25px;">행정부서</a>
+                </li>
+                <li>
+                    <a href="main.html" style="font-size:25px;">산학<br>협력단</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</body>
+</html>

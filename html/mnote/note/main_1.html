@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=2" />
+    <title>부서별 조회(2) - 교직원 수첩</title>
+    <!-- 퍼블리싱용 상대경로 css -->
+    <link rel="stylesheet" type="text/css" href="../dtis/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../dtis/css/sub.css"/>
+    <script type="text/javascript" src="../dtis/js/jquery/jquery-1.8.3.js"></script>
+
+    <style type="text/css">
+        .sub_bg {height: 100vh !important; position: fixed; width: 100%; z-index: -1; background: #fff;}
+        .blind {position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;}
+
+        /* 우측 콘텐츠 목록 (main.jsp와 동일) */
+        .content {padding:0;}
+        .content ul li {border-bottom:1px solid #eee; list-style:none;}
+        .content ul li .staff_info {display:flex; padding:15px; align-items:center;}
+        .content ul li .staff_info .thum {width:45px; height:45px; border-radius:50%; overflow:hidden; margin-right:15px; flex-shrink:0;}
+        .content ul li .staff_info .thum img {width:100%; height:100%; object-fit:cover;}
+        .content ul li .staff_info .info_txt {flex-grow:1;}
+        .content ul li .staff_info .info_txt h3 {margin:0 0 5px 0; font-size:15px; color:#333; display:flex; align-items:center; justify-content:space-between;}
+        .content ul li .staff_info .info_txt h3 .favicon {cursor:pointer;}
+        .content ul li .staff_info .info_txt h3 .favicon img {width:16px;}
+        .content ul li .staff_info .info_txt .position {margin:0; font-size:12px; color:#777;}
+    </style>
+</head>
+
+<body class="sub">
+    <!-- main_1.jsp는 ajax로 호출되는 fragment지만 퍼블리싱 확인을 위해 단독 페이지로 구성함 -->
+    <div class="sub_bg" aria-hidden="true"></div>
+    <div id="wrap">
+        <section class="content" aria-label="부서 소속 교직원 목록 (fragment)">
+            <div style="background:#f9f9f9; padding:10px; text-align:center; color:#555; font-size:12px; border-bottom:1px solid #ddd;">
+                이 페이지는 부서별 조회(main) 화면 우측에 Ajax로 로드되는 목록 부분(main_1.jsp)의 퍼블리싱 페이지입니다.
+            </div>
+            <ul>
+                <li>
+                    <div class="staff_info">
+                        <p class="thum"><a href="detail.html" tabindex="-1"><img src="../dtis/images/thum_97_97.png" alt="" /></a></p>
+                        <div class="info_txt">
+                            <h3>
+                                <a href="detail.html" style="text-decoration:none; color:inherit;">김교수</a>
+                                <span class="favicon" role="button" aria-label="즐겨찾기 해제/추가" tabindex="0">
+                                    <img src="../dtis/images/icon_favicon_off.png" alt="즐겨찾기 해제 상태" />
+                                </span>
+                            </h3>
+                            <p class="position">[컴퓨터공학과] 교수</p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="staff_info">
+                        <p class="thum"><a href="detail.html" tabindex="-1"><img src="../dtis/images/dummy_photo.png" alt="" /></a></p>
+                        <div class="info_txt">
+                            <h3>
+                                <a href="detail.html" style="text-decoration:none; color:inherit;">이조교</a>
+                                <span class="favicon" role="button" aria-label="즐겨찾기 해제/추가" tabindex="0">
+                                    <img src="../dtis/images/icon_favicon_on.png" alt="즐겨찾기 추가 상태" />
+                                </span>
+                            </h3>
+                            <p class="position">[컴퓨터공학과] 조교</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </section>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // 즐겨찾기 토글
+            $(".favicon").on("click keydown", function(e) {
+                if(e.type === "click" || e.keyCode === 13 || e.keyCode === 32) {
+                    e.preventDefault();
+                    var $img = $(this).find("img");
+                    var src = $img.attr("src");
+                    if(src.indexOf("off") > -1) {
+                        $img.attr("src", src.replace("off", "on")).attr("alt", "즐겨찾기 추가 상태");
+                    } else {
+                        $img.attr("src", src.replace("on", "off")).attr("alt", "즐겨찾기 해제 상태");
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

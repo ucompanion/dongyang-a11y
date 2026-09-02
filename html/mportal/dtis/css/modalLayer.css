@@ -1,0 +1,12 @@
+/*리셋*/
+body{ font-size:11px; color:#555}
+/*리셋*/
+div.modal{position:absolute; z-index:100; padding:10px; display:none}
+div.modal button.okModalLayer{overflow:hidden; *overflow:visible; padding:0; margin:0; line-height:0; width:40px; height:34px; position:absolute; top:15px; right:16px;}
+div.modal button.closeModalLayer{overflow:hidden; *overflow:visible; padding:0; margin:0; line-height:0; width:40px; height:34px; position:absolute; top:15px; right:16px;}
+div.modal fieldset legend, span.hide, p.hide {display:block;position:absolute;left:-9999px;width:1px;height:1px;line-height:0;overflow:hidden;font-size:0;text-indent:-9999px}
+div.m-regist{ width:80%; background:#eee; border:#000 solid 3px;}
+/* 백보드 div */
+div.overlay {width:100%;height:100%;z-index:2;background-color:#000; opacity:0.4; filter: alpha(opacity=40); -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=40)"; position:fixed; top:0; left:0;	margin:0;	padding:0; display:none}
+
+ 

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=2" />
+    <title>개인정보 조회/변경 - 동양미래대학교 모바일 캠퍼스</title>
+    <!-- 퍼블리싱용 상대경로 css -->
+    <link rel="stylesheet" type="text/css" href="../dtis/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../dtis/css/board.css"/>
+    <link rel="stylesheet" type="text/css" href="../dtis/js/jquery.slidebars/slidebars.css">
+    
+    <!-- jQuery 등 스크립트 -->
+    <script type="text/javascript" src="../dtis/js/jquery/jquery-1.8.3.js"></script>
+    <script type="text/javascript" src="../dtis/js/jquery.slidebars/slidebars.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.slidebars();
+        });
+    </script>
+    <style type="text/css">
+        /* incHeader.jsp & incTop.jsp 공통 스타일 병합 */
+        #header {z-index: 300; top: 0; left: 0; position: fixed; height: 50px; width: 100%;}
+        #wrapper.main #header {height: 50px;}
+        #contents h1 {position: absolute; top: 50px; left: 0; width: 100%; height: 43px; background-color: #4594db; text-align: center; font-size: 16px; color: #fff; line-height: 43px;}
+        
+        /* A11y: 숨김 텍스트 클래스 */
+        .blind, .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            padding: 0;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="sb-site">
+        <div id="wrapper">
+            <!-- header (incHeader.jsp 병합) -->
+            <header id="header">
+                <div>
+                    <a href="../main/default.html" title="메인 페이지로 이동"><span class="logo"></span></a>
+                    <button type="button" class="bt menu sb-toggle-left" title="전체 메뉴 열기"><span class="blind">메뉴 열기</span></button>
+                    <!-- 로그인 상태 (퍼블리싱 더미) -->
+                    <button type="button" class="bt logout" title="로그아웃"><span class="blind">로그아웃</span></button>
+                </div>
+                <div class="shadow"></div>    
+            </header>
+            
+            <!-- content -->
+            <main id="contents">
+                <div class="shadow"></div>
+                <h1>개인정보 조회/변경</h1>
+                
+                <section class="wrapContainer">
+                    <div class="title"><h2>기본 사항</h2></div>
+                    <div class="tableSection">
+                        <ul>
+                            <li class="td">
+                                <span class="label">교번</span>
+                                <span class="cont">19950001</span>
+                            </li>
+                            <li class="td">
+                                <span class="label">성명</span>
+                                <span class="cont">홍길동</span>
+                            </li>
+                            <li class="td">
+                                <span class="label">생년월일</span>
+                                <span class="cont">1970 01 01</span>
+                            </li>
+                            <li class="td">
+                                <span class="label">교직원 대구분</span>
+                                <span class="cont">전임교원</span>
+                            </li>
+                            <li class="td">
+                                <span class="label">교직원 중구분</span>
+                                <span class="cont">정교수</span>
+                            </li>
+                            <li class="td">
+                                <span class="label">교직원 소구분</span>
+                                <span class="cont">교수</span>
+                            </li>
+                            <li class="td">
+                                <span class="label">직급</span>
+                                <span class="cont">교수</span>
+                            </li>
+                            <li class="td">
+                                <span class="label">처/학부</span>
+                                <span class="cont">공학부</span>
+                            </li>
+                            <li class="td">
+                                <span class="label">팀/운영학과</span>
+                                <span class="cont">소프트웨어공학과</span>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+                
+                <section class="wrapContainer">
+                    <div class="title"><h2>본인 주소 연락처</h2></div>
+                    <div class="tableSection">
+                        <ul>
+                            <li class="td">
+                                <span class="label">실거주지</span>
+                                <span class="cont">
+                                    <div>
+                                        <label for="POST_NUM1" class="blind">우편번호 앞자리</label>
+                                        <input type="text" style="width:40px;" id="POST_NUM1" value="082" title="우편번호 앞 3자리">
+                                        -
+                                        <label for="POST_NUM2" class="blind">우편번호 뒷자리</label>
+                                        <input type="text" style="width:40px;" id="POST_NUM2" value="21" title="우편번호 뒤 2자리">
+                                        <button type="button" class="small zipcode_pop">우편번호 검색</button>
+                                    </div>
+                                    <div id="ADRS" style="margin-top:5px;">서울특별시 구로구 경인로 445</div>
+                                    <div style="margin-top:5px;">
+                                        <label for="RS_ADRS" class="blind">상세주소</label>
+                                        <input type="text" id="RS_ADRS" value="동양미래대학교 본관 1층" style="width:100%;" placeholder="상세 주소를 입력하세요">
+                                    </div>
+                                </span>
+                            </li>
+                            <li class="td">
+                                <span class="label"><label for="sel_HM_PONE_NUM1">집전화번호</label></span>
+                                <span class="cont">
+                                    <ul class="telUI">
+                                        <li>
+                                            <select id="sel_HM_PONE_NUM1" name="sel_HM_PONE_NUM1" title="집전화번호 국번 선택">
+                                                <option value="02" selected>02</option>
+                                                <option value="031">031</option>
+                                                <option value="032">032</option>
+                                            </select>
+                                        </li>
+                                        <li class="dash" aria-hidden="true">-</li>
+                                        <li>
+                                            <label for="HM_PONE_NUM2" class="blind">집전화번호 중간자리</label>
+                                            <input type="text" id="HM_PONE_NUM2" value="2610" title="집전화번호 중간자리 입력">
+                                        </li>
+                                        <li class="dash" aria-hidden="true">-</li>
+                                        <li>
+                                            <label for="HM_PONE_NUM3" class="blind">집전화번호 끝자리</label>
+                                            <input type="text" id="HM_PONE_NUM3" value="1114" title="집전화번호 끝자리 입력">
+                                        </li>
+                                    </ul>
+                                </span>
+                            </li>
+                            <li class="td">
+                                <span class="label"><label for="sel_CLPON1">휴대폰</label></span>
+                                <span class="cont">
+                                    <ul class="telUI">
+                                        <li>
+                                            <select id="sel_CLPON1" name="sel_CLPON1" title="휴대폰 국번 선택">
+                                                <option value="010" selected>010</option>
+                                                <option value="011">011</option>
+                                            </select>
+                                        </li>
+                                        <li class="dash" aria-hidden="true">-</li>
+                                        <li>
+                                            <label for="CLPON2" class="blind">휴대폰 중간자리</label>
+                                            <input type="text" id="CLPON2" value="1234" title="휴대폰 중간자리 입력">
+                                        </li>
+                                        <li class="dash" aria-hidden="true">-</li>
+                                        <li>
+                                            <label for="CLPON3" class="blind">휴대폰 끝자리</label>
+                                            <input type="text" id="CLPON3" value="5678" title="휴대폰 끝자리 입력">
+                                        </li>
+                                    </ul>
+                                </span>
+                            </li>
+                            <li class="td">
+                                <span class="label"><label for="EML">E-mail</label></span>
+                                <span class="cont"><input type="text" id="EML" value="hong@dongyang.ac.kr"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+                
+                <section class="wrapContainer">
+                    <div class="title"><h2>계좌정보</h2></div>
+                    <div class="comment">
+                        <span>반드시 <strong>본인 명의</strong>의 <strong>국민은행</strong> 입금계좌 번호를 입력해 주시기 바랍니다.</span>
+                    </div>
+                    <div class="tableSection">
+                        <ul>
+                            <li class="td">
+                                <span class="label">구분</span>
+                                <span class="cont">급여계좌</span>
+                            </li>
+                            <li class="td">
+                                <span class="label">입금은행</span>
+                                <span class="cont">국민은행</span>
+                            </li>
+                            <li class="td">
+                                <span class="label">계좌번호</span>
+                                <span class="cont">123456-12-123456</span>
+                            </li>
+                            <li class="td">
+                                <span class="label">예금주</span>
+                                <span class="cont">홍길동</span>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li class="td">
+                                <span class="label">구분</span>
+                                <span class="cont">수당계좌</span>
+                            </li>
+                            <li class="td">
+                                <span class="label">입금은행</span>
+                                <span class="cont">국민은행</span>
+                            </li>
+                            <li class="td">
+                                <span class="label">계좌번호</span>
+                                <span class="cont">987654-12-123456</span>
+                            </li>
+                            <li class="td">
+                                <span class="label">예금주</span>
+                                <span class="cont">홍길동</span>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+                
+                <div class="buttonArea" style="margin-top:20px; text-align:center;">
+                    <button type="button" id="setSave" class="btn" style="padding:10px 20px;">수정하기</button>
+                    <button type="button" id="setCencel" class="btn" style="padding:10px 20px;">취소하기</button>
+                </div>
+            </main>
+        </div>
+    </div>
+    
+    <!-- side menu (incSideMenu.jsp 병합) -->
+    <div class="sb-slidebar sb-left sb-style-push sb-width-custom" data-sb-width="80%">
+        <div id="menuWrap">
+            <div class="searchArea">
+                <label for="searchWord" class="blind">메뉴 검색</label>
+                <input type="text" id="searchWord" name="searchWord" placeholder="검색어 입력"/>
+                <button type="button" class="bt_search" title="검색"><span class="blind">검색</span></button>
+            </div>
+            <a href="../main/default.html"><div class="logo"><span class="blind">동양미래대학교 모바일 캠퍼스</span></div></a>
+            <ul class="personalIcon">
+                <li class="m01">
+                    <a href="#" class="sb-close"><span>개인정보</span></a>
+                </li>
+                <li class="m02">
+                    <a href="../main/config.html" class="sb-close"><span>환경설정</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>    
+    <div id="site_mask" style="width:100%;z-index:9000;background:#fff;opacity:0.0;position:absolute;top:0;left:80%; display:none;"></div>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=2" />
+    <title>부서별 조회 - 교직원 수첩</title>
+    <!-- 퍼블리싱용 상대경로 css -->
+    <link rel="stylesheet" type="text/css" href="../dtis/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../dtis/css/sub.css"/>
+    <script type="text/javascript" src="../dtis/js/jquery/jquery-1.8.3.js"></script>
+
+    <style type="text/css">
+        .sub_bg {height: 100vh !important; position: fixed; width: 100%; z-index: -1; background: #fff;}
+        .blind {position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;}
+        
+        .page_title {position:relative; height:50px; background:#4594db; text-align:center; line-height:50px; color:#fff; font-size:18px; display:flex; justify-content:center;}
+        .page_title h1 {margin:0; font-size:18px;}
+        .page_title h1 img {vertical-align:middle; margin-right:5px; margin-top:-3px;}
+        .page_title .btn_l {position:absolute; top:0; left:10px; height:50px; display:flex; align-items:center;}
+        .page_title .btn_l img {height:20px;}
+        .page_title .btn_r {position:absolute; top:0; right:10px; height:50px; display:flex; align-items:center; gap:10px;}
+        .page_title .btn_r img {height:20px;}
+
+        .staff_wrap {display:flex; height:calc(100vh - 50px); overflow:hidden;}
+        
+        /* 좌측 뎁스2 메뉴 */
+        .gnb_depth02 {width:100px; background:#f4f4f4; height:100%; overflow-y:auto; border-right:1px solid #ddd;}
+        .gnb_depth02 ul li {border-bottom:1px solid #ddd;}
+        .gnb_depth02 ul li a {display:block; padding:15px 10px; color:#555; font-size:13px; text-align:center; text-decoration:none; word-break:keep-all;}
+        .gnb_depth02 ul li.on a {background:#fff; font-weight:bold; color:#4594db; border-left:3px solid #4594db;}
+
+        /* 우측 콘텐츠 목록 */
+        .content {flex-grow:1; height:100%; overflow-y:auto; padding:0;}
+        .content ul li {border-bottom:1px solid #eee;}
+        .content ul li .staff_info {display:flex; padding:15px; align-items:center;}
+        .content ul li .staff_info .thum {width:45px; height:45px; border-radius:50%; overflow:hidden; margin-right:15px; flex-shrink:0;}
+        .content ul li .staff_info .thum img {width:100%; height:100%; object-fit:cover;}
+        .content ul li .staff_info .info_txt {flex-grow:1;}
+        .content ul li .staff_info .info_txt h3 {margin:0 0 5px 0; font-size:15px; color:#333; display:flex; align-items:center; justify-content:space-between;}
+        .content ul li .staff_info .info_txt h3 .favicon {cursor:pointer;}
+        .content ul li .staff_info .info_txt h3 .favicon img {width:16px;}
+        .content ul li .staff_info .info_txt .position {margin:0; font-size:12px; color:#777;}
+    </style>
+</head>
+
+<body class="sub">
+    <div class="sub_bg" aria-hidden="true"></div>
+    <div id="wrap">
+        <!-- .page_title -->
+        <header class="page_title">
+            <h1><img src="../dtis/images/icon_logo.gif" alt="" aria-hidden="true" />학부학과</h1>
+            <div class="btn_l">
+                <a href="home.html" title="홈으로 이동"><img src="../dtis/images/btn_home.png" alt="홈" /></a>
+            </div>
+            <div class="btn_r">
+                <a href="search.html" title="검색으로 이동"><img src="../dtis/images/btn_search.png" alt="검색" /></a>
+                <a href="favorite.html" title="즐겨찾기로 이동"><img src="../dtis/images/btn_favicon.png" alt="즐겨찾기" /></a>
+            </div>
+        </header>
+
+        <!-- .staff_wrap -->
+        <main class="staff_wrap">
+            <!-- .gnb_depth02 (좌측 부서목록) -->
+            <nav class="gnb_depth02" aria-label="상세 부서 메뉴">
+                <ul>
+                    <li class="on" tabindex="0" role="button"><a href="javascript:void(0);">기계공학과</a></li>
+                    <li tabindex="0" role="button"><a href="javascript:void(0);">기계설계공학과</a></li>
+                    <li tabindex="0" role="button"><a href="javascript:void(0);">자동화공학과</a></li>
+                    <li tabindex="0" role="button"><a href="javascript:void(0);">로봇공학과</a></li>
+                    <li tabindex="0" role="button"><a href="javascript:void(0);">전기공학과</a></li>
+                    <li tabindex="0" role="button"><a href="javascript:void(0);">컴퓨터공학과</a></li>
+                </ul>
+            </nav>
+            
+            <!-- .content (우측 교직원목록) -->
+            <section class="content" aria-label="부서 소속 교직원 목록">
+                <div id="scroller_div">
+                    <ul>
+                        <li>
+                            <div class="staff_info">
+                                <p class="thum"><a href="detail.html" tabindex="-1"><img src="../dtis/images/thum_97_97.png" alt="" /></a></p>
+                                <div class="info_txt">
+                                    <h3>
+                                        <a href="detail.html" style="text-decoration:none; color:inherit;">김교수</a>
+                                        <span class="favicon" role="button" aria-label="즐겨찾기 해제/추가" tabindex="0">
+                                            <img src="../dtis/images/icon_favicon_off.png" alt="즐겨찾기 해제 상태" />
+                                        </span>
+                                    </h3>
+                                    <p class="position">[컴퓨터공학과] 교수</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="staff_info">
+                                <p class="thum"><a href="detail.html" tabindex="-1"><img src="../dtis/images/dummy_photo.png" alt="" /></a></p>
+                                <div class="info_txt">
+                                    <h3>
+                                        <a href="detail.html" style="text-decoration:none; color:inherit;">이조교</a>
+                                        <span class="favicon" role="button" aria-label="즐겨찾기 해제/추가" tabindex="0">
+                                            <img src="../dtis/images/icon_favicon_on.png" alt="즐겨찾기 추가 상태" />
+                                        </span>
+                                    </h3>
+                                    <p class="position">[컴퓨터공학과] 조교</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // 좌측 메뉴 탭 전환 (퍼블리싱)
+            $(".gnb_depth02 ul li").on("click keydown", function(e) {
+                if(e.type === "click" || e.keyCode === 13 || e.keyCode === 32) {
+                    e.preventDefault();
+                    $(".gnb_depth02 ul li").removeClass("on");
+                    $(this).addClass("on");
+                }
+            });
+
+            // 즐겨찾기 토글
+            $(".favicon").on("click keydown", function(e) {
+                if(e.type === "click" || e.keyCode === 13 || e.keyCode === 32) {
+                    e.preventDefault();
+                    var $img = $(this).find("img");
+                    var src = $img.attr("src");
+                    if(src.indexOf("off") > -1) {
+                        $img.attr("src", src.replace("off", "on")).attr("alt", "즐겨찾기 추가 상태");
+                    } else {
+                        $img.attr("src", src.replace("on", "off")).attr("alt", "즐겨찾기 해제 상태");
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

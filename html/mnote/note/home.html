@@ -2,11 +2,20 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=2" />
+    <meta name="viewport" content="width=device-width,user-scalable=no" /> 
+    <meta name="format-detection" content="telephone=no, address=no, email=no" />
     <title>교직원 수첩 - 동양미래대학교 모바일 캠퍼스</title>
     <link rel="stylesheet" type="text/css" href="../dtis/css/dju_mobile.css"/>
     <script type="text/javascript" src="../dtis/js/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="../dtis/js/beta.fix.js"></script>
+    <script type="text/javascript" src="../dtis/js/mj.viewport.js"></script>
     <script type="text/javascript" src="../dtis/js/common.js"></script>
+    <script type="text/javascript">
+        function update(scale) {}
+        mj.viewport({ width : 720, onAdjustment : update});
+        if (mj.viewport.isIos()) { window.addEventListener("load", function() { update(null); }); }
+        window.addEventListener('load', function() { setTimeout(scrollTo, 0, 0, 1); }, false);
+    </script>
     <style type="text/css">
         .main_bg {
             height:100% !important;

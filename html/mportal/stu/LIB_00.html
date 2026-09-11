@@ -31,12 +31,18 @@
 
         .wrap.main {
             background: rgb(44 106 191);
+            /* [UI 보정] 모바일 브라우저 하단 UI(주소창 등)에 닫기 버튼이 가려지지 않도록 실제 보이는 웹뷰 영역(svh) 기준으로 최소 높이 지정 */
+            min-height: 100vh;
+            min-height: 100svh;
         }
 
         .wrap.main .card_box .title {
             color: rgb(44 106 191);
             font-size: 27px;
             font-weight: 700;
+            /* [UI 보정] 타이틀이 상단 경계에 바짝 붙어 답답해 보이는 현상 개선을 위해 위아래 여백 추가 */
+            padding-top: 40px;
+            padding-bottom: 20px;
         }
 
         .main .content {
@@ -45,6 +51,14 @@
             text-align: center;
             overflow: hidden;
             position: relative;
+            /* [UI 보정] 상단 헤더 높이(120px)를 제외한 나머지 웹뷰 영역(svh)을 흰색 콘텐츠 박스가 꽉 채우도록 보장 (구형 기기용 vh 폴백 포함) */
+            min-height: calc(100vh - 120px);
+            min-height: calc(100svh - 120px);
+            padding-bottom: 50px;
+            /* [UI 보정] padding-bottom으로 인해 전체 높이가 100svh를 초과하여 하단 닫기 버튼이 화면 밖으로 밀려나지 않도록 border-box 적용 */
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
         }
 
         .card_box.main {
@@ -62,9 +76,10 @@
         .card_box .nametable {
             margin: auto;
             border-spacing: 15px;
-            font-size: 1em;
+            /* [UI 보정] 전역 테이블 속성(collapse)과 충돌하여 border-spacing 간격이 무시되는 버그 수정을 위해 separate 강제 적용 */
+            border-collapse: separate;
+            font-size: 16px;
             font-weight: bold;
-
         }
 
         .card_box .nametable td {
@@ -77,8 +92,13 @@
         }
 
         .card_box #qrcode {
-            padding: 10px 0;
+            padding: 20px 0;
             cursor: pointer;
+            /* [A11y: 시맨틱 마크업] button 태그 사용 시 브라우저 기본 스타일 초기화 */
+            background: transparent;
+            border: 0;
+            display: block;
+            margin: 0 auto;
         }
 
         .card_box .picbox {
@@ -88,10 +108,13 @@
             border: 2px solid rgb(229 241 255);
             border-radius: 50%;
             box-shadow: 0px 0px 10px 1px rgb(229 241 255);
+            /* [UI 보정] margin-top 하드코딩 대신 Flexbox를 사용하여 프로필 및 QR코드 이미지가 무조건 정중앙에 위치하도록 구조 개선 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .card_box .picbox .pic {
-            margin-top: 38px;
             height: 160px;
             max-height: 160px;
         }
@@ -101,28 +124,42 @@
         }
 
         .content .footer_box {
-            padding-right: 20px;
+            /* [UI 보정] 닫기 버튼이 우측 상단이 아닌 원래 기획 의도(우측 하단)에 위치하도록 좌표 및 크기 재설정 */
             position: absolute;
-            right: 9px;
-            height: 20px;
+            right: 0;
+            bottom: 0;
+            width: 40px;
+            height: 40px;
             background: rgb(44 106 191);
+            cursor: pointer;
+            /* [A11y: 시맨틱 마크업] a 태그 사용을 위해 display: block 명시 */
+            display: block;
         }
 
-        .content .footer_box .blind:before,
-        .content .footer_box .blind:after {
+        .content .footer_box .close_icon {
+            display: block;
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .content .footer_box .close_icon:before,
+        .content .footer_box .close_icon:after {
+            /* [UI 보정] 40x40 박스 정중앙에 닫기(X) 아이콘이 그려지도록 위치 좌표 재설정 */
             position: absolute;
-            right: 9px;
-            content: ' ';
+            top: 10px;
+            left: 19px;
+            content: '';
             height: 20px;
             width: 2px;
             background-color: #fff;
         }
 
-        .content .footer_box .blind:before {
+        .content .footer_box .close_icon:before {
             transform: rotate(45deg);
         }
 
-        .content .footer_box .blind:after {
+        .content .footer_box .close_icon:after {
             transform: rotate(-45deg);
         }
     </style>
@@ -130,6 +167,7 @@
     <script type="text/javascript" src="../dtis/js/jquery/jquery-1.8.3.js"></script>
     <script type="text/javascript" src="../dtis/js/jquery.slidebars/slidebars.js"></script>
     <script type="text/javascript" src="../dtis/js/jquery/jquery-qrcode-0.18.0.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../dtis/css/high-contrast.css"/>
 </head>
 
 <body id="body">
@@ -138,7 +176,8 @@
 
             <div class="page_title">
                 <div id="top_logo">
-                    <img src="../dtis/images/white_logo.png" alt="동양미래대학교">
+                    <!-- [A11y: 대체 텍스트] 헤더 로고 대체 텍스트 강화 -->
+                    <img src="../dtis/images/white_logo.png" alt="동양미래대학교 홈으로 이동">
                 </div>
             </div>
 
@@ -147,18 +186,22 @@
                     <h3 class="title">도서관 이용증</h3>
                     <div class="picbox">
                         <div class="pic photo">
+                            <!-- [A11y: 대체 텍스트] 정보성 이미지 대체 텍스트 명확화 -->
                             <img id="pic_img" src="../dtis/images/dummy_photo.png" alt="학생 증명사진"
                                 onerror="this.src='../dtis/images/default_stu_img.png'">
                         </div>
-                        <div class="pic qrcode" style="display: none;" aria-hidden="true">
+                        <!-- [A11y: 대체 텍스트] 동적으로 렌더링되는 캔버스(QR코드) 영역을 스크린 리더가 이미지로 인지할 수 있도록 role과 aria-label 추가 -->
+                        <div class="pic qrcode" style="display: none;" aria-hidden="true" role="img" aria-label="도서관 출입용 모바일 QR코드">
                             <!-- QR 코드 렌더링 영역 -->
                         </div>
                     </div>
 
                     <!-- QR 코드 토글 버튼 -->
-                    <div id="qrcode" style="cursor:pointer;">
-                        <img src="../dtis/images/qrcode_s.png" alt="QR코드 보기 토글" />
-                    </div>
+                    <!-- [A11y: 시맨틱 마크업] div + click 이벤트 대신 키보드 접근이 가능한 button 태그로 변경 -->
+                    <button type="button" id="qrcode">
+                        <!-- [A11y: 대체 텍스트] QR코드 연결 목적지 명시 -->
+                        <img src="../dtis/images/qrcode_s.png" alt="모바일 도서관 QR코드 보기 토글" />
+                    </button>
 
                     <div class="namebox">
                         <table class="nametable">
@@ -179,23 +222,30 @@
                         </table>
                     </div>
                 </article>
-                <div class="footer_box">
-                    <span class="blind"></span>
-                </div>
+                <!-- [A11y: 시맨틱 마크업] div + onclick 대신 href 속성이 있는 a 태그를 사용하여 키보드 접근성(엔터키 작동) 확보 -->
+                <a href="../main/default.html" class="footer_box" title="메인 화면으로 닫기">
+                    <!-- [A11y: 숨김 텍스트 충돌 방지] 기존 .blind 클래스가 전역적으로 숨김 처리되어 'X' 아이콘이 안 보이는 버그 수정 -->
+                    <span class="close_icon"></span>
+                </a>
             </section>
         </div>
     </div>
 
-    <!-- side menu (incSideMenu.jsp 병합) -->
-    <div class="sb-slidebar sb-left sb-style-push sb-width-custom" data-sb-width="80%">
+        <!-- side menu (incSideMenu.jsp 병합) -->
+    <!-- [A11y: Guide 05 초점 이동] 전체메뉴 열림 시 논리적 초점 이동을 위해 tabindex="0" 부여 -->
+    <div class="sb-slidebar sb-left sb-style-push sb-width-custom" data-sb-width="80%" tabindex="0">
         <div id="menuWrap">
-            <div class="searchArea">
+                    <div class="searchArea">
+                <!-- [A11y: 레이블과 네임] 사이드 메뉴 검색 폼 및 버튼에 숨김 텍스트(.blind) 제공 -->
                 <label for="searchWord" class="blind">메뉴 검색</label>
                 <input type="text" id="searchWord" name="searchWord" placeholder="검색어 입력" />
-                <button type="button" class="bt_search" title="검색"><span class="blind"></span></button>
+                <button type="button" class="bt_search" title="검색 실행"><span class="blind">검색</span></button>
             </div>
             <a href="../main/default.html">
-                <div class="logo"><span class="blind"></span></div>
+                <div class="logo">
+                    <!-- [A11y: 대체 텍스트] 로고 링크 대체 텍스트 강화 -->
+                    <span class="blind">동양미래대학교 홈으로 이동</span>
+                </div>
             </a>
             <ul class="personalIcon">
                 <li class="m01">
@@ -204,10 +254,17 @@
                 <li class="m02">
                     <a href="../main/config.html" class="sb-close"><span>환경설정</span></a>
                 </li>
+                <!-- [A11y: 의미 없는 요소 숨김] 일반 모드 4단 레이아웃 유지를 위한 빈칸으로, 스크린 리더에서 무시되도록 처리 -->
+                <li aria-hidden="true"></li>
+                <li aria-hidden="true"></li>
             </ul>
+        <!-- [A11y: 초점 이동] 전체메뉴 닫기 버튼 제공 및 클래스(sb-close)를 통한 포커스 복귀 연동 -->
+        <button type="button" class="sb-close btn_close_menu"><span class="blind">전체메뉴 닫기</span></button>
+
         </div>
-    </div>
-    <div id="site_mask"
+</div>
+
+<div id="site_mask"
         style="width:100%;z-index:9000;background:#fff;opacity:0.0;position:absolute;top:0;left:80%; display:none;">
     </div>
 

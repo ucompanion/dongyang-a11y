@@ -1,0 +1,680 @@
+@charset "utf-8";
+
+/* 
+ * [접근성] OS 고대비 모드(High Contrast Mode) 대응 CSS
+ * OS 시스템이 배경과 텍스트 색상을 알아서 강제하므로 임의로 색상을 고정하지 않습니다.
+ * 단, 반드시 고정해야 하는 배경컬러(숨김 텍스트, 활성 인디케이터)만 예외 처리합니다.
+ */
+
+@media (forced-colors: active),
+(-ms-high-contrast: active) {
+
+
+    /* 고대비 화면 확대 시 레이아웃 겹침 방지를 위해 헤더 고정(absolute/fixed) 해제 및 문서 흐름(relative)에 포함 */
+    #header {
+        position: relative !important;
+        height: auto !important;
+    }
+
+    /* [UI 보정] 헤더는 relative로 자연 배치되므로, absolute 띄워진 타이틀(h1)의 높이(43px)만큼만 패딩을 주어 본문 겹침 방지 */
+    #contents {
+        padding-top: 43px !important;
+    }
+
+    /* ========================================================
+       11. 이미지 명도대비(4.5:1) 미달 요소 강제 마스크 처리
+       ======================================================== */
+    /* mnote 홈 화면(home.html)의 메인 로고 및 타이틀 이미지가 어두운 계열이라 다크모드에서 명도대비 미달. 
+       이미지 자체를 CSS 마스크로 활용하고 CanvasText(다크모드 흰색, 라이트모드 검정)로 색상을 채워 대비 준수 */
+    .main h1 img {
+        content: "";
+        display: block;
+        width: 400px !important;
+        height: 400px !important;
+        background-color: CanvasText !important;
+        -webkit-mask: url("../images/main_logo.png") no-repeat center / contain;
+        mask: url("../images/main_logo.png") no-repeat center / contain;
+        opacity: 1 !important; /* 기존 opacity 0.7 덮어쓰기 */
+    }
+
+    .main h2 img {
+        content: "";
+        display: block;
+        width: 400px !important;
+        height: 75px !important;
+        background-color: CanvasText !important;
+        -webkit-mask: url("../images/main_title.png") no-repeat center / contain;
+        mask: url("../images/main_title.png") no-repeat center / contain;
+        opacity: 1 !important; /* 기존 opacity 0.7 덮어쓰기 */
+    }
+
+    /* [A11y: 명도대비 및 시인성 개선] 교직원 즐겨찾기 아이콘 명도대비 미달 및 모양 구분(Outline vs Solid) 어려움 해결 */
+    .staff_info dt .name .favicon img {
+        content: "";
+        display: inline-block;
+        width: 60px !important;
+        height: 60px !important;
+        background-color: CanvasText !important;
+        opacity: 1 !important;
+    }
+    
+    /* 즐겨찾기 OFF (빈 별 - 외곽선 모양으로 구분) */
+    .staff_info dt .name .favicon img[src*="icon_favicon_off"] {
+        -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolygon points='12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2'/%3E%3C/svg%3E") no-repeat center / contain;
+        mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolygon points='12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2'/%3E%3C/svg%3E") no-repeat center / contain;
+    }
+
+    /* 즐겨찾기 ON (채워진 별) */
+    .staff_info dt .name .favicon img[src*="icon_favicon_on"] {
+        -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolygon points='12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2'/%3E%3C/svg%3E") no-repeat center / contain;
+        mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolygon points='12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2'/%3E%3C/svg%3E") no-repeat center / contain;
+    }
+
+    /* [A11y: 명도대비 및 시인성 개선] 헤더 기능 버튼(이전, 홈, 검색, 즐겨찾기) <a> 태그 자체에 마스크를 적용하고 img는 스크린리더용으로 투명화 */
+    .sub .page_title .btn_l a img,
+    .sub .page_title .btn_r a img {
+        opacity: 0 !important;
+    }
+    .sub .page_title .btn_l a,
+    .sub .page_title .btn_r a {
+        display: inline-block;
+        min-width: 40px;
+        min-height: 40px;
+        vertical-align: middle;
+    }
+    
+    /* 이전 버튼 */
+    .sub .page_title .btn_l a[title*="이전"] {
+        background-color: CanvasText !important;
+        -webkit-mask: url("../images/btn_back.png") no-repeat center / 40px !important;
+        mask: url("../images/btn_back.png") no-repeat center / 40px !important;
+    }
+
+    /* 홈 버튼 */
+    .sub .page_title .btn_l a[title*="홈"] {
+        background-color: CanvasText !important;
+        -webkit-mask: url("../images/btn_home.png") no-repeat center / 40px !important;
+        mask: url("../images/btn_home.png") no-repeat center / 40px !important;
+    }
+
+    /* 검색 버튼 */
+    .sub .page_title .btn_r a[title*="검색"] {
+        background-color: CanvasText !important;
+        -webkit-mask: url("../images/btn_search.png") no-repeat center / 40px !important;
+        mask: url("../images/btn_search.png") no-repeat center / 40px !important;
+    }
+
+    /* 즐겨찾기 버튼 */
+    .sub .page_title .btn_r a[title*="즐겨찾기"] {
+        background-color: CanvasText !important;
+        -webkit-mask: url("../images/btn_favicon.png") no-repeat center / 40px !important;
+        mask: url("../images/btn_favicon.png") no-repeat center / 40px !important;
+    }
+
+    /* ========================================================
+       1. 불필요한 장식 강제 제거 (배경 이미지 유지)
+       ======================================================== */
+
+    /* [A11y: 명도대비 및 시인성 개선] 상세 페이지 큰 즐겨찾기 아이콘(off2, on2) 마스크 처리 */
+    .base_info_txt .name .favicon img {
+        content: "";
+        display: inline-block;
+        width: 60px !important;
+        height: 60px !important;
+        background-color: CanvasText !important;
+        opacity: 1 !important;
+    }
+    .base_info_txt .name .favicon img[src*="icon_favicon_off2"] {
+        -webkit-mask: url("../images/icon_favicon_off2.png") no-repeat center / contain;
+        mask: url("../images/icon_favicon_off2.png") no-repeat center / contain;
+    }
+    .base_info_txt .name .favicon img[src*="icon_favicon_on2"] {
+        -webkit-mask: url("../images/icon_favicon_on2.png") no-repeat center / contain;
+        mask: url("../images/icon_favicon_on2.png") no-repeat center / contain;
+    }
+
+    /* [A11y: 명도대비 및 시인성 개선] 테이블 내부 전화/휴대폰 아이콘 고대비 마스크 색상 적용 (마스크 형태는 dju_mobile.css에서 상속) */
+    .sub .report td.tel_btn .set,
+    .sub .report td.hp_btn .set {
+        background-color: CanvasText !important;
+    }
+
+    /* [A11y: 명도대비 및 시인성 개선] 헤더 하단 구분선(배경 이미지)이 유실되는 고대비 환경을 위해 시스템 컬러(CanvasText) 테두리로 대체 강제 적용 */
+    .sub .page_title h1 {
+        border-bottom: 2px solid CanvasText !important;
+    }
+
+    /* [A11y: 명도대비 및 시인성 개선] 표 테두리를 고대비 시스템 컬러(CanvasText)로 강제 적용하여 라이트 모드에서도 명확하게 보이도록 처리 */
+    .sub .report table {
+        border-top: 2px solid CanvasText !important;
+    }
+    .sub .report th,
+    .sub .report td {
+        border-bottom: 1px solid CanvasText !important;
+    }
+
+    * {
+        box-shadow: none !important;
+        text-shadow: none !important;
+        border-radius: 0 !important;
+    }
+
+    /* 의미 없는 장식용 배경 이미지 강제 제거 (아이콘, 로고 등 의미 있는 배경 요소 제외) */
+    *:not(.bulletListType li):not(.listType01 li):not(.listType02 li):not(.listType03 li):not(.listType04 li):not(.mainListBoxWrap .list li):not(.mainListBoxWrap .header h2):not(.mainServiceMenu li):not(.smartServiceWrap .box ul li .appIcon span):not(.settingWrap li span p):not(.scheduleWrapper .cont .tableScroll .lecture p span):not(#header .logo):not(#menuWrap .logo span):not(#menuWrap .personalIcon li):not(#menuWrap .bottomArea .smartServiceIcon li) {
+        background-image: none !important;
+    }
+
+    /* 숨김 텍스트를 포함하는 부모 요소의 배경 이미지 제거 (로고 등 보존 요소 제외) */
+    *:has(> .blind):not(.logo, .logo-link),
+    *:has(> .sr-only):not(.logo, .logo-link) {
+        background-image: none !important;
+    }
+
+    /* ========================================================
+       2. 고정값으로 배경컬러를 지정해야 하는 것 조정
+       ======================================================== */
+    /* 숨겨진 텍스트(.blind) 복구 시 바탕과 겹치지 않게 시스템 색상 고정 */
+    .blind,
+    .sr-only {
+        position: static !important;
+        width: auto !important;
+        height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: visible !important;
+        clip: auto !important;
+        border: 0 !important;
+        display: inline-block !important;
+        visibility: visible !important;
+        line-height: normal !important;
+
+        forced-color-adjust: none !important;
+        /* 브라우저 렌더링 무효화 방어 */
+        color: CanvasText !important;
+        background-color: Canvas !important;
+        font-size: 28px !important; /* mnote 모바일 뷰포트 배율(720px 기준 0.5배) 보정 */
+    }
+
+    /* 로고는 배경 이미지를 보존하므로 숨김 텍스트가 화면에 노출되지 않도록 유지 */
+    .logo .blind,
+    .logo-link .blind,
+    #header .logo .blind,
+    #menuWrap .logo .blind {
+        position: absolute !important;
+        width: 1px !important;
+        height: 1px !important;
+        overflow: hidden !important;
+        clip: rect(0, 0, 0, 0) !important;
+        margin: -1px !important;
+    }
+
+    /* 슬라이더/배너 활성 탭 인디케이터 (모양이 투명해지지 않게 꽉 채움) */
+    .bannerIndicators ul li.active,
+    .bannerIndicators ul li.on,
+    .slick-dots li.slick-active button {
+        forced-color-adjust: none !important;
+        background-color: CanvasText !important;
+    }
+
+    /* 링크(a) 태그와 그 하위 요소(span 등)는 일반 텍스트(CanvasText)가 아닌 OS 고유의 링크 색상(LinkText - 노란색)을 따르도록 예외 처리 */
+    .bulletListType li a,
+    .bulletListType li a *,
+    .listType01 li a,
+    .listType01 li a *,
+    .listType02 li a,
+    .listType02 li a *,
+    .listType03 li a,
+    .listType03 li a *,
+    .listType04 li a,
+    .listType04 li a *,
+    .mainListBoxWrap .list li a,
+    .mainListBoxWrap .list li a *,
+    .mainListBoxWrap .header h2 a,
+    .mainListBoxWrap .header h2 a *,
+    .mainServiceMenu li a,
+    .mainServiceMenu li a *,
+    .smartServiceWrap .box ul li .appIcon span a,
+    .smartServiceWrap .box ul li .appIcon span a *,
+    .settingWrap li span p a,
+    .settingWrap li span p a *,
+    .scheduleWrapper .cont .tableScroll .lecture p span a,
+    .scheduleWrapper .cont .tableScroll .lecture p span a *,
+    #menuWrap .personalIcon li a,
+    #menuWrap .personalIcon li a *,
+    #menuWrap .bottomArea .smartServiceIcon li a,
+    #menuWrap .bottomArea .smartServiceIcon li a * {
+        color: LinkText !important;
+    }
+
+    .bannerIndicators ul li,
+    .slick-dots li button {
+        border: 1px solid CanvasText !important;
+        opacity: 1 !important;
+    }
+
+    /* ========================================================
+       3. 이상하게 나오는 것 조정 (테두리로 형태 보완)
+       ======================================================== */
+    button,
+    .bt,
+    .btn,
+    .bt_search,
+    input,
+    select,
+    textarea,
+    #wrapper #contents .mainMenu li,
+    #menuWrap .personalIcon li,
+    #menuWrap .mobileCampus li {
+        border: 1px solid CanvasText !important;
+    }
+
+    /* 모든 버튼의 고정 크기 해제 및 최소 터치 영역 확보 */
+    button,
+    .bt,
+    .btn,
+    .bt_search {
+        width: auto !important;
+        height: auto !important;
+        min-width: 44px !important;
+        min-height: 44px !important;
+        padding: 2px 6px !important;
+    }
+
+
+    /* 헤더 영역 좌우 버튼은 모바일 공간(로고 영역) 확보를 위해 고정 너비로 제한 */
+    /* 버튼이 투명해지면서 텍스트가 늘어나 헤더 하단 라인과 겹치는 현상 방지를 위해 좌표(bottom) 조정 */
+    #header .bt {
+        width: 44px !important;
+        padding: 2px !important;
+        top: auto !important;
+        bottom: 2px !important;
+    }
+
+    #header .bt .blind {
+        word-break: break-all !important;
+        font-size: 30px !important; /* mnote 모바일 뷰포트 배율(720px 기준 0.5배) 보정 */
+        line-height: 1.2 !important;
+    }
+
+    /* 초점(Focus) 이동 명확화 */
+    a:focus,
+    button:focus,
+    input:focus,
+    select:focus,
+    textarea:focus,
+    [tabindex]:focus {
+        outline: 3px solid Highlight !important;
+        outline-offset: -2px !important;
+    }
+
+    /* 공통 레이아웃 구분선 */
+    #header,
+    .social-footer,
+    #footer,
+    #contents .personalArea,
+    #wrapper #contents .personalArea.login {
+        border-bottom: 1px solid CanvasText !important;
+    }
+
+    #wrapper #contents .mainMenu {
+        border-bottom: 1px solid CanvasText !important;
+    }
+
+    #wrapper #contents .mainMenu li {
+        border: 1px solid CanvasText !important;
+        border-bottom: none !important;
+        margin-right: 1px;
+    }
+
+    #menuWrap {
+        border-right: 1px solid CanvasText !important;
+    }
+
+    #menuWrap .searchArea,
+    #menuWrap .logo {
+        border-bottom: 1px solid CanvasText !important;
+    }
+
+    /* 여백 조절 */
+    .mainListBoxWrap,
+    .smartServiceWrap,
+    .utilListWrap,
+    .utilDetailWrap,
+    .settingWrap,
+    .scheduleWrap,
+    section {
+        margin-top: 24px !important;
+    }
+
+    .mainListBoxWrap {
+        border: 1px solid CanvasText !important;
+        padding: 10px !important;
+    }
+
+    .mainListBoxWrap .header {
+        border-bottom: 1px solid CanvasText !important;
+    }
+
+    .mainListBoxWrap .header .more {
+        border: 1px solid CanvasText !important;
+        padding: 2px 5px !important;
+        text-decoration: none !important;
+    }
+
+    .mainListBoxWrap .list li {
+        border-bottom: 1px solid CanvasText !important;
+    }
+
+    .mainServiceMenu {
+        border-top: 1px solid CanvasText !important;
+        border-left: 1px solid CanvasText !important;
+    }
+
+    .mainServiceMenu li {
+        border: 1px solid CanvasText !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    .mainServiceMenu li span {
+        padding-top: 0 !important;
+    }
+
+    /* [UI 보정] 메인 화면(default_stu.html 등)의 mainMenu 탭 그룹 레이어 해제 */
+    /* mainMenu가 absolute로 떠 있으면 다른 본문 요소들과 겹치게 되므로, 문서 흐름(static)으로 복원하여 자연스럽게 하위 콘텐츠를 밀어내도록 수정 */
+    #contents .mainMenu {
+        position: static !important;
+        margin-top: 0 !important;
+    }
+
+    /* ========================================================
+       4. 진한 배경색(Dark Backgrounds) 유지 (강제 보존)
+       ======================================================== */
+    /* 원래 진한 계열이었던 배경 요소들을 고대비에서도 어둡게 유지 */
+    .social-footer {
+        forced-color-adjust: none !important;
+        background-color: #333333 !important;
+        color: #ffffff !important;
+    }
+
+    #contents h1,
+    .wrapContainer.login h1,
+    #contents .personalArea {
+        forced-color-adjust: none !important;
+        background-color: #003cab !important;
+        color: #ffffff !important;
+    }
+
+    #menuWrap .mobileCampus li {
+        forced-color-adjust: none !important;
+        background-color: #1d4a73 !important;
+        color: #ffffff !important;
+    }
+
+    #menuWrap .mobileCampus li:nth-of-type(2n) {
+        forced-color-adjust: none !important;
+        background-color: #153655 !important;
+        color: #ffffff !important;
+    }
+
+    #menuWrap .btnArea button {
+        forced-color-adjust: none !important;
+        background-color: #333333 !important;
+        color: #ffffff !important;
+    }
+
+    /* 슬라이드(배너) 컨트롤들이 이미지와 겹치지 않게 원래 DOM 순서(배치 순서)대로 하단에 깔리도록 변경 */
+    .simpleBanner {
+        text-align: center !important;
+    }
+
+    .simpleBanner .bannerIndicators,
+    .simpleBanner .bannerControlsBox,
+    .simpleBanner .bannerControlsWpr {
+        position: static !important;
+        transform: none !important;
+        display: inline-block !important;
+        margin-top: 10px !important;
+    }
+
+    /* 고대비 스럽게 슬라이드 좌우 버튼 사이즈(44px) 확보 및 명확한 외곽선(테두리) 부여 */
+    .simpleBanner .bannerControlsWpr {
+        width: 44px !important;
+        height: 44px !important;
+        border: 1px solid CanvasText !important;
+        border-radius: 0 !important;
+        /* 고대비 느낌을 살리기 위해 둥근 모서리 제거 */
+        background: transparent !important;
+        margin: 0 5px !important;
+    }
+
+    /* 좌우 화살표 아이콘 자체 색상도 고대비 텍스트 색상(CanvasText)에 맞춤 */
+    .simpleBanner .bannerControls {
+        border-color: CanvasText !important;
+    }
+
+    .simpleBanner .bannerControlsBox {
+        background: transparent !important;
+        /* 불필요한 반투명 검정 배경 제거 */
+        vertical-align: middle !important;
+    }
+
+    .simpleBanner .bannerIndicators ul {
+        display: inline-flex !important;
+        vertical-align: middle !important;
+    }
+
+    /* ========================================================
+       5. 주요 UI 요소 원본 배경/아이콘 보존 (OS 강제 덮어쓰기 방어)
+       ======================================================== */
+    /* 불릿(Bullet) 및 아이콘용 배경 이미지 살리기 
+       주의: forced-color-adjust: none 을 사용하면 OS가 텍스트/배경색도 덮어쓰지 못하므로
+       배경색은 OS 배경색(Canvas), 글씨색은 OS 글씨색(CanvasText)으로 명시적 복구 필수! */
+    .bulletListType li,
+    .listType01 li,
+    .listType02 li,
+    .listType03 li,
+    .listType04 li,
+    .mainListBoxWrap .list li,
+    .mainListBoxWrap .header h2,
+    .mainServiceMenu li,
+    .smartServiceWrap .box ul li .appIcon span,
+    .settingWrap li span p,
+    .scheduleWrapper .cont .tableScroll .lecture p span,
+    #header .logo,
+    #menuWrap .logo span,
+    #menuWrap .personalIcon li,
+    #menuWrap .bottomArea .smartServiceIcon li {
+        forced-color-adjust: none !important;
+        background-color: Canvas !important;
+        color: CanvasText !important;
+    }
+
+    /* 자식 요소들(특히 a, span 등)에도 OS 글씨색을 강제 상속 */
+    .bulletListType li *,
+    .listType01 li *,
+    .listType02 li *,
+    .listType03 li *,
+    .listType04 li *,
+    .mainListBoxWrap .list li *,
+    .mainListBoxWrap .header h2 *,
+    .mainServiceMenu li *,
+    .smartServiceWrap .box ul li .appIcon span *,
+    .settingWrap li span p *,
+    .scheduleWrapper .cont .tableScroll .lecture p span *,
+    #menuWrap .personalIcon li *,
+    #menuWrap .bottomArea .smartServiceIcon li * {
+        color: CanvasText !important;
+    }
+
+
+    /* 전체메뉴(#menuWrap) 안의 로고는 원본이 검은색 이미지이므로 
+       고대비 다크모드(Canvas=Black)에서 투명 배경에 묻혀 보이지 않는 현상 방지.
+       사용자 요청에 따라 배경을 연한 단색 회색으로 강제 처리하여 로고 가시성 확보 */
+    #menuWrap .logo {
+        forced-color-adjust: none !important;
+        /* OS 고대비 색상 강제 초기화(Canvas) 방어 */
+        background-color: #e0e0e0 !important;
+        background-image: none !important;
+        /* 장식용 패턴 배경 제거 */
+    }
+
+    #menuWrap .logo span {
+        background-color: transparent !important;
+        /* 부모의 회색 배경이 비치도록 투명 처리 */
+        background-image: url("../images/logo.png") !important;
+        /* 강제 초기화(has > .blind) 무시하고 실제 로고 이미지 강제 노출 */
+    }
+
+    /* 고대비 웹 접근성: 최소 폰트 사이즈 14px 이상 강제 (기존 14px 미만 요소들 일괄 상향) */
+    #header .personalArea,
+    #menuWrap .bottomArea .smartServiceIcon li span,
+    #menuWrap .personalIcon li span,
+    #sw-cancel,
+    #sw-done,
+    .a11y-hint,
+    .buttonMenuWrapper button.menu span.giveup_notice em,
+    .list td.buy,
+    .list td.loss,
+    .list td.sell,
+    .list td.tit,
+    .listType01 li div.content .commentText,
+    .listType01 li div.header span.text dl dd,
+    .listType03 li span.cont dl dd,
+    .listType03 li span.type em,
+    .listType04 li.on .content .tableSection,
+    .listType04.alarm li .content .date,
+    .listType04.alarm li.new .header span.t_new,
+    .mainFooter address,
+    .mainListBoxWrap .list li p,
+    .mainServiceMenu li span,
+    .po_main .footer p.copyright,
+    .scheduleWrapper .cont .tableScroll .lecture p,
+    .scheduleWrapper .cont .tableScroll .lecture p span:last-child,
+    .scheduleWrapper .cont .tableScroll .timeTable li span.time em,
+    .scheduleWrapper .cont.day .tableScroll .lecture.on p span:last-child,
+    .settingWrap li span p,
+    .smartServiceWrap .box ul li span,
+    .smartServiceWrap .copyright,
+    .sub .gnb_depth02 li a,
+    .utilDetailWrap .descArea .cont,
+    .utilDetailWrap .iconArea .count,
+    .utilDetailWrap .iconArea .count em,
+    .utilDetailWrap .iconArea .sort,
+    .utilDetailWrap .infoArea ul li label,
+    .utilDetailWrap .infoArea ul li span,
+    .utilListWrap li .count,
+    .utilListWrap li .count em,
+    .utilListWrap li .sort,
+    .view td.con,
+    .view td.con .info,
+    .view td.tit,
+    .view.pre,
+    .wrapContainer .comment,
+    .wrapContainer.login .loginWrap .buttonArea p,
+    button.small,
+    button.xsmall,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    table.table_list .small_text,
+    table.table_list td .name_store,
+    table.table_list td .name_store_none,
+    table.table_list td .name_txt,
+    table.table_list td .name_txt_none,
+    table.table_list thead th {
+        font-size: 28px !important; /* mnote 모바일 뷰포트 배율(720px 기준 0.5배) 보정 */
+    }
+
+    /* ========================================================
+       6. 텍스트 가독성 및 확대 대응 (WCAG 기준)
+       ======================================================== */
+    /* 불필요하게 고정된 텍스트 영역의 높이를 해제하여 글자 확대 시 잘림 방지, 줄간격 1.5 고정 (h1 제목 영역 제외) */
+    p,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    dt,
+    dd,
+    th,
+    td {
+        line-height: 1.5 !important;
+    }
+
+    /* 공통 텍스트 클래스들에도 동일하게 적용 */
+    .txt,
+    .text,
+    .desc,
+    .tit,
+    .title,
+    .info,
+    .subject {
+        height: auto !important;
+        line-height: 1.5 !important;
+    }
+
+    /* 제목(Heading) 태그는 고대비 모드에서 구분이 명확하도록 폰트 굵기 700 고정 */
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-weight: 700 !important;
+    }
+
+    /* ========================================================
+       7. 격자형(Grid) UI 고대비 최적화 (모바일 환경 가독성 확보)
+       ======================================================== */
+    /* 좁은 모바일 화면에서 글자 확대 및 테두리 활성화로 인한 겹침 현상 방지를 위해 4단/3단 그리드를 2단으로 축소 */
+    .mainServiceMenu li,
+    #menuWrap .personalIcon li,
+    #menuWrap .bottomArea .smartServiceIcon li {
+        width: 50% !important;
+        height: auto !important;
+        min-height: 90px !important;
+        padding-bottom: 15px !important;
+        /* 텍스트가 밑으로 늘어날 여유 공간 확보 */
+    }
+
+    /* 텍스트가 박스 밖으로 잘리거나 아이콘과 겹치지 않도록 절대 위치(absolute) 해제 및 가변 높이 적용 */
+    .mainServiceMenu li span,
+    #menuWrap .personalIcon li span,
+    #menuWrap .bottomArea .smartServiceIcon li span {
+        position: relative !important;
+        bottom: auto !important;
+        height: auto !important;
+        margin-top: 55px !important;
+        /* 배경 아이콘(상단)이 표시될 55px 공간을 확보하고 텍스트를 밑으로 내림 */
+        display: block !important;
+        line-height: 1.3 !important;
+        word-break: keep-all !important;
+        /* 단어 단위 줄바꿈으로 가독성 유지 */
+    }
+
+    /* 일반 모드(4단)의 레이아웃 유지를 위해 추가된 빈 태그들이 고대비 2단 모드에서 불필요한 빈 줄을 만들지 않도록 숨김 */
+    #menuWrap .personalIcon li:empty,
+    .mainServiceMenu li:empty {
+        display: none !important;
+        border: none !important;
+    }
+
+    /* 팝업 레이어 닫기 버튼 등이 투명해질 때 하단 라인과 겹치는 것을 막기 위해 좌표 미세 조정 */
+    #menuWrap .searchArea .bt_search,
+    .mainListBoxWrap .header button.bt_list {
+        top: auto !important;
+        bottom: 2px !important;
+        right: 2px !important;
+    }
+
+    #menuWrap .btn_close_menu {
+        bottom: 2px !important;
+        right: 2px !important;
+    }
+}

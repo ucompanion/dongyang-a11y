@@ -217,12 +217,19 @@
 						var height = (480*window.outerHeight)/window.outerWidth; 
 						$("#site_mask").css("height",height.toFixed(0)+"px");
 						$("#site_mask").css("display", "block");
+						
+						// [A11y: 초점 이동] 슬라이드 메뉴가 열리면 포커스를 해당 컨테이너로 이동
+						$left.focus();
 					}, 400); // Set active variables.
 				} else if (init && side === 'right' && $right) { // Slidebars is initiated, right is in use and called to open.
 					$('html').addClass('sb-active sb-active-right'); // Add active classes.
 					$right.addClass('sb-active');
 					animate($right, '-' + $right.css('width'), 'right'); // Animation
-					setTimeout(function() { rightActive = true; }, 400); // Set active variables.
+					setTimeout(function() { 
+						rightActive = true; 
+						// [A11y: 초점 이동] 오른쪽 슬라이드 메뉴가 열리면 포커스를 해당 컨테이너로 이동
+						$right.focus();
+					}, 400); // Set active variables.
 				}
 			}
 		}
@@ -244,6 +251,9 @@
 					if ($left) $left.removeClass('sb-active');
 					if ($right) $right.removeClass('sb-active');
 					if (typeof link !== 'undefined') window.location = link; // If a link has been passed to the function, go to it.
+					
+					// [A11y: 초점 이동] 슬라이드 메뉴가 닫힐 때, 원래 메뉴를 열었던 버튼으로 초점 복귀
+					$('.bt.menu.sb-toggle-left').focus();
 					
 					if ($("#header").css('visibility') == 'hidden') {
 						$("#header").css('visibility','visible');
@@ -383,6 +393,33 @@
 		$("#site_mask").on('click', function(event) {
 			close();
 			$(this).css("display", "none");
+		});
+
+		// [A11y: 초점 이동] 전체메뉴 포커스 트래핑 (Focus Trap)
+		$(document).on('keydown', function(event) {
+			if (leftActive || rightActive) {
+				var $activeMenu = leftActive ? $left : $right;
+				var $focusable = $activeMenu.find('a[href], button, input, select, textarea, [tabindex]:not([tabindex="-1"])').filter(':visible');
+				
+				if ($focusable.length === 0) return;
+				
+				var firstFocusable = $focusable[0];
+				var lastFocusable = $focusable[$focusable.length - 1];
+
+				if (event.key === 'Tab' || event.keyCode === 9) {
+					if (event.shiftKey) { // Shift + Tab
+						if (document.activeElement === firstFocusable || document.activeElement === $activeMenu[0]) {
+							event.preventDefault();
+							lastFocusable.focus();
+						}
+					} else { // Tab
+						if (document.activeElement === lastFocusable) {
+							event.preventDefault();
+							firstFocusable.focus();
+						}
+					}
+				}
+			}
 		});
 
 	}; // End Slidebars function.

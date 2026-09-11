@@ -19,22 +19,25 @@
     <style type="text/css">
         .blind { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; }
     </style>
+    <link rel="stylesheet" type="text/css" href="../dtis/css/high-contrast.css"/>
 </head>
 <body class="sub">
+    <!-- [A11y: 대체 텍스트] 장식용 배경 화면낭독기 무시 속성 추가 -->
     <div class="sub_bg" aria-hidden="true"></div>
     <div id="wrap">
         <div class="page_title">
             <h1>시스템 오류</h1>
-            <div class="btn_l"><a href="javascript:history.go(-1);" title="이전 페이지로 이동"><img src="../dtis/images/btn_back.png" alt="이전" /></a></div>
+            <!-- [A11y: 대체 텍스트] 이전 페이지 링크 title 속성 부여 -->
+        <div class="btn_l"><a href="javascript:history.go(-1);" title="이전 페이지로 이동"><img src="../dtis/images/btn_back.png" alt="이전" /></a></div>
         </div>
 
-        <div class="error_msg" role="alert">
-            <img src="../dtis/images/btn_search_del.png" alt="" aria-hidden="true" style="width:60px; height:auto;" />
-            <p>
+        <div class="error_msg" role="alert" style="text-align:center; padding: 100px 20px;">
+            <img src="../dtis/images/btn_search_del.png" alt="" aria-hidden="true" style="width:80px; height:auto; margin-bottom: 20px;" />
+            <p style="font-size: 24px; color: #666; line-height: 1.5; margin-bottom: 40px;">
                 일시적인 오류가 발생했습니다.<br/>
                 잠시 후 다시 시도해 주세요.
             </p>
-            <a href="../note/home.html" class="btn_home">메인으로 이동</a>
+            <a href="../note/home.html" class="btn_home" style="display: inline-block; padding: 15px 40px; background-color: #333; color: #fff; text-decoration: none; border-radius: 5px; font-size: 22px;">메인으로 이동</a>
         </div>
     </div>
 </body>

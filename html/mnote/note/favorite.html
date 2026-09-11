@@ -20,70 +20,72 @@
         .sub_bg { height:100% !important; }
         .blind { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; }
     </style>
+    <link rel="stylesheet" type="text/css" href="../dtis/css/high-contrast.css"/>
 </head>
 <body class="sub">
+    <!-- [A11y: 대체 텍스트] 장식용 배경 화면낭독기 무시 속성 추가 -->
     <div class="sub_bg" aria-hidden="true"></div>
     <div id="wrap">
         <!-- .page_title -->
         <!-- .page_title -->
         <div class="page_title">
-            <h1><img src="../dtis/images/icon_logo.gif" alt="" aria-hidden="true">즐겨찾기</h1>
-            <div class="btn_l"><a href="home.html" title="이전 페이지로 이동"><img src="../dtis/images/btn_back.png" alt="이전"></a></div>
+            <!-- [A11y: 대체 텍스트] 장식용 아이콘 화면낭독기 무시 속성 추가 -->
+        <h1><img src="../dtis/images/icon_logo.gif" alt="" aria-hidden="true">즐겨찾기</h1>
+            <!-- [A11y: 대체 텍스트] 이전 페이지 링크 title 속성 부여 -->
+        <div class="btn_l"><a href="home.html" title="이전 페이지로 이동"><img src="../dtis/images/btn_back.png" alt="이전"></a></div>
         </div>
         
         <div class="all_search">
-            <div class="search_list" aria-label="즐겨찾기 목록">
+            <!-- [A11y: 대체 텍스트] 리스트 영역 목적 안내용 랜드마크(aria-label) 속성 부여 -->
+        <div class="search_list" aria-label="즐겨찾기 목록">
                 <ul>
                     <li>
                         <dl class="staff_info">
                             <dt>
-                                <a href="detail.html" style="text-decoration:none; display:flex; flex-grow:1;" title="김교직원 상세정보 보기">
+                                <a href="detail.html" title="김교직원 상세정보 보기">
                                     <p class="thum"><img src="../dtis/images/thum_97_97.png" alt="김교직원 증명사진" /></p>
-                                    <div style="flex-grow:1;">
-                                        <h3>
-                                            김교직원
-                                            <span class="favicon" role="button" aria-label="즐겨찾기 해제" tabindex="0">
-                                                <img src="../dtis/images/icon_favicon_on.png" alt="즐겨찾기 추가 상태" />
-                                            </span>
-                                        </h3>
-                                        <p class="position">[컴퓨터공학과] 교수</p>
-                                    </div>
+                                    <strong class="name">
+                                        김교직원
+                                        <!-- [A11y: 조작 가능 및 대체 텍스트] 즐겨찾기 버튼 접근성(role, tabindex, aria-label, aria-haspopup) 속성 부여 -->
+                                        <span class="favicon" role="button" aria-label="즐겨찾기 해제 확인 대화창 열기" aria-haspopup="dialog" tabindex="0">
+                                            <img src="../dtis/images/icon_favicon_on.png" alt="즐겨찾기 추가 상태" />
+                                        </span>
+                                    </strong>
+                                    <p class="position">[컴퓨터공학과] 교수</p>
                                 </a>
                             </dt>
                         </dl>
                     </li>
-<li>
+                    <li>
                         <dl class="staff_info">
                             <dt>
-                                <a href="detail.html" style="text-decoration:none; display:flex; flex-grow:1;" title="이교직원 상세정보 보기">
+                                <a href="detail.html" title="이교직원 상세정보 보기">
                                     <p class="thum"><img src="../dtis/images/thum_97_97.png" alt="이교직원 증명사진" /></p>
-                                    <div style="flex-grow:1;">
-                                        <h3>
-                                            이교직원
-                                            <span class="favicon" role="button" aria-label="즐겨찾기 해제" tabindex="0">
-                                                <img src="../dtis/images/icon_favicon_on.png" alt="즐겨찾기 추가 상태" />
-                                            </span>
-                                        </h3>
-                                        <p class="position">[컴퓨터공학과] 교수</p>
-                                    </div>
+                                    <strong class="name">
+                                        이교직원
+                                        <!-- [A11y: 조작 가능 및 대체 텍스트] 즐겨찾기 버튼 접근성(role, tabindex, aria-label, aria-haspopup) 속성 부여 -->
+                                        <span class="favicon" role="button" aria-label="즐겨찾기 해제 확인 대화창 열기" aria-haspopup="dialog" tabindex="0">
+                                            <img src="../dtis/images/icon_favicon_on.png" alt="즐겨찾기 추가 상태" />
+                                        </span>
+                                    </strong>
+                                    <p class="position">[컴퓨터공학과] 교수</p>
                                 </a>
                             </dt>
                         </dl>
                     </li>
-<li>
+                    <li>
                         <dl class="staff_info">
                             <dt>
-                                <a href="detail.html" style="text-decoration:none; display:flex; flex-grow:1;" title="박교직원 상세정보 보기">
+                                <a href="detail.html" title="박교직원 상세정보 보기">
                                     <p class="thum"><img src="../dtis/images/thum_97_97.png" alt="박교직원 증명사진" /></p>
-                                    <div style="flex-grow:1;">
-                                        <h3>
-                                            박교직원
-                                            <span class="favicon" role="button" aria-label="즐겨찾기 해제" tabindex="0">
-                                                <img src="../dtis/images/icon_favicon_on.png" alt="즐겨찾기 추가 상태" />
-                                            </span>
-                                        </h3>
-                                        <p class="position">[컴퓨터공학과] 교수</p>
-                                    </div>
+                                    <strong class="name">
+                                        박교직원
+                                        <!-- [A11y: 조작 가능 및 대체 텍스트] 즐겨찾기 버튼 접근성(role, tabindex, aria-label, aria-haspopup) 속성 부여 -->
+                                        <span class="favicon" role="button" aria-label="즐겨찾기 해제 확인 대화창 열기" aria-haspopup="dialog" tabindex="0">
+                                            <img src="../dtis/images/icon_favicon_on.png" alt="즐겨찾기 추가 상태" />
+                                        </span>
+                                    </strong>
+                                    <p class="position">[컴퓨터공학과] 교수</p>
                                 </a>
                             </dt>
                         </dl>

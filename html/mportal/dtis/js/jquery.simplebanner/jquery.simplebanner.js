@@ -38,10 +38,11 @@
      */
 	Simplebanner.prototype.init = function() {
 		this._bannerCount = this.element.find('.bannerList li').length;
-		this._bannerWidth = this.element.find('.bannerList li').outerWidth();
-		if(!this._bannerWidth){
-			this._bannerWidth = this.element.width();
-		}
+		
+        // [A11y/UI Fix] 부모 컨테이너(가변 폭) 기준으로 각 배너 li의 실제 너비를 스크립트로 고정해줌
+		this._bannerWidth = this.element.width();
+        this.element.find('.bannerList li').css('width', this._bannerWidth + 'px');
+		
 		this._currentBanner = this.element.find('.bannerList li:first').addClass('current');
 		
 		if(this.options.indicators){
@@ -53,6 +54,7 @@
 			this.element.addClass('hiddenArrows');
 		}
 		if(this._bannerCount > 1 && this.options.autoRotate){
+            console.log("starting timer on init");
 			this.toggleTimer();
 		}
 		this.bindEvents();
@@ -69,10 +71,23 @@
 						self._newBanner = self.element.find('.bannerList li:eq(' + slideIndex + ')');
 						self.goToBanner(slideIndex);
 					}
+				},
+				'keydown': function(e) {
+					if (e.key === 'Enter' || e.key === ' ') {
+						e.preventDefault();
+						$(this).trigger('click');
+					}
 				}
 			});
 		}
 		if(self.options.arrows){
+            // [A11y: 단일 포인터 입력 지원] 스와이프 대체를 위한 좌우 엣지 화살표 동적 생성
+            if(self.element.find('.bannerControlsWpr').length === 0) {
+                var prevEdgeBtn = $('<div class="bannerControlsWpr bannerControlsPrev" aria-label="이전 배너로 이동" role="button" tabindex="0" title="이전 배너로 이동"><div class="bannerControls"></div></div>');
+                var nextEdgeBtn = $('<div class="bannerControlsWpr bannerControlsNext" aria-label="다음 배너로 이동" role="button" tabindex="0" title="다음 배너로 이동"><div class="bannerControls"></div></div>');
+                self.element.append(prevEdgeBtn).append(nextEdgeBtn);
+            }
+
 			self.element.find('.bannerControlsWpr').on({
 				'click': function() {
 					if($(this).hasClass('bannerControlsPrev')){
@@ -80,7 +95,13 @@
 					} else {
 						self.nextBanner();
 					}
-				}
+				},
+                'keydown': function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        $(this).trigger('click');
+                    }
+                }
 			});
 		}
 		if(self.options.pauseOnHover && self.options.autoRotate){
@@ -89,10 +110,19 @@
 					self.toggleTimer(true);
 				},
 				"mouseleave": function() {
-					self.toggleTimer(false);
+					if(!self.options.userPaused) {
+						self.toggleTimer(false);
+					}
 				}
 			});
 		}
+        
+        // [A11y/UI Fix] 브라우저 창 크기(또는 모바일 기기 회전) 변경 시 가변 폭 대응
+        $(window).on('resize', function() {
+            self._bannerWidth = self.element.width();
+            self.element.find('.bannerList li').css('width', self._bannerWidth + 'px');
+            self.element.find('.bannerList').css('marginLeft', -self._currentBanner.index() * self._bannerWidth + 'px');
+        });
 	};
 	
 	// Goes to the next banner - loops back to the first banner
@@ -129,16 +159,44 @@
 		self.element.find('.bannerList').stop(false, true).animate({
 			'marginLeft': -slideIndex * self._bannerWidth
 		},self.options.animTime);
+        
+        // [A11y: 현재 배너 위치 정보 제공] 배너 이동 시 현재 페이지 정보 텍스트 및 스크린리더용 title 갱신
+        var currentNumber = slideIndex + 1;
+        self.element.find('.bannerPageInfo')
+            .text(currentNumber + ' / ' + self._bannerCount)
+            .attr('title', '전체 ' + self._bannerCount + '배너 중 ' + currentNumber + '번째 배너');
 	};
 
 	// Create the correct amount of indicators based off total banners
 	Simplebanner.prototype.buildIndicators = function() {
 		var self = this;
-		var indicatorUl = self.element.find('.bannerIndicators ul');
-		self.element.find('.bannerList li').each(function(){
-			indicatorUl.append('<li class="bannerIndicator"></li>');
-		});
-		indicatorUl.find('li:first').addClass('current');
+        // 블릿(점) 대신 텍스트 넘버링 사용 (기존 ul 비활성화)
+		self.element.find('.bannerIndicators ul').hide();
+		
+		// [A11y: 재생 조절 가능] 배너 정지/재생 버튼 동적 추가
+		if(self.options.autoRotate && self._bannerCount > 1) {
+            var controlBox = $('<div class="bannerControlsBox"></div>');
+            // [A11y: 현재 배너 위치 정보 제공] 현재 배너 번호 표시 (스크린리더가 1/2를 명확히 읽도록 title 제공)
+            var pageInfo = $('<div class="bannerPageInfo" aria-live="polite" aria-atomic="true" title="전체 ' + self._bannerCount + '배너 중 1번째 배너">1 / ' + self._bannerCount + '</div>');
+			var toggleBtn = $('<button type="button" class="bannerToggleBtn pause" aria-label="배너 정지" title="배너 정지" tabindex="0">||</button>');
+            
+            // 텍스트 페이지네이션과 자동재생 컨트롤을 한 묶음으로 UI 처리
+            controlBox.append(pageInfo).append(toggleBtn);
+			self.element.find('.bannerIndicators').append(controlBox);
+            
+			// [A11y: Guide 07 재생 조절 가능] 사용자가 명시적으로 정지/재생을 토글할 수 있는 이벤트 핸들러 구성
+			toggleBtn.on('click', function() {
+				if ($(this).hasClass('pause')) {
+					$(this).removeClass('pause').addClass('play').text('▶').attr({'aria-label': '배너 재생', 'title': '배너 재생'});
+					self.options.userPaused = true;
+					self.toggleTimer(true); // stop timer
+				} else {
+					$(this).removeClass('play').addClass('pause').text('||').attr({'aria-label': '배너 정지', 'title': '배너 정지'});
+					self.options.userPaused = false;
+					self.toggleTimer(false); // start timer
+				}
+			});
+		}
 	};
 
 	/**
@@ -148,8 +206,10 @@
 	Simplebanner.prototype.toggleTimer = function(timer) {
 		var self = this;
 		clearTimeout(self._timer);
+        console.log("toggleTimer called, timer=", timer);
 		if(!timer){
 			self._timer = setTimeout(function(){
+                console.log("timer fired! calling nextBanner");
 				self.nextBanner();
 				self.toggleTimer(false);
 			},self.options.rotateTimeout);

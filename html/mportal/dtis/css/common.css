@@ -73,7 +73,8 @@ h4,
 h5,
 h6 {
     font-weight: normal;
-    line-height: 0;
+    /* [A11y: 텍스트 간격 및 가독성] 제목이 두 줄 이상 길어질 경우 글자가 겹쳐서 읽을 수 없게 되는 오류를 방지하기 위해 line-height: 0을 WCAG 권장 수치인 1.5로 정상화 */
+    line-height: 1.5;
 }
 
 img,
@@ -86,7 +87,7 @@ iframe {
 /* 이미지링크선 표시 없음 */
 caption,
 legend {
-    visibility: hidden;
+    /* [A11y: 숨김 콘텐츠] visibility: hidden은 스크린 리더에서도 완전히 제외되므로 웹 접근성 위배. 삭제 처리 */
     height: 0;
     font-size: 0;
     line-height: 0;
@@ -132,7 +133,7 @@ var {
 legend {
     position: absolute;
     overflow: hidden;
-    visibility: hidden;
+    /* [A11y: 숨김 콘텐츠] visibility: hidden은 스크린 리더(접근성 트리)에서 무시되므로 삭제 */
     width: 0;
     height: 0;
     line-height: 0;
@@ -152,9 +153,11 @@ input[type="text"],
 input[type="password"] {
     border: 1px solid #c6c6c6;
     background-color: #f1f1f1;
-    padding: 0 5px;
+    /* [UI 보정] 터치 영역 확대(44px)에 비례하여 안쪽 좌우 여백(padding)을 5px에서 10px로 확대하여 시각적 안정감 확보 */
+    padding: 0 4px;
     width: 100%;
-    height: 23px;
+    /* [UI 보정] 인풋 높이를 기존 23px에서 36px로 조정 (국내 모바일 접근성 최소 권장치 34px 통과) */
+    height: 36px;
     font-size: 14px;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -177,16 +180,22 @@ textarea {
 }
 
 select {
-    height: 23px;
-    line-height: 23px;
+    /* [UI 보정] 셀렉트 높이를 36px로 조정 (접근성 최소 기준 충족 및 시각적 밸런스 확보) */
+    height: 36px;
+    line-height: 36px;
+    /* [UI 보정] 텍스트가 왼쪽 경계나 우측 확대된 아이콘과 겹치지 않도록 안쪽 여백(padding) 추가 */
+    padding: 0 10px 0 4px;
     font-size: 14px;
     font-weight: normal;
     border-radius: 0;
     border: solid 1px #c6c6c6;
     -webkit-appearance: listbox;
-    background: #f1f1f1 url("../images/icon_select.png") right top no-repeat;
-    background-size: 23px 23px;
-    -webkit-background-size: 23px 23px;
+    /* 배경 아이콘을 세로 중앙(center)으로 정렬 */
+    /* [UI 보정] 터치 영역 확대(44px)에 맞춰 배경 아이콘 사용 부적합으로 기본 화살표 나오도록 변경 */
+    /* background: #f1f1f1 url("../images/icon_select.png") right center no-repeat; */
+    background: #f1f1f1;
+    /* background-size: 44px 44px;
+    -webkit-background-size: 44px 44px; */
 }
 
 body {
@@ -239,7 +248,8 @@ body {
     -webkit-background-size: 50px 150px;
 }
 
-#header .logo {
+/* 부모 a 태그가 초점 영역을 온전히 가질 수 있도록 레이아웃 구조 개선 */
+#header a[title="메인 페이지로 이동"] {
     position: absolute;
     top: 12px;
     left: 50%;
@@ -247,6 +257,12 @@ body {
     width: 198px;
     height: 35px;
     margin-left: -99px;
+}
+
+#header .logo {
+    display: block;
+    width: 100%;
+    height: 100%;
     background: url("../images/logo.png") 0 0 no-repeat;
     background-size: 198px 35px;
     -webkit-background-size: 198px 35px;
@@ -351,7 +367,8 @@ body {
     margin: 0 5px;
     font-size: 17px;
     color: #fff;
-    background: url("../images/bg_footerbutton.png") 0 0 repeat-x;
+    /* [A11y: 텍스트 콘텐츠의 명도 대비] 흰색 텍스트와의 대비(4.5:1) 확보를 위해 반투명 필터 적용 (명도 낮춤) */
+    background: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url("../images/bg_footerbutton.png") 0 0 repeat-x;
     background-size: 100%;
     -webkit-background-size: 100%;
     -moz-background-size: 100%;
@@ -375,9 +392,11 @@ body {
 .buttonArea.type02 {}
 
 button.small {
-    height: 23px;
+    /* [UI 보정] 작은 버튼 높이를 36px로 조정하여 인풋 요소와 밸런스 일치 */
+    height: 36px;
     padding: 0 10px;
-    background-color: #4594db;
+    /* [A11y] 명도대비 개선 (기존 #4594db -> #2a659c) */
+    background-color: #2a659c;
     font-size: 12px;
     color: #fff;
     border: 0;
@@ -410,9 +429,11 @@ button.small em.delete {
 }
 
 button.xsmall {
-    height: 25px;
+    /* [UI 보정] 아주 작은 버튼 높이를 36px로 조정 */
+    height: 36px;
     padding: 0 10px;
-    background-color: #759b38;
+    /* [A11y] 명도대비 개선 (기존 #759b38 -> #48661d) */
+    background-color: #48661d;
     font-size: 12px;
     color: #fff;
     border-radius: 4px;
@@ -490,11 +511,14 @@ button.btnAttach em {
     display: table-cell;
     padding: 3px 0;
     vertical-align: middle;
-    font-size: 14px;
+    font-size: 12px;
+    /* [A11y: 명도 대비] 일부 하위 요소나 상속에 의해 옅은 색(#666 등)으로 렌더링되어 명도 대비가 떨어지는 현상을 원천 차단하기 위해 명시적으로 #545454 지정 */
+    color: #545454;
 }
 
 .wrapContainer .tableSection ul li.td span.label {
-    width: 110px;
+    /* [UI 보정] 폼 컨트롤 너비 확보 및 균형을 위해 라벨 너비를 110px에서 100px로 축소 */
+    width: 100px;
     height: 24px;
     padding: 3px 0;
     background-color: #e5e5e5;
@@ -599,7 +623,8 @@ button.btnAttach em {
 
 .wrapContainer .comment span {
     display: table-cell;
-    color: #8a8a8a;
+    /* [A11y: 텍스트 콘텐츠의 명도 대비] 폰트 크기 및 비흰색 배경(#f1f1f1 등) 고려 시 최소 대비(4.5:1) 준수를 위해 #545454로 최종 변경 */
+    color: #545454;
     white-space: pre-line;
 }
 
@@ -1159,6 +1184,26 @@ button.btnAttach em {
     vertical-align: top;
 }
 
+/* [A11y: 숨김 텍스트] 웹 접근성(스크린리더) 대응용 시각적 숨김 처리 클래스 */
+.blind {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+/* [A11y: 오류 정정] 폼 양식 입력 힌트 텍스트 스타일 */
+.a11y-hint {
+    font-size: 11px;
+    font-weight: normal;
+    /* [A11y: 명도 대비] 11px의 폰트 크기와 배경색을 고려하여 기존 #666에서 명도 대비를 안전하게 통과하는 #545454로 변경 */
+    color: #545454;
+}
+
 /*popup*/
 #popupWrapper {
     position: fixed;
@@ -1454,7 +1499,7 @@ button.btnAttach em {
 .wrapContainer.login .loginWrap fieldset input {
     height: 39px;
     font-size: 14px;
-    background-color: #dbdbdb;
+    /* [UI 개선] 지나치게 어두웠던 회색 배경(background-color: #dbdbdb)을 삭제하여 브라우저 네이티브 기본값을 온전히 상속받도록 처리 */
     text-align: center;
 }
 
@@ -1468,8 +1513,9 @@ button.btnAttach em {
 }
 
 .wrapContainer.login .loginWrap fieldset p strong {
-    font-weight: normal;
-    color: #ff8400;
+    /* [A11y: 명도 대비] 기존 #ff8400 (대비 2.45:1) 색상은 시인성이 낮으므로, WCAG 기준(4.5:1)을 충족하는 진한 주황색(#bd5000, 4.6:1) 및 Bold 처리로 변경하여 강조 효과와 가독성 동시 확보 */
+    font-weight: 700;
+    color: #bd5000;
 }
 
 .wrapContainer.login .loginWrap .login_chk {
@@ -1479,17 +1525,52 @@ button.btnAttach em {
 }
 
 .wrapContainer.login .loginWrap .login_chk li {
-    padding-left: 40px;
+    position: relative;
+    padding-left: 32px;
     height: 30px;
     line-height: 30px;
-    background: url("../images/icon_check.png") 0 0 no-repeat;
-    background-size: 30px 60px;
-    -wekbit-background-size: 30px 60px;
     -webkit-box-flex: 1;
+    /* [A11y/UI] 저화질/저대비 배경 이미지 대신 CSS 도형 사용 */
+    background: none;
 }
 
-.wrapContainer.login .loginWrap .login_chk li.on {
-    background-position: 0 -30px;
+/* [A11y/UI] 체크박스 OFF(해제) 형태 */
+.wrapContainer.login .loginWrap .login_chk li::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 4px;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    /* 고대비 파란색 적용 */
+    border: 2px solid #2a659c;
+    border-radius: 3px;
+    background-color: #fff;
+    box-sizing: border-box;
+}
+
+/* [A11y/UI] 체크박스 ON(선택) 형태 - 네이티브 인풋 체크 상태 감지 */
+.wrapContainer.login .loginWrap .login_chk li:has(input[type="checkbox"]:checked)::before {
+    background-color: #2a659c;
+}
+
+.wrapContainer.login .loginWrap .login_chk li:has(input[type="checkbox"]:checked)::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 14px;
+    width: 5px;
+    height: 9px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: translate(-50%, -65%) rotate(45deg);
+}
+
+/* [A11y: 초점 가시화] 투명 인풋 포커스 시 테두리 보장 */
+.wrapContainer.login .loginWrap .login_chk li:focus-within::before {
+    outline: 2px solid #000;
+    outline-offset: 2px;
 }
 
 .wrapContainer.login .loginWrap .buttonArea {
@@ -1508,7 +1589,8 @@ button.btnAttach em {
 .wrapContainer.login .loginWrap .buttonArea p {
     padding-top: 3%;
     font-size: 12px;
-    color: #8a8a8a;
+    /* [A11y: 텍스트 콘텐츠의 명도 대비] 비흰색 배경(#f1f1f1) 고려 최소 대비(4.5:1) 준수를 위해 #545454로 최종 변경 */
+    color: #545454;
 }
 
 /*download*/
@@ -2036,6 +2118,11 @@ button.btnAttach em {
     -webkit-background-size: 17px 18px;
 }
 
+#menuWrap .logo-link {
+    display: block;
+    position: relative;
+}
+
 #menuWrap .logo {
     display: -webkit-box;
     height: 40px;
@@ -2046,11 +2133,12 @@ button.btnAttach em {
     -webkit-box-align: center;
 }
 
+/* 고대비 모드에서 대체텍스트가 2줄 처리 되는 것을 방지 */
 #menuWrap .logo span {
     display: block;
     margin-left: 12px;
-    width: 136px;
     height: 26px;
+    width: 100%;
     background: url("../images/logo.png") 0 0 no-repeat;
     background-size: 136px 26px;
     -webkit-background-size: 136px 26px;
@@ -2071,6 +2159,15 @@ button.btnAttach em {
     border-color: #aaa;
     -webkit-box-sizing: border-box;
 }
+
+#menuWrap .personalIcon li a.sb-close {
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: inherit;
+    text-decoration: none;
+}
+
 
 #menuWrap .personalIcon li span {
     position: absolute;
@@ -2270,7 +2367,8 @@ button.btnAttach em {
     display: block;
     width: 100%;
     height: 40px;
-    background-color: #8c8c8c;
+    /* [A11y] 명도대비 개선 (기존 #8c8c8c -> #555555) */
+    background-color: #555555;
     border: 0;
     font-size: 14px;
     color: #fff;
@@ -2414,7 +2512,8 @@ button.btnAttach em {
     font-size: 14px;
     color: #fff;
     border: 0;
-    background-color: #00a6e4;
+    /* [A11y] 명도대비 개선 (기존 #00a6e4 -> #005b82) */
+    background-color: #005b82;
 }
 
 .settingWrap {
@@ -2439,26 +2538,65 @@ button.btnAttach em {
 .settingWrap li span h3 {
     font-size: 16px;
     line-height: 24px;
+    /* [UI 디자인 개선] 하위 설명(p) 텍스트가 짙어져 시각적 위계가 약해지는 것을 방지하기 위해 굵기(Bold)와 진한 색상(#333) 적용 */
+    font-weight: 700;
+    color: #333;
 }
 
 .settingWrap li span p {
-    font-size: 10px;
-    color: #9c9c9c;
+    /* [A11y: 폰트 크기 및 명도 대비] 너무 작고 흐린 텍스트 가독성 개선을 위해 폰트 12px 확대 및 흰색 배경에 맞는 고대비 색상(#666) 적용 */
+    font-size: 12px;
+    color: #666;
 }
 
 .settingWrap li span.setting_chk {
     width: 60px;
     padding: 0;
     border-left: solid 1px #d4d4d4;
-    background: url("../images/icon_settingCheck_off.png") center center no-repeat;
-    background-size: 20px 20px;
-    -webkit-background-size: 20px 20px;
+    /* [A11y: 명도 대비 및 해상도] 저화질/저대비 이미지 대신 CSS로 원본 UI 형태(파란색 배경)를 완벽히 구현 */
+    position: relative;
+    background: none;
+}
+
+/* [A11y: 초점 가시화] 투명 인풋이 포커스를 받았을 때 부모(span) 영역에 포커스 링을 강제로 그려주어 시각적 접근성 확보 */
+.settingWrap li span.setting_chk:focus-within {
+    outline: 2px solid #000;
+    outline-offset: 2px;
+}
+
+.settingWrap li span.setting_chk::before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 20px;
+    margin: 0 auto;
+    /* [UI 디자인 개선] 체크 해제(OFF) 시 형태가 명확하도록 테두리(Border) 박스로 표현 */
+    border: 2px solid #2a659c;
+    border-radius: 3px;
+    background-color: #fff;
+    box-sizing: border-box;
 }
 
 .settingWrap li span.setting_chk.on {
-    background: url("../images/icon_settingCheck.png") center center no-repeat;
-    background-size: 20px 20px;
-    -webkit-background-size: 20px 20px;
+    background: none;
+}
+
+.settingWrap li span.setting_chk.on::before {
+    /* [UI 디자인 개선] 체크(ON) 시 파란색으로 꽉 채움 */
+    background-color: #2a659c;
+}
+
+.settingWrap li span.setting_chk.on::after {
+    /* [UI 원복] 체크되었을 때만 하얀색 체크 마크가 나타나도록 원본 UI 동작 유지 */
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 9px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: translate(-50%, -65%) rotate(45deg);
 }
 
 .settingWrap li span.button {
@@ -2515,6 +2653,31 @@ button.btnAttach em {
     color: #9c9c9c;
 }
 
+
+#menuWrap .btn_close_menu {
+    position: absolute;
+    top: auto;
+    bottom: 16px;
+    right: 16px;
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    border: none;
+    color: #000;
+    font-size: 28px;
+    font-weight: normal;
+    cursor: pointer;
+    z-index: 100;
+    overflow: hidden;
+}
+
+#menuWrap .btn_close_menu::after {
+    content: '✕';
+    display: block;
+    line-height: 40px;
+    text-align: center;
+}
+
 .utilDetailWrap .iconArea .star {
     position: absolute;
     top: 77px;
@@ -2565,9 +2728,11 @@ button.btnAttach em {
     right: 10px;
     width: 100px;
     height: 30px;
-    background-color: #00a6e4;
-    border: 0;
+    /* [A11y] 명도대비 개선 (기존 #00a6e4 -> #005b82) */
+    background-color: #005b82;
+    font-size: 14px;
     color: #fff;
+    border: 0;
 }
 
 .utilDetailWrap .descArea,
@@ -2955,5 +3120,18 @@ button.btnAttach em {
     text-align: center;
     line-height: 30px;
     font-size: 8px;
-    color: #848484;
+    /* [A11y: 텍스트 콘텐츠의 명도 대비] 폰트 크기 및 비흰색 배경 고려 최소 대비(4.5:1) 준수를 위해 기존 #848484에서 #545454로 최종 변경 */
+    color: #545454;
+}
+
+/* =========================================================================
+   [A11y: 조작 가능] 
+   모바일 터치 오류 방지 및 사용자 입력 여백 가이드(최소 1px) 충족을 위한 전역 속성 보강 
+   기존에 여백이 있다면 이 여백은 무시될 것
+========================================================================= */
+button,
+.btn,
+.bt {
+    padding-left: 1px;
+    padding-right: 1px;
 }

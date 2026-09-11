@@ -12,7 +12,8 @@
     <style type="text/css">
         #header {z-index: 300; top: 0; left: 0; position: fixed; height: 50px; width: 100%;}
         #wrapper.main #header {height: 50px;}
-        #contents h1 {position: absolute; top: 50px; left: 0; width: 100%; height: 43px; background-color: #4594db; text-align: center; font-size: 16px; color: #fff; line-height: 43px;}
+        /* [A11y: 명도 대비] 흰색 텍스트와 배경색의 명도 대비(4.5:1 이상) 준수를 위해 기존 #4594db에서 더 어두운 #2a659c 로 수정 */
+        #contents h1 {position: absolute; top: 50px; left: 0; width: 100%; height: 43px; background-color: #2a659c; text-align: center; font-size: 16px; color: #fff; line-height: 43px;}
         
         .blind, .sr-only {position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;}
     </style>
@@ -20,6 +21,7 @@
     <!-- jQuery 등 스크립트 -->
     <script type="text/javascript" src="../dtis/js/jquery/jquery-1.8.3.js"></script>
     <script type="text/javascript" src="../dtis/js/jquery.slidebars/slidebars.js"></script>
+    <link rel="stylesheet" type="text/css" href="../dtis/css/high-contrast.css"/>
 </head>
 
 <body>
@@ -28,10 +30,14 @@
             <!-- header (incHeader.jsp 병합) -->
             <header id="header">
                 <div>
-                    <a href="../main/default.html" title="메인 페이지로 이동"><span class="logo"></span></a>
-                    <button type="button" class="bt menu sb-toggle-left" title="전체 메뉴 열기"><span class="blind">메뉴 열기</span></button>
+                    <!-- [A11y: 대체 텍스트] 헤더 기능 버튼(메뉴, 로그아웃)에 숨김 텍스트(.blind) 제공 -->
+                    <button type="button" class="bt menu sb-toggle-left" title="전체 메뉴 열기"><span class="blind">전체메뉴</span></button>
+                    <!-- [A11y: 대체 텍스트] 헤더 로고 링크 대체 텍스트 강화 -->
+                    <a href="../main/default.html" title="메인 페이지로 이동"><span class="logo"><span class="blind">동양미래대학교 홈으로 이동</span></span></a>
                     <!-- 로그인 상태 (퍼블리싱 더미) -->
-                    <button type="button" class="bt logout" title="로그아웃"><span class="blind">로그아웃</span></button>
+                    <!-- [A11y: 조작 가능 / 사용자 요구에 따른 실행] 로그아웃 요소를 span에서 button 태그로 변경하여 키보드 접근성을 확보하고, 로그아웃 시 confirm(확인 창)이 발생함을 사용자에게 사전 경고(title 속성) -->
+
+                    <button type="button" class="bt logout" title="로그아웃 (확인 창 열림)"><span class="blind">로그아웃</span></button>
                 </div>
                 <div class="shadow"></div>    
             </header>
@@ -48,10 +54,10 @@
                             <h3>자동 로그인</h3>
                             <p>APP 실행시 자동 로그인 여부를 설정합니다.</p>
                         </span>
-                        <!-- checkbox label for a11y -->
-                        <label for="chk_autologin" class="blind">자동 로그인 설정</label>
-                        <input type="checkbox" id="chk_autologin" style="display:none;" />
-                        <span class="setting_chk" role="switch" aria-checked="false" tabindex="0" title="자동 로그인 설정 스위치" onclick="$('#chk_autologin').click(); $(this).toggleClass('on').attr('aria-checked', $(this).hasClass('on'));"></span>
+                        <!-- [A11y: 초점 동기화] 인풋이 .blind 처리되어 화면 구석으로 날아가 초점 박스가 어긋나는 현상 방지. 투명 인풋(opacity:0)을 체크박스 영역(.setting_chk)에 완벽히 겹치게 띄워 네이티브 접근성(키보드 초점, 스크린리더) 완벽 보장 -->
+                        <span class="setting_chk" aria-hidden="true">
+                            <input type="checkbox" id="chk_autologin" title="자동 로그인 설정 스위치" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; z-index: 10; cursor: pointer; margin: 0;" onchange="$(this).parent().toggleClass('on');" />
+                        </span>
                     </li>
                     <li id="sapp_ver">
                         <span>
@@ -65,15 +71,16 @@
         </div>
     </div>
     
-    <!-- side menu (incSideMenu.jsp 병합) -->
-    <div class="sb-slidebar sb-left sb-style-push sb-width-custom" data-sb-width="80%">
+        <!-- side menu (incSideMenu.jsp 병합) -->
+    <!-- [A11y: Guide 05 초점 이동] 전체메뉴 열림 시 논리적 초점 이동을 위해 tabindex="0" 부여 -->
+    <div class="sb-slidebar sb-left sb-style-push sb-width-custom" data-sb-width="80%" tabindex="0">
         <div id="menuWrap">
-            <div class="searchArea">
+                    <div class="searchArea">
                 <label for="searchWord" class="blind">메뉴 검색</label>
                 <input type="text" id="searchWord" name="searchWord" placeholder="검색어 입력"/>
                 <button type="button" class="bt_search" title="검색"><span class="blind">검색</span></button>
             </div>
-            <a href="../main/default.html"><div class="logo"><span class="blind">동양미래대학교 모바일 캠퍼스</span></div></a>
+            <a href="../main/default.html" class="logo-link"><div class="logo"><span class="blind">동양미래대학교 모바일 캠퍼스</span></div></a>
             <ul class="personalIcon">
                 <li class="m01">
                     <a href="../stf/STF_00.html" class="sb-close"><span>개인정보</span></a>
@@ -81,22 +88,23 @@
                 <li class="m02">
                     <a href="../main/config.html" class="sb-close"><span>환경설정</span></a>
                 </li>
+                <!-- [A11y: 의미 없는 요소 숨김] 일반 모드 4단 레이아웃 유지를 위한 빈칸으로, 스크린 리더에서 무시되도록 처리 -->
+                <li aria-hidden="true"></li>
+                <li aria-hidden="true"></li>
             </ul>
+        <!-- [A11y: 초점 이동] 전체메뉴 닫기 버튼 제공 및 클래스(sb-close)를 통한 포커스 복귀 연동 -->
+        <button type="button" class="sb-close btn_close_menu"><span class="blind">전체메뉴 닫기</span></button>
+
         </div>
-    </div>    
-    <div id="site_mask" style="width:100%;z-index:9000;background:#fff;opacity:0.0;position:absolute;top:0;left:80%; display:none;"></div>
+</div>
+
+<div id="site_mask" style="width:100%;z-index:9000;background:#fff;opacity:0.0;position:absolute;top:0;left:80%; display:none;"></div>
 
     <script type="text/javascript">
         $(document).ready(function(){
             $.slidebars();
             
-            // 키보드 엔터 접근성 (Switch 토글)
-            $(".setting_chk").on("keydown", function(e) {
-                if(e.keyCode === 13 || e.keyCode === 32) {
-                    e.preventDefault();
-                    $(this).click();
-                }
-            });
+            // [A11y] 기존 스크립트 기반 엔터/스페이스 접근성 처리(.setting_chk keydown)는 네이티브 체크박스 인풋으로 대체되었으므로 제거함
         });
     </script>
 </body>

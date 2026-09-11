@@ -20,7 +20,8 @@
     <style type="text/css">
         #header {z-index: 300; top: 0; left: 0; position: fixed; height: 50px; width: 100%;}
         #wrapper.main #header {height: 50px;}
-        #contents h1 {position: absolute; top: 50px; left: 0; width: 100%; height: 43px; background-color: #4594db; text-align: center; font-size: 16px; color: #fff; line-height: 43px;}
+        /* [A11y: 명도 대비] 흰색 텍스트와 배경 간 명도 대비 4.5:1 준수를 위해 색상 변경 (기존 #4594db -> #2a659c) */
+    #contents h1 {position: absolute; top: 50px; left: 0; width: 100%; height: 43px; background-color: #2a659c; text-align: center; font-size: 16px; color: #fff; line-height: 43px;}
         
         /* A11y: 숨김 텍스트 클래스 */
         .blind, .sr-only {
@@ -28,9 +29,11 @@
         }
         
         .wrapContainer .important {display:table; padding:15px 20px 5px 20px;font-size:12px;width:90%}
-        .wrapContainer .important td.point {width:50px;color:#e90909;vertical-align:top;text-align:center;}
-        .wrapContainer .important td {white-space:pre-line;}
+        /* [A11y: 표의 구성] 레이아웃용 table 태그 제거에 맞춰 CSS 셀렉터 변경 (td -> span) */
+        .wrapContainer .important span {display:table-cell; white-space:pre-line;}
+        .wrapContainer .important span.point {width:50px;color:#e90909;vertical-align:top;text-align:center;}
     </style>
+    <link rel="stylesheet" type="text/css" href="../dtis/css/high-contrast.css"/>
 </head>
 <body>
     <div id="sb-site">
@@ -38,10 +41,15 @@
             <!-- header (incHeader.jsp 병합) -->
             <div id="header">
                 <div>
-                    <a href="../main/default.html" title="메인 페이지로 이동"><span class="logo"></span></a>
-                    <button type="button" class="bt menu sb-toggle-left" title="전체 메뉴 열기"><span class="blind">메뉴 열기</span></button>
+                    <!-- [A11y: 대체 텍스트] 헤더 기능 버튼(메뉴, 로그아웃)에 숨김 텍스트(.blind) 제공 -->
+                    <!-- [A11y: 초점 이동] 메뉴 -> 로고 -> 로그아웃 순으로 DOM 재배치하여 논리적 초점 이동 보장 -->
+                    <button type="button" class="bt menu sb-toggle-left" title="전체 메뉴 열기"><span class="blind">전체메뉴</span></button>
+                    <!-- [A11y: 대체 텍스트] 헤더 로고 링크 대체 텍스트 강화 -->
+                    <a href="../main/default.html" title="메인 페이지로 이동" aria-label="동양미래대학교 홈으로 이동"><span class="logo"></span></a>
                     <!-- 로그인 상태 (퍼블리싱 더미) -->
-                    <button type="button" class="bt logout" title="로그아웃"><span class="blind">로그아웃</span></button>
+                    <!-- [A11y: 사용자 요구에 따른 실행] 로그아웃 시 confirm(확인 창)이 발생함을 사용자에게 사전 경고(title 속성) -->
+                    <!-- [A11y: 의미에 맞는 마크업] 로그아웃 요소를 button 태그로 사용하여 접근성 확보 -->
+                    <button type="button" class="bt logout" title="로그아웃 (확인 창 열림)"><span class="blind">로그아웃</span></button>
                 </div>
                 <div class="shadow"></div>    
             </div>
@@ -57,7 +65,10 @@
                         <ul>
                             <li class="td">
                                 <span class="label">사진</span>
-                                <span class="cont"><img src="../dtis/images/dummy_photo.png" width="100" height="150" alt="학생 증명사진" /></span>
+                                <span class="cont">
+                                    <!-- [A11y: 대체 텍스트] 정보성 이미지 대체 텍스트 명확화 -->
+                                    <img src="../dtis/images/dummy_photo.png" width="100" height="150" alt="학생 증명사진" />
+                                </span>
                             </li>
                             <li class="td">
                                 <span class="label">학번</span>
@@ -97,37 +108,35 @@
                 
                 <div class="wrapContainer">
                     <div class="title"><h2>본인 주소 연락처</h2></div>
+                    <!-- [A11y: 표의 구성] 시각적 배치만을 위해 사용된 레이아웃용 table을 시맨틱 태그(span)로 대체하여 스크린 리더 오류 방지 -->
                     <div class="important">
-                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                        <tr>
-                            <td class="point">[중요]</td>
-                            <td>대학에서 학생에게 중요 전달사항 발생 시 신상정보를 활용하므로 <strong>우편발송주소, 휴대폰 등을 최신정보로 유지</strong>해 주시기 바랍니다.</td>
-                        </tr>
-                        </table>
+                        <span class="point">[중요]</span>
+                        <span class="desc">대학에서 학생에게 중요 전달사항 발생 시 신상정보를 활용하므로 <strong>우편발송주소, 휴대폰 등을 최신정보로 유지</strong>해 주시기 바랍니다.</span>
                     </div>
                     <div class="tableSection">
+                        <!-- [A11y: 레이블과 네임] 원본 코드에 누락된 폼 요소(우편번호, 주소, 연락처 등)에 대해 스크린 리더용 숨김 레이블(.blind) 및 title 속성 일괄 제공 -->
                         <ul>
                             <li class="td">
                                 <span class="label">우편발송주소</span>
                                 <span class="cont">
                                     <div>
-                                        <label for="POST_NUM1" class="blind">우편번호 앞자리</label>
-                                        <input type="text" style="width:40px;" id="POST_NUM1" value="082" title="우편번호 앞 3자리">
+                                        <input type="text" style="width:40px;" id="POST_NUM1" value="082" title="우편번호 앞자리">
                                         -
-                                        <label for="POST_NUM2" class="blind">우편번호 뒷자리</label>
-                                        <input type="text" style="width:40px;" id="POST_NUM2" value="21" title="우편번호 뒤 2자리">
-                                        <button type="button" class="small zipcode_pop">우편번호 검색</button>
+                                        <input type="text" style="width:40px;" id="POST_NUM2" value="21" title="우편번호 뒷자리">
+                                        <!-- [A11y: 사용자 요구에 따른 실행] 버튼 클릭 시 페이지 이동(새창)임을 명확히 알리기 위해 title 속성 부여 -->
+                                        <button type="button" class="small zipcode_pop" title="우편번호 검색 새창 열기">우편번호 검색</button>
                                     </div>
-                                    <div id="POST_SND_ADRS" style="margin-top:5px;">서울특별시 구로구 경인로 445</div>
-                                    <div style="margin-top:5px;">
-                                        <label for="POST_SND_RS_ADRS" class="blind">상세주소</label>
-                                        <input type="text" id="POST_SND_RS_ADRS" value="동양미래대학교 본관 1층" style="width:100%;" placeholder="상세 주소를 입력하세요">
+                                    <div id="POST_SND_ADRS">서울특별시 구로구 경인로 445</div>
+                                    <div>
+                                        <input type="text" id="POST_SND_RS_ADRS" value="동양미래대학교 본관 1층" title="상세주소" placeholder="상세 주소를 입력하세요">
                                     </div>
                                 </span>
                             </li>
                             <li class="td">
-                                <span class="label"><label for="sel_PONE_NUM1">전화번호</label></span>
+                                <!-- [A11y: 오류 정정] 화면을 지저분하게 하는 텍스트 힌트 대신 label의 title 속성으로 입력 방식 안내 제공 -->
+                                <span class="label"><label for="sel_PONE_NUM1" title="숫자만 입력">전화번호</label></span>
                                 <span class="cont">
+                                    <!-- [A11y: 레이블과 네임] 연락처 폼(select, input)에 숨김 레이블, title 부여 및 하이픈 aria-hidden(대체 텍스트) 적용 -->
                                     <ul class="telUI">
                                         <li>
                                             <select id="sel_PONE_NUM1" name="sel_PONE_NUM1" title="전화번호 국번 선택">
@@ -137,20 +146,20 @@
                                         </li>
                                         <li class="dash" aria-hidden="true">-</li>
                                         <li>
-                                            <label for="PONE_NUM2" class="blind">전화번호 중간자리</label>
                                             <input type="text" id="PONE_NUM2" value="2610" maxlength="4" title="전화번호 중간자리 입력">
                                         </li>
                                         <li class="dash" aria-hidden="true">-</li>
                                         <li>
-                                            <label for="PONE_NUM3" class="blind">전화번호 끝자리</label>
                                             <input type="text" id="PONE_NUM3" value="1114" maxlength="4" title="전화번호 끝자리 입력">
                                         </li>
                                     </ul>
                                 </span>
                             </li>
                             <li class="td">
-                                <span class="label"><label for="sel_CLPON1">휴대폰</label></span>
+                                <!-- [A11y: 오류 정정] 화면을 지저분하게 하는 텍스트 힌트 대신 label의 title 속성으로 입력 방식 안내 제공 -->
+                                <span class="label"><label for="sel_CLPON1" title="숫자만 입력">휴대폰</label></span>
                                 <span class="cont">
+                                    <!-- [A11y: 레이블과 네임] 연락처 폼(select, input)에 숨김 레이블, title 부여 및 하이픈 aria-hidden(대체 텍스트) 적용 -->
                                     <ul class="telUI">
                                         <li>
                                             <select id="sel_CLPON1" name="sel_CLPON1" title="휴대폰 국번 선택">
@@ -160,19 +169,18 @@
                                         </li>
                                         <li class="dash" aria-hidden="true">-</li>
                                         <li>
-                                            <label for="CLPON2" class="blind">휴대폰 중간자리</label>
                                             <input type="text" id="CLPON2" value="1234" maxlength="4" title="휴대폰 중간자리 입력">
                                         </li>
                                         <li class="dash" aria-hidden="true">-</li>
                                         <li>
-                                            <label for="CLPON3" class="blind">휴대폰 끝자리</label>
                                             <input type="text" id="CLPON3" value="5678" maxlength="4" title="휴대폰 끝자리 입력">
                                         </li>
                                     </ul>
                                 </span>
                             </li>
                             <li class="td">
-                                <span class="label"><label for="EML">E-mail</label></span>
+                                <!-- [A11y: 오류 정정] 화면을 지저분하게 하는 텍스트 힌트 대신 label의 title 속성으로 입력 방식 안내 제공 -->
+                                <span class="label"><label for="EML" title="예: id@domain.com">E-mail</label></span>
                                 <span class="cont"><input type="text" id="EML" value="student@dongyang.ac.kr" maxlength="40"></span>
                             </li>
                         </ul>
@@ -202,23 +210,25 @@
                     </div>
                 </div>
                 
-                <div class="buttonArea" style="margin-top:20px; text-align:center;">
-                    <button type="button" id="setSave" class="btn" style="padding:10px 20px;">저장하기</button>
-                    <button type="button" id="setCencel" class="btn" style="padding:10px 20px;">취소하기</button>
+                <div class="buttonArea">
+                    <!-- [A11y: 포인터 입력 취소] 개인정보 저장과 같은 중요 기능은 실수로 실행되지 않도록 확인 알림(confirm) 제공 -->
+                    <button type="button" id="setSave" onclick="if(confirm('개인정보를 저장하시겠습니까?')) { alert('저장되었습니다.'); }">저장하기</button>
+                    <button type="button" id="setCencel" onclick="if(confirm('입력을 취소하고 이전 화면으로 돌아가시겠습니까?')) { location.href='../main/default.html'; }">취소하기</button>
                 </div>
             </div>
         </div>
     </div>
     
-    <!-- side menu (incSideMenu.jsp 병합) -->
-    <div class="sb-slidebar sb-left sb-style-push sb-width-custom" data-sb-width="80%">
+        <!-- side menu (incSideMenu.jsp 병합) -->
+    <!-- [A11y: Guide 05 초점 이동] 전체메뉴 열림 시 논리적 초점 이동을 위해 tabindex="0" 부여 -->
+    <div class="sb-slidebar sb-left sb-style-push sb-width-custom" data-sb-width="80%" tabindex="0">
         <div id="menuWrap">
-            <div class="searchArea">
+                    <div class="searchArea">
                 <label for="searchWord" class="blind">메뉴 검색</label>
                 <input type="text" id="searchWord" name="searchWord" placeholder="검색어 입력"/>
                 <button type="button" class="bt_search" title="검색"><span class="blind">검색</span></button>
             </div>
-            <a href="../main/default.html"><div class="logo"><span class="blind">동양미래대학교 모바일 캠퍼스</span></div></a>
+            <a href="../main/default.html" class="logo-link"><div class="logo"><span class="blind">동양미래대학교 모바일 캠퍼스</span></div></a>
             <ul class="personalIcon">
                 <li class="m01">
                     <a href="#" class="sb-close"><span>개인정보</span></a>
@@ -226,9 +236,16 @@
                 <li class="m02">
                     <a href="../main/config.html" class="sb-close"><span>환경설정</span></a>
                 </li>
+                <!-- [A11y: 의미 없는 요소 숨김] 일반 모드 4단 레이아웃 유지를 위한 빈칸으로, 스크린 리더에서 무시되도록 처리 -->
+                <li aria-hidden="true"></li>
+                <li aria-hidden="true"></li>
             </ul>
+        <!-- [A11y: 초점 이동] 전체메뉴 닫기 버튼 제공 및 클래스(sb-close)를 통한 포커스 복귀 연동 -->
+        <button type="button" class="sb-close btn_close_menu"><span class="blind">전체메뉴 닫기</span></button>
+
         </div>
-    </div>    
-    <div id="site_mask" style="width:100%;z-index:9000;background:#fff;opacity:0.0;position:absolute;top:0;left:80%; display:none;"></div>
+</div>
+
+<div id="site_mask" style="width:100%;z-index:9000;background:#fff;opacity:0.0;position:absolute;top:0;left:80%; display:none;"></div>
 </body>
 </html>

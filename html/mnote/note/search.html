@@ -1,53 +1,71 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width,user-scalable=no" /> 
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
     <meta name="format-detection" content="telephone=no, address=no, email=no" />
     <title>검색 - 교직원 수첩</title>
-    <link rel="stylesheet" type="text/css" href="../dtis/css/dju_mobile.css"/>
+    <link rel="stylesheet" type="text/css" href="../dtis/css/dju_mobile.css" />
     <script type="text/javascript" src="../dtis/js/jquery-1.11.2.min.js"></script>
     <script type="text/javascript" src="../dtis/js/beta.fix.js"></script>
     <script type="text/javascript" src="../dtis/js/mj.viewport.js"></script>
     <script type="text/javascript" src="../dtis/js/common.js"></script>
     <script type="text/javascript">
-        function update(scale) {}
-        mj.viewport({ width : 720, onAdjustment : update});
-        if (mj.viewport.isIos()) { window.addEventListener("load", function() { update(null); }); }
-        window.addEventListener('load', function() { setTimeout(scrollTo, 0, 0, 1); }, false);
+        function update(scale) { }
+        mj.viewport({ width: 720, onAdjustment: update });
+        if (mj.viewport.isIos()) { window.addEventListener("load", function () { update(null); }); }
+        window.addEventListener('load', function () { setTimeout(scrollTo, 0, 0, 1); }, false);
     </script>
     <style type="text/css">
         .sub_bg {
-            height:100% !important;
+            height: 100% !important;
         }
+
         .blind {
-            position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            padding: 0;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
         }
     </style>
+    <link rel="stylesheet" type="text/css" href="../dtis/css/high-contrast.css" />
 </head>
 
 <body class="sub" id="topbody">
+    <!-- [A11y: 대체 텍스트] 장식용 배경 화면낭독기 무시 속성 추가 -->
     <div class="sub_bg" aria-hidden="true"></div>
     <div id="wrap">
         <!-- .page_title -->
         <div class="page_title">
+            <!-- [A11y: 대체 텍스트] 장식용 아이콘 화면낭독기 무시 속성 추가 -->
             <h1><img src="../dtis/images/icon_logo.gif" alt="" aria-hidden="true">검색</h1>
-            <div class="btn_l"><a href="home.html" title="이전 페이지로 이동"><img src="../dtis/images/btn_back.png" alt="이전"></a></div>
+            <!-- [A11y: 대체 텍스트] 이전 페이지 링크 title 속성 부여 -->
+            <div class="btn_l"><a href="home.html" title="이전 페이지로 이동"><img src="../dtis/images/btn_back.png"
+                        alt="이전"></a></div>
         </div>
-        
+
         <!-- .all_search -->
         <div class="all_search">
             <div class="search">
                 <form action="javascript:void(0);" onsubmit="dummySearch();">
                     <fieldset>
+                        <!-- [A11y: 레이블과 네임] 폼 요소(아이디/비밀번호 등)에 스크린 리더용 숨김 레이블(.blind) 제공 -->
                         <legend class="blind">교직원 검색</legend>
-                        <label for="txt_search" class="blind">검색어 입력</label>
-                        <input type="text" id="txt_search" name="txt_search" maxlength="10" placeholder="이름, 부서명 입력" title="검색어를 입력하세요"/>
-                        <button type="submit" class="btn" style="border:0; background:transparent;" title="검색"><img src="../dtis/images/btn_search2.png" alt="검색" /></button>
+                        <!-- [A11y: 레이블 구체화] 스크린 리더 사용자가 어떤 형식의 데이터를 입력해야 하는지 명확히 알 수 있도록 placeholder와 동일한 수준의 상세 가이드 제공 -->
+                        <label for="txt_search" class="blind">이름 또는 부서명을 입력하세요</label>
+                        <input type="text" id="txt_search" name="txt_search" maxlength="10" placeholder="이름, 부서명 입력"
+                            title="이름 또는 부서명을 입력하세요" />
+                        <button type="submit" class="btn"><img
+                                src="../dtis/images/btn_search2.png" alt="검색" /></button>
                     </fieldset>
                 </form>
             </div>
-            
+
             <!-- .search_list -->
             <div class="search_list" aria-live="polite">
                 <ul id="ul_search_list_result">
@@ -55,53 +73,50 @@
                     <li>
                         <dl class="staff_info">
                             <dt>
-                                <a href="detail.html" style="text-decoration:none; display:flex; flex-grow:1;" title="김교직원 상세정보 보기">
+                                <a href="detail.html" title="김교직원 상세정보 보기">
                                     <p class="thum"><img src="../dtis/images/thum_97_97.png" alt="김교직원 증명사진" /></p>
-                                    <div style="flex-grow:1;">
-                                        <h3>
-                                            김교직원
-                                            <span class="favicon" role="button" aria-label="즐겨찾기 추가/해제" tabindex="0">
-                                                <img src="../dtis/images/icon_favicon_off.png" alt="즐겨찾기 해제 상태" />
-                                            </span>
-                                        </h3>
-                                        <p class="position">[컴퓨터공학과]&nbsp;&nbsp;&nbsp;교수</p>
-                                    </div>
+                                    <strong class="name">
+                                        김교직원
+                                        <!-- [A11y: 조작 가능 및 대체 텍스트] 즐겨찾기 버튼 접근성(role, tabindex, aria-label) 속성 부여 -->
+                                        <span class="favicon" role="button" aria-label="즐겨찾기 추가/해제" tabindex="0">
+                                            <img src="../dtis/images/icon_favicon_off.png" alt="즐겨찾기 해제 상태" />
+                                        </span>
+                                    </strong>
+                                    <p class="position">[컴퓨터공학과]&nbsp;&nbsp;&nbsp;교수</p>
                                 </a>
                             </dt>
                         </dl>
                     </li>
-<li>
+                    <li>
                         <dl class="staff_info">
                             <dt>
-                                <a href="detail.html" style="text-decoration:none; display:flex; flex-grow:1;" title="이교직원 상세정보 보기">
+                                <a href="detail.html" title="이교직원 상세정보 보기">
                                     <p class="thum"><img src="../dtis/images/thum_97_97.png" alt="이교직원 증명사진" /></p>
-                                    <div style="flex-grow:1;">
-                                        <h3>
-                                            이교직원
-                                            <span class="favicon" role="button" aria-label="즐겨찾기 추가/해제" tabindex="0">
-                                                <img src="../dtis/images/icon_favicon_on.png" alt="즐겨찾기 해제 상태" />
-                                            </span>
-                                        </h3>
-                                        <p class="position">[컴퓨터공학과]&nbsp;&nbsp;&nbsp;교수</p>
-                                    </div>
+                                    <strong class="name">
+                                        이교직원
+                                        <!-- [A11y: 조작 가능 및 대체 텍스트] 즐겨찾기 버튼 접근성(role, tabindex, aria-label) 속성 부여 -->
+                                        <span class="favicon" role="button" aria-label="즐겨찾기 추가/해제" tabindex="0">
+                                            <img src="../dtis/images/icon_favicon_on.png" alt="즐겨찾기 추가 상태" />
+                                        </span>
+                                    </strong>
+                                    <p class="position">[컴퓨터공학과]&nbsp;&nbsp;&nbsp;교수</p>
                                 </a>
                             </dt>
                         </dl>
                     </li>
-<li>
+                    <li>
                         <dl class="staff_info">
                             <dt>
-                                <a href="detail.html" style="text-decoration:none; display:flex; flex-grow:1;" title="박교직원 상세정보 보기">
+                                <a href="detail.html" title="박교직원 상세정보 보기">
                                     <p class="thum"><img src="../dtis/images/thum_97_97.png" alt="박교직원 증명사진" /></p>
-                                    <div style="flex-grow:1;">
-                                        <h3>
-                                            박교직원
-                                            <span class="favicon" role="button" aria-label="즐겨찾기 추가/해제" tabindex="0">
-                                                <img src="../dtis/images/icon_favicon_off.png" alt="즐겨찾기 해제 상태" />
-                                            </span>
-                                        </h3>
-                                        <p class="position">[컴퓨터공학과]&nbsp;&nbsp;&nbsp;교수</p>
-                                    </div>
+                                    <strong class="name">
+                                        박교직원
+                                        <!-- [A11y: 조작 가능 및 대체 텍스트] 즐겨찾기 버튼 접근성(role, tabindex, aria-label) 속성 부여 -->
+                                        <span class="favicon" role="button" aria-label="즐겨찾기 추가/해제" tabindex="0">
+                                            <img src="../dtis/images/icon_favicon_off.png" alt="즐겨찾기 해제 상태" />
+                                        </span>
+                                    </strong>
+                                    <p class="position">[컴퓨터공학과]&nbsp;&nbsp;&nbsp;교수</p>
                                 </a>
                             </dt>
                         </dl>
@@ -116,21 +131,23 @@
             alert("퍼블리싱용 더미 검색 기능입니다.");
         }
 
-        $(document).ready(function() {
+        $(document).ready(function () {
             // 즐겨찾기 토글 기능 (퍼블리싱)
-            $(".favicon").on("click keydown", function(e) {
-                if(e.type === "click" || e.keyCode === 13 || e.keyCode === 32) {
+            $(".favicon").on("click keydown", function (e) {
+                if (e.type === "click" || e.keyCode === 13 || e.keyCode === 32) {
                     e.preventDefault();
                     var $img = $(this).find("img");
                     var src = $img.attr("src");
-                    if(src.indexOf("off") > -1) {
-                        $img.attr("src", src.replace("off", "on")).attr("alt", "즐겨찾기 추가 상태");
+                    // [버그 수정] replace("off", "on") 사용 시 파일명 앞부분의 'icon_...'이 'icoff_...'로 잘못 치환되어 이미지가 깨지는 버그를 방지하기 위해 파일명 꼬리표 전체 치환
+                    if (src.indexOf("_off.png") > -1) {
+                        $img.attr("src", src.replace("_off.png", "_on.png")).attr("alt", "즐겨찾기 추가 상태");
                     } else {
-                        $img.attr("src", src.replace("on", "off")).attr("alt", "즐겨찾기 해제 상태");
+                        $img.attr("src", src.replace("_on.png", "_off.png")).attr("alt", "즐겨찾기 해제 상태");
                     }
                 }
             });
         });
     </script>
 </body>
+
 </html>

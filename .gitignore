@@ -1,2 +1,5 @@
 /a11y-jsp
 /prompt
+*.py
+*.txt
+/.agents

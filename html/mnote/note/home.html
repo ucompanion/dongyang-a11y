@@ -24,6 +24,7 @@
             position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;
         }
     </style>
+    <link rel="stylesheet" type="text/css" href="../dtis/css/high-contrast.css"/>
 </head>
 
 <body class="main">
@@ -31,6 +32,7 @@
     <div id="wrap">
             <h1><img src="../dtis/images/main_logo.png" alt="동양미래대학교" /></h1>
             <h2><img src="../dtis/images/main_title.png" alt="교직원 수첩" /></h2>
+        <!-- [A11y: 대체 텍스트] 빠른 메뉴 영역 및 내부 링크 목적지 안내를 위해 aria-label 및 title 속성 임의 제공 -->
         <div class="quick" aria-label="빠른 메뉴">
             <ul>
                 <li><a href="favorite.html" title="즐겨찾기로 이동"><img src="../dtis/images2/main_quick01.png" alt="즐겨찾기" /></a></li>
@@ -38,20 +40,22 @@
             </ul>
         </div>
 
+        <!-- [A11y: 대체 텍스트] 부서별 메뉴 영역에 대한 aria-label 임의 제공 -->
         <div class="gnb" aria-label="부서별 메뉴">
             <ul>
+                <!-- [A11y: 대체 텍스트] GNB(부서별 메뉴) 링크의 목적지를 명확히 예측할 수 있도록 각 링크에 title 속성 일괄 제공 -->
                 <!-- 더미 데이터 구성 -->
                 <li class="odd">
-                    <a href="main.html" style="font-size:25px;">부속기관</a>
+                    <a href="main.html" style="font-size:25px;" title="부속기관 하위 메뉴로 이동">부속기관</a>
                 </li>
                 <li>
-                    <a href="main.html" style="font-size:25px;">학부학과</a>
+                    <a href="main.html" style="font-size:25px;" title="학부학과 하위 메뉴로 이동">학부학과</a>
                 </li>
                 <li class="odd">
-                    <a href="main.html" style="font-size:25px;">행정부서</a>
+                    <a href="main.html" style="font-size:25px;" title="행정부서 하위 메뉴로 이동">행정부서</a>
                 </li>
                 <li>
-                    <a href="main.html" style="font-size:25px;">산학<br>협력단</a>
+                    <a href="main.html" style="font-size:25px;" title="산학협력단 하위 메뉴로 이동">산학<br>협력단</a>
                 </li>
             </ul>
         </div>

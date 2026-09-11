@@ -1,25 +1,61 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=2" />
+    <meta name="viewport"
+        content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=2" />
     <title>회원 로그인 - 동양미래대학교 모바일 캠퍼스</title>
     <!-- 퍼블리싱용 상대경로 css -->
-    <link rel="stylesheet" type="text/css" href="dtis/css/common.css"/>
-    <link rel="stylesheet" type="text/css" href="dtis/css/board.css"/>
+    <link rel="stylesheet" type="text/css" href="dtis/css/common.css" />
+    <link rel="stylesheet" type="text/css" href="dtis/css/board.css" />
     <link rel="stylesheet" type="text/css" href="dtis/js/jquery.slidebars/slidebars.css">
-    
+
     <style type="text/css">
-        #header {z-index: 300; top: 0; left: 0; position: fixed; height: 50px; width: 100%;}
-        #wrapper.main #header {height: 50px;}
-        #contents h1 {position: absolute; top: 50px; left: 0; width: 100%; height: 43px; background-color: #4594db; text-align: center; font-size: 16px; color: #fff; line-height: 43px;}
-        
-        .blind, .sr-only {position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;}
+        #header {
+            z-index: 300;
+            top: 0;
+            left: 0;
+            position: fixed;
+            height: 50px;
+            width: 100%;
+        }
+
+        #wrapper.main #header {
+            height: 50px;
+        }
+
+        #contents h1 {
+            position: absolute;
+            top: 50px;
+            left: 0;
+            width: 100%;
+            height: 43px;
+            /* [A11y: 명도 대비] 흰색 텍스트와 대비(4.5:1 이상) 준수를 위해 기존 #4594db에서 어두운 톤으로 변경 */
+            background-color: #2a659c;
+            text-align: center;
+            font-size: 16px;
+            color: #fff;
+            line-height: 43px;
+        }
+
+        .blind,
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            padding: 0;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
     </style>
-    
+
     <!-- jQuery 등 스크립트 -->
     <script type="text/javascript" src="dtis/js/jquery/jquery-1.8.3.js"></script>
     <script type="text/javascript" src="dtis/js/jquery.slidebars/slidebars.js"></script>
+    <link rel="stylesheet" type="text/css" href="dtis/css/high-contrast.css" />
 </head>
 
 <body>
@@ -28,55 +64,64 @@
             <!-- header (incHeader.jsp 병합) -->
             <header id="header">
                 <div>
-                    <a href="main/default.html" title="메인 페이지로 이동"><span class="logo"></span></a>
-                    <button type="button" class="bt menu sb-toggle-left" title="전체 메뉴 열기"><span class="blind">메뉴 열기</span></button>
-                    <!-- 로그인 상태 (퍼블리싱 더미) -->
-                    <button type="button" class="bt login" title="로그인"><span class="blind">로그인</span></button>
+                    <!-- [A11y: 대체 텍스트] 헤더 기능 버튼(메뉴, 로그아웃)에 숨김 텍스트(.blind) 제공 -->
+                    <button type="button" class="bt menu sb-toggle-left" title="전체 메뉴 열기"><span class="blind">전체메뉴</span></button>
+                    <!-- [A11y: 대체 텍스트] 헤더 로고 링크 대체 텍스트 강화 -->
+                    <a href="main/default.html" title="메인 페이지로 이동"><span class="logo"><span class="blind">동양미래대학교 홈으로
+                                이동</span></span></a>
+                    <!-- [A11y: 조작 가능] 로그인 요소를 button 태그로 제공하여 키보드(Enter/Space) 조작 접근성 확보 -->
+                    <button type="button" class="bt login" title="로그인 실행"><span class="blind">로그인</span></button>
                 </div>
-                <div class="shadow"></div>    
+                <div class="shadow"></div>
             </header>
-            
+
             <!-- content -->
             <main id="contents">
                 <div class="shadow"></div>
-                <h1 style="background-color: #003cab !important">
+                <h1 id="page_title">
                     회원 로그인
                     <span id="appVersion" style="position:absolute; right:10px;">Ver 1.0.0</span>
-                </h1> 
-                
+                </h1>
+
                 <section class="wrapContainer login">
                     <div class="loginWrap">
                         <!-- 로그인 폼 시작 -->
                         <form name="frmLogin" method="post" action="main/default.html">
                             <fieldset>
+                                <!-- [A11y: 레이블과 네임] 폼 요소(아이디/비밀번호 등)에 스크린 리더용 숨김 레이블(.blind) 제공 -->
                                 <legend class="blind">로그인 입력폼</legend>
                                 <ul>
                                     <li>
                                         <label for="userid" class="blind">아이디</label>
-                                        <input type="text" id="userid" name="username" placeholder="User ID" title="아이디를 입력하세요">
+                                        <input type="text" id="userid" name="username" placeholder="User ID"
+                                            title="아이디를 입력하세요" autocomplete="username">
                                     </li>
                                     <li>
                                         <label for="passwd" class="blind">비밀번호</label>
-                                        <input type="password" id="passwd" name="password" placeholder="Password" title="비밀번호를 입력하세요">
+                                        <input type="password" id="passwd" name="password" placeholder="Password"
+                                            title="비밀번호를 입력하세요" autocomplete="current-password">
                                     </li>
                                 </ul>
                             </fieldset>
-                            
+
                             <ul class="login_chk">
-                                <!-- 접근성 향상: label 연결 -->
-                                <li class="chk" style="font-size:14px; position:relative;">
-                                    <input type="checkbox" id="chk_idsave" style="position:absolute; top:2px; left:0; z-index:-1; opacity:0;"/>
-                                    <label for="chk_idsave" id="idsave_chk" style="cursor:pointer; display:block; padding-left:25px; min-height:22px;">아이디 저장</label>
+                                <!-- [A11y: 초점 동기화] 투명 인풋(opacity: 0)을 100% 크기로 덮어 시각적 초점과 논리적 초점을 완벽 일치시킴 -->
+                                <li class="chk">
+                                    <input type="checkbox" id="chk_idsave" title="아이디 저장" style="position:absolute; top:0; left:0; width:100%; height:100%; opacity:0; z-index:10; cursor:pointer; margin:0;" />
+                                    <label for="chk_idsave" id="idsave_chk">아이디 저장</label>
                                 </li>
-                                <li class="chk" style="font-size:14px; position:relative;">
-                                    <input type="checkbox" id="chk_autologin" style="position:absolute; top:2px; left:0; z-index:-1; opacity:0;"/>
-                                    <label for="chk_autologin" id="autologin_chk" style="cursor:pointer; display:block; padding-left:25px; min-height:22px;">자동 로그인</label>
+                                <li class="chk">
+                                    <input type="checkbox" id="chk_autologin" title="자동 로그인" style="position:absolute; top:0; left:0; width:100%; height:100%; opacity:0; z-index:10; cursor:pointer; margin:0;" />
+                                    <label for="chk_autologin" id="autologin_chk">자동 로그인</label>
                                 </li>
                             </ul>
-                            
+
                             <div class="buttonArea">
-                                <button type="submit" style="background: none !important; background-color: #003cab !important; width:100%; border:0; color:#fff; font-size:16px; padding:10px 0;">로그인</button>
-                                <p style="margin-top:15px; color:#555; text-align:center; font-size:13px; line-height:1.5;">아이디, 비밀번호는 우리대학 홈페이지의<br/>사용자 아이디, 비밀번호와 동일합니다.</p>
+                                <button type="submit"
+                                    style="background: none !important; background-color: #003cab !important; width:100%; border:0; color:#fff; font-size:16px; padding:10px 0;">로그인</button>
+                                <p
+                                    style="margin-top:15px; color:#555; text-align:center; font-size:13px; line-height:1.5;">
+                                    아이디, 비밀번호는 우리대학 홈페이지의<br />사용자 아이디, 비밀번호와 동일합니다.</p>
                             </div>
                         </form>
                     </div>
@@ -84,16 +129,19 @@
             </main>
         </div>
     </div>
-    
+
     <!-- side menu (incSideMenu.jsp 병합) -->
-    <div class="sb-slidebar sb-left sb-style-push sb-width-custom" data-sb-width="80%">
+    <!-- [A11y: Guide 05 초점 이동] 전체메뉴 열림 시 논리적 초점 이동을 위해 tabindex="0" 부여 -->
+    <div class="sb-slidebar sb-left sb-style-push sb-width-custom" data-sb-width="80%" tabindex="0">
         <div id="menuWrap">
             <div class="searchArea">
                 <label for="searchWord" class="blind">메뉴 검색</label>
-                <input type="text" id="searchWord" name="searchWord" placeholder="검색어 입력"/>
-                <button type="button" class="bt_search" title="검색"><span class="blind">검색</span></button>
+                <input type="text" id="searchWord" name="searchWord" placeholder="검색어 입력" />
+                <button type="button" class="bt_search"><span class="blind">검색</span></button>
             </div>
-            <a href="main/default.html"><div class="logo"><span class="blind">동양미래대학교 모바일 캠퍼스</span></div></a>
+            <a href="main/default.html" class="logo-link">
+                <div class="logo"><span class="blind">동양미래대학교 모바일 캠퍼스</span></div>
+            </a>
             <ul class="personalIcon">
                 <li class="m01">
                     <a href="stf/STF_00.html" class="sb-close"><span>개인정보</span></a>
@@ -101,27 +149,28 @@
                 <li class="m02">
                     <a href="main/config.html" class="sb-close"><span>환경설정</span></a>
                 </li>
+                <!-- [A11y: 의미 없는 요소 숨김] 일반 모드 4단 레이아웃 유지를 위한 빈칸으로, 스크린 리더에서 무시되도록 처리 -->
+                <li aria-hidden="true"></li>
+                <li aria-hidden="true"></li>
             </ul>
+            <!-- [A11y: 초점 이동] 전체메뉴 닫기 버튼 제공 및 클래스(sb-close)를 통한 포커스 복귀 연동 -->
+            <button type="button" class="sb-close btn_close_menu"><span class="blind">전체메뉴 닫기</span></button>
+
         </div>
-    </div>    
-    <div id="site_mask" style="width:100%;z-index:9000;background:#fff;opacity:0.0;position:absolute;top:0;left:80%; display:none;"></div>
+    </div>
+
+    <div id="site_mask"
+        style="width:100%;z-index:9000;background:#fff;opacity:0.0;position:absolute;top:0;left:80%; display:none;">
+    </div>
 
     <script type="text/javascript">
-        $(document).ready(function(){
+        $(document).ready(function () {
             $.slidebars();
-            
-            // 퍼블리싱용 디자인 체크박스 동작
-            $("#idsave_chk").on("click", function(){
-                $(this).toggleClass("on");
-            });
-            $("#autologin_chk").on("click", function(){
-                $(this).toggleClass("on");
-                if($(this).hasClass("on")) {
-                    $("#idsave_chk").addClass("on");
-                    $("#chk_idsave").prop("checked", true);
-                }
-            });
+
+            // [A11y] 네이티브 체크박스(input type="checkbox")의 기능을 온전히 활용하므로, 자바스크립트를 이용한 가짜 상태(class="on") 토글 스크립트 제거
+
         });
     </script>
 </body>
+
 </html>

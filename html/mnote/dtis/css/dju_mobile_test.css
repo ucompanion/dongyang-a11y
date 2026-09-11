@@ -43,11 +43,19 @@ hr,caption{display:none !important}
 .sub_bg{position:fixed;left:0;top:0;width:100%;height:100%;background:url('images/sub_bg.jpg') no-repeat;background-size:100%;}
 .sub #wrap{position:relative;}
 .sub .page_title{position:relative;margin:0 40px 0 78px; height:100px;}
-.sub .page_title h1{padding:27px 0;font-size:32px;color:#1a1a1a;text-align:center;background:url('images/bg_sub_title.gif') repeat-x left bottom;}
-.sub .page_title h1 img{margin-right:16px;vertical-align:top;}
+/* [UI 보정] 로고 이미지와 텍스트의 수직 중앙 정렬(Flexbox) 적용 */
+.sub .page_title h1{display:flex; align-items:center; justify-content:center; padding:27px 0;font-size:32px;color:#1a1a1a;background:url('images/bg_sub_title.gif') repeat-x left bottom;}
+.sub .page_title h1 img{margin-right:16px;}
 .sub .page_title .btn_l{position:absolute;left:8px;top:27px;}
-.sub .page_title .btn_r{position:absolute;right:4px;top:30px;}
+/* [A11y: 조작 가능] 모바일 터치 환경에서 터치 영역 대폭 확대 및 이미지 실제 크기(40px) 강제 통일 */
+.sub .page_title .btn_l a {display:flex; align-items:center; justify-content:center; padding:20px; margin:-20px;}
+.sub .page_title .btn_l a img {width:40px; height:40px; object-fit:contain;}
+/* [UI 보정] 우측 아이콘들 띄어쓰기 간격 제거(Flex) 및 상하 위치 보정 */
+.sub .page_title .btn_r{position:absolute;right:4px;top:27px; display:flex;}
 .sub .page_title .btn_r span{padding-left:20px;}
+/* [A11y: 조작 가능] 우측 아이콘 크기 및 터치 영역을 좌측과 완벽히 일치시킴 */
+.sub .page_title .btn_r a {display:flex; align-items:center; justify-content:center; padding:20px; margin:-20px 0;}
+.sub .page_title .btn_r a img {width:40px; height:40px; object-fit:contain;}
 .sub .staff_wrap{position:relative;margin:16px 30px 0 47px;z-index:1;}
 .sub .gnb_depth02{position:absolute;left:0;top:0;width:150px;z-index:20;}
 .sub .gnb_depth02 li{width:150px;height:120px;background:url('images/sub_menu_off.gif') no-repeat;}

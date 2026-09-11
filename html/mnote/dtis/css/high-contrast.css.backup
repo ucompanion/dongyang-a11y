@@ -1,0 +1,244 @@
+@charset "utf-8";
+
+/* 
+ * [접근성] OS 고대비 모드(High Contrast Mode) 대응 CSS
+ * OS 시스템이 배경과 텍스트 색상을 알아서 강제하므로 임의로 색상을 고정하지 않습니다.
+ * 단, 반드시 고정해야 하는 배경컬러(숨김 텍스트, 활성 인디케이터)만 예외 처리합니다.
+ */
+
+@media (forced-colors: active), (-ms-high-contrast: active), (prefers-contrast: more) {
+
+    /* ========================================================
+       1. 불필요한 장식 강제 제거 (배경 이미지 유지)
+       ======================================================== */
+    * {
+        box-shadow: none !important;
+        text-shadow: none !important;
+        border-radius: 0 !important;
+    }
+
+    /* 의미 없는 장식용 배경 이미지 강제 제거 (아이콘, 로고 등 의미 있는 배경 요소 제외) */
+    *:not(.bulletListType li):not(.listType01 li):not(.listType02 li):not(.listType03 li):not(.listType04 li):not(.mainListBoxWrap .list li):not(.mainListBoxWrap .header h2):not(.mainServiceMenu li):not(.smartServiceWrap .box ul li .appIcon span):not(.settingWrap li span p):not(.scheduleWrapper .cont .tableScroll .lecture p span):not(#header .logo):not(#menuWrap .logo span):not(#menuWrap .personalIcon li):not(#menuWrap .bottomArea .smartServiceIcon li) {
+        background-image: none !important;
+    }
+
+    /* 숨김 텍스트를 포함하는 부모 요소의 배경 이미지 제거 (로고 등 보존 요소 제외) */
+    *:has(> .blind):not(.logo, .logo-link, #menuWrap .logo span),
+    *:has(> .sr-only):not(.logo, .logo-link, #menuWrap .logo span) {
+        background-image: none !important;
+    }
+    /* ========================================================
+       2. 고정값으로 배경컬러를 지정해야 하는 것 조정
+       ======================================================== */
+    /* 숨겨진 텍스트(.blind) 복구 시 바탕과 겹치지 않게 시스템 색상 고정 */
+    .blind,
+    .sr-only {
+        position: static !important;
+        width: auto !important;
+        height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: visible !important;
+        clip: auto !important;
+        border: 0 !important;
+        display: inline-block !important;
+        line-height: normal !important;
+        
+        forced-color-adjust: none !important; /* 브라우저 렌더링 무효화 방어 */
+        color: CanvasText !important;
+        background-color: Canvas !important;
+        font-size: 14px !important;
+    }
+
+    /* 로고는 배경 이미지를 보존하므로 숨김 텍스트가 화면에 노출되지 않도록 유지 */
+    .logo .blind,
+    .logo-link .blind,
+    #header .logo .blind,
+    #menuWrap .logo .blind {
+        position: absolute !important;
+        width: 1px !important;
+        height: 1px !important;
+        overflow: hidden !important;
+        clip: rect(0, 0, 0, 0) !important;
+        margin: -1px !important;
+    }
+
+    /* 슬라이더/배너 활성 탭 인디케이터 (모양이 투명해지지 않게 꽉 채움) */
+    .bannerIndicators ul li.active,
+    .bannerIndicators ul li.on,
+    .slick-dots li.slick-active button {
+        forced-color-adjust: none !important;
+        background-color: CanvasText !important; 
+    }
+    
+    .bannerIndicators ul li,
+    .slick-dots li button {
+        border: 1px solid CanvasText !important;
+        opacity: 1 !important;
+    }
+
+    /* ========================================================
+       3. 이상하게 나오는 것 조정 (테두리로 형태 보완)
+       ======================================================== */
+    button,
+    .bt,
+    .btn,
+    input,
+    select,
+    textarea,
+    #wrapper #contents .mainMenu li,
+    #menuWrap .personalIcon li,
+    #menuWrap .mobileCampus li {
+        border: 1px solid CanvasText !important;
+    }
+
+    /* 모든 버튼의 고정 크기 해제 및 최소 터치 영역 확보 */
+    /* 레이어(팝업 등) 겹침 방지를 위해 솔리드 배경(시스템 버튼 색상) 강제 지정 */
+    button, .bt, .btn {
+        background-color: ButtonFace !important;
+        color: ButtonText !important;
+        width: auto !important;
+        height: auto !important;
+        min-width: 44px !important;
+        min-height: 44px !important;
+        padding: 2px 6px !important;
+    }
+
+    /* 초점(Focus) 이동 명확화 */
+    a:focus,
+    button:focus,
+    input:focus,
+    select:focus,
+    textarea:focus,
+    [tabindex]:focus {
+        outline: 3px solid Highlight !important;
+        outline-offset: -2px !important;
+    }
+
+    /* 공통 레이아웃 구분선 */
+    #header,
+    .social-footer,
+    #footer,
+    #contents .personalArea,
+    #wrapper #contents .personalArea.login {
+        border-bottom: 1px solid CanvasText !important;
+    }
+
+    #wrapper #contents .mainMenu {
+        border-bottom: 1px solid CanvasText !important;
+    }
+    #wrapper #contents .mainMenu li {
+        border: 1px solid CanvasText !important;
+        border-bottom: none !important;
+        margin-right: 1px;
+    }
+
+    #menuWrap {
+        border-right: 1px solid CanvasText !important;
+    }
+    #menuWrap .searchArea,
+    #menuWrap .logo {
+        border-bottom: 1px solid CanvasText !important;
+    }
+
+    /* 여백 조절 */
+    .mainListBoxWrap,
+    .smartServiceWrap,
+    .utilListWrap,
+    .utilDetailWrap,
+    .settingWrap,
+    .scheduleWrap,
+    section {
+        margin-top: 24px !important;
+    }
+    .mainListBoxWrap {
+        border: 1px solid CanvasText !important;
+        padding: 10px !important;
+    }
+    .mainListBoxWrap .header {
+        border-bottom: 1px solid CanvasText !important;
+    }
+    .mainListBoxWrap .header .more {
+        border: 1px solid CanvasText !important;
+        padding: 2px 5px !important;
+        text-decoration: none !important;
+    }
+    .mainListBoxWrap .list li {
+        border-bottom: 1px solid CanvasText !important;
+    }
+    
+    .mainServiceMenu {
+        border-top: 1px solid CanvasText !important;
+        border-left: 1px solid CanvasText !important;
+    }
+    .mainServiceMenu li {
+        border: 1px solid CanvasText !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    .mainServiceMenu li span {
+        padding-top: 0 !important;
+    }
+
+    /* ========================================================
+       4. 진한 배경색(Dark Backgrounds) 유지 (강제 보존)
+       ======================================================== */
+    /* 원래 진한 계열이었던 배경 요소들을 고대비에서도 어둡게 유지 */
+    .social-footer {
+        forced-color-adjust: none !important;
+        background-color: #333333 !important;
+        color: #ffffff !important;
+    }
+
+    #contents h1,
+    .wrapContainer.login h1,
+    #contents .personalArea {
+        forced-color-adjust: none !important;
+        background-color: #003cab !important;
+        color: #ffffff !important;
+    }
+
+    #menuWrap .mobileCampus li {
+        forced-color-adjust: none !important;
+        background-color: #1d4a73 !important;
+        color: #ffffff !important;
+    }
+
+    #menuWrap .mobileCampus li:nth-of-type(2n) {
+        forced-color-adjust: none !important;
+        background-color: #153655 !important;
+        color: #ffffff !important;
+    }
+
+    #menuWrap .btnArea button {
+        forced-color-adjust: none !important;
+        background-color: #333333 !important;
+        color: #ffffff !important;
+    }
+
+    /* ========================================================
+       5. 주요 UI 요소 원본 배경/아이콘 보존 (OS 강제 덮어쓰기 방어)
+       ======================================================== */
+    /* 불릿(Bullet) 및 아이콘용 배경 이미지 살리기 */
+    /* 단, 아이콘 유지를 위해 강제 보존된 요소들의 원래 배경색상은 무효화하여 시스템 테마에 맞춤 */
+    .bulletListType li,
+    .listType01 li,
+    .listType02 li,
+    .listType03 li,
+    .listType04 li,
+    .mainListBoxWrap .list li,
+    .mainListBoxWrap .header h2,
+    .mainServiceMenu li,
+    .smartServiceWrap .box ul li .appIcon span,
+    .settingWrap li span p,
+    .scheduleWrapper .cont .tableScroll .lecture p span,
+    #header .logo,
+    #menuWrap .logo span,
+    #menuWrap .personalIcon li,
+    #menuWrap .bottomArea .smartServiceIcon li {
+        forced-color-adjust: none !important;
+        background-color: transparent !important;
+    }
+
+}

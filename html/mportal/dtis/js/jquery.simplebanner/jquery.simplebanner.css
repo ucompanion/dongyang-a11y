@@ -1,24 +1,207 @@
-.simpleBanner {overflow:hidden;position:relative;width:700px;padding:0 0 6px 0;}
+/* 2026-09-04 UI 수정: 배너 여백 제거 */
+.simpleBanner {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    padding: 0 0 0 0;
+}
+
 .simpleBanner.hiddenArrows .bannerControlsWpr,
-.simpleBanner.hiddenIndicators .bannerIndicators {display:none;}
+.simpleBanner.hiddenIndicators .bannerIndicators {
+    display: none;
+}
 
-.simpleBanner ul {list-style:none;margin:0;padding:0;}
-.simpleBanner .bannerListWpr {clear:both;overflow:hidden;}
-.simpleBanner .bannerListWpr ul {width:50000px;overflow:hidden;}
-.simpleBanner .bannerListWpr ul li {float:left;width:700px;} /* Make sure to set the width for this */
-.simpleBanner .bannerListWpr ul li img {display:block;}
-.simpleBanner .bannerControlsWpr {cursor:pointer;padding:10px 12px;position:absolute;top:37%;background:#CCC;}
-.simpleBanner .bannerControlsPrev {border-radius:0 5px 5px 0;left:0;padding-left:5px;}
-.simpleBanner .bannerControlsNext {border-radius:5px 0 0 5px;right:0;padding-right:5px;}
-.simpleBanner .bannerControlsPrev .bannerControls {border-color: transparent #3f3f3f transparent transparent;border-width:20px 20px 20px 0;}
-.simpleBanner .bannerControlsNext .bannerControls {border-color: transparent transparent transparent #3f3f3f;border-width:20px 0 20px 20px;}
-.simpleBanner .bannerControlsPrev:hover .bannerControls {border-color:transparent #FFF transparent transparent;}
-.simpleBanner .bannerControlsNext:hover .bannerControls {border-color:transparent transparent transparent #FFF;}
-.simpleBanner .bannerControls {width:0;height:0;border-style:solid;}
-.simpleBanner .bannerIndicators {background:transparent;right:20px;opacity:0.9;padding:4px 8px 4px 0;position:absolute;bottom:25px;}
-.simpleBanner .bannerIndicators ul {overflow:hidden;}
-.simpleBanner .bannerIndicators .bannerIndicator {background:#5D5D5D;border-radius:7px 7px 7px 7px;cursor:pointer;float:left;height:15px;margin-left:8px;width:15px;}
-.simpleBanner .bannerIndicators .bannerIndicator:hover {background:#FFF;}
-.simpleBanner .bannerIndicators .bannerIndicator.current {background:#FF7E00;cursor:default;}
+.simpleBanner ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
 
-#siteWpr {width:700px;margin:0 auto;}
+.simpleBanner .bannerListWpr {
+    clear: both;
+    overflow: hidden;
+}
+
+.simpleBanner .bannerListWpr ul {
+    width: 50000px;
+    overflow: hidden;
+}
+
+.simpleBanner .bannerListWpr ul li {
+    float: left;
+    width: 100vw;
+    max-width: 100%;
+}
+
+/* Responsive width */
+/* 2026-09-04 UI 수정: 배너 여백 제거 및 컨트롤 바 레이아웃 조정 */
+.simpleBanner .bannerListWpr ul li img {
+    display: block;
+    width: 100%;
+    height: 150px;
+}
+
+/* [A11y: Guide 06 단일 포인터 입력 지원 & 조작 가능] 스와이프 대체 컨트롤 (최소 터치 영역 44px 이상 보장) */
+.simpleBanner .bannerControlsWpr {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px; /* 반원 느낌을 위해 너비 조절 */
+    height: 44px;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s;
+    z-index: 10;
+}
+
+.simpleBanner .bannerControlsWpr:hover,
+.simpleBanner .bannerControlsWpr:focus {
+    background: rgba(0, 0, 0, 0.7);
+    outline: none;
+}
+
+.simpleBanner .bannerControlsWpr:focus {
+    border: 2px solid #FF7E00;
+}
+
+.simpleBanner .bannerControlsPrev {
+    left: 0;
+    border-radius: 0 22px 22px 0;
+}
+
+.simpleBanner .bannerControlsNext {
+    right: 0;
+    border-radius: 22px 0 0 22px;
+}
+
+.simpleBanner .bannerControls {
+    width: 12px;
+    height: 12px;
+    border: solid #FFF;
+    border-width: 2px 2px 0 0;
+    display: inline-block;
+    padding: 0;
+}
+
+.simpleBanner .bannerControlsPrev .bannerControls {
+    transform: rotate(-135deg);
+    margin-left: 5px; /* 시각적 중앙 정렬 보정 */
+}
+
+.simpleBanner .bannerControlsNext .bannerControls {
+    transform: rotate(45deg);
+    margin-right: 5px; /* 시각적 중앙 정렬 보정 */
+}
+
+
+
+.simpleBanner .bannerIndicators ul {
+    overflow: hidden;
+}
+
+.simpleBanner .bannerIndicators .bannerIndicator {
+    border-radius: 50%;
+    background: #5D5D5D;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.simpleBanner .bannerIndicators .bannerIndicator:hover {
+    background: #FFF;
+}
+
+/* [A11y: Guide 03 콘텐츠 구분] 색상뿐만 아니라 형태(Shape)의 차이로도 활성화 상태를 명확히 구분할 수 있도록 너비를 확장 (12px -> 24px) */
+.simpleBanner .bannerIndicators .bannerIndicator.current {
+    background: #FF7E00;
+    cursor: default;
+    width: 24px;
+    border-radius: 8px;
+}
+
+#siteWpr {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* [A11y: 재생 조절 가능 & 조작 가능(Guide 06)] 정지/재생 및 방향 컨트롤 버튼 스타일 (최소 터치영역 44px 보장) */
+.simpleBanner .bannerIndicators {
+    background: transparent;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0.9;
+    padding: 0;
+    position: absolute;
+    bottom: 10px;
+    z-index: 10;
+}
+
+/* [A11y: Guide 07 재생 조절 가능] 배너 롤링 제어 버튼 UI 박스 디자인 및 배치 */
+.simpleBanner .bannerControlsBox {
+    display: inline-flex;
+    margin-left: 15px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.simpleBanner .bannerIndicators ul {
+    float: left;
+    display: flex;
+    align-items: center;
+}
+
+.simpleBanner .bannerIndicators .bannerIndicator {
+    margin-left: 8px;
+    width: 12px;
+    height: 12px;
+}
+
+/* [A11y: Guide 06 조작 가능] 터치 오류 방지를 위해 최소 권장 영역(9x9mm, 약 40px 이상) 준수되도록 가로세로 폭 확보 */
+.simpleBanner .bannerNavBtn,
+.simpleBanner .bannerToggleBtn {
+    background: transparent;
+    border: none;
+    color: #FFF;
+    font-size: 14px;
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.simpleBanner .bannerToggleBtn.pause {
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    font-family: Arial, Helvetica, sans-serif;
+    transform: scaleX(0.9);
+}
+
+/* [A11y: 현재 배너 위치 정보 제공] 전체 중 현재 위치 텍스트 표시 영역 */
+.simpleBanner .bannerPageInfo {
+    color: #FFF;
+    font-size: 13px;
+    font-family: Arial, Helvetica, sans-serif;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 5px;
+    min-width: 40px;
+}
+
+.simpleBanner .bannerNavBtn:hover,
+.simpleBanner .bannerNavBtn:focus,
+.simpleBanner .bannerToggleBtn:hover,
+.simpleBanner .bannerToggleBtn:focus {
+    color: #FF7E00;
+    font-weight: bold;
+    outline: 2px dotted #FFF;
+    outline-offset: -2px;
+    border-radius: 20px;
+}

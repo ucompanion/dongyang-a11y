@@ -19,69 +19,30 @@
         window.addEventListener('load', function () { setTimeout(scrollTo, 0, 0, 1); }, false);
 
         jQuery(function () {
+            // [A11y/UI 보정] mj.viewport.js가 아직 실행되기 전(Race condition)일 수 있으므로 직접 예상 배율 계산
+            var currentWidth = window.innerWidth || document.body.clientWidth || document.documentElement.clientWidth;
+            var expectedZoom = currentWidth / 720;
+            var zoomScale = document.body.style.zoom ? parseFloat(document.body.style.zoom) : expectedZoom;
+            if (isNaN(zoomScale) || zoomScale === 0) zoomScale = 1;
+
             var clientHeight = window.innerHeight || document.body.clientHeight || document.documentElement.clientHeight;
             if (mj.viewport.isIos()) {
-                var contentHeight = clientHeight - 104;
+                var scaledClient = clientHeight / zoomScale;
+                var contentHeight = scaledClient - 116;
                 jQuery(".gnb_depth02").css("height", contentHeight);
                 jQuery(".content").css("height", contentHeight);
                 jQuery("#scroller1").css("height", contentHeight);
                 jQuery("#scroller2").css("height", contentHeight);
             } else {
-                clientHeight = (screen.height) + 30;
-                var orientation = window.orientation;
-                if (90 == orientation || -90 == orientation) {
-                    if (clientHeight < 370) {
-                        if (clientHeight < 288) {
-                            clientHeight = clientHeight * 2.1;
-                            var contentHeight = clientHeight - 390;
-                        } else {
-                            if (navigator.userAgent.indexOf("Safari") > 0) {
-                                clientHeight = clientHeight * 2;
-                            } else if (navigator.userAgent.indexOf("Chrome") > 0) {
-                                clientHeight = clientHeight * 1.83;
-                            }
-                            var contentHeight = clientHeight - 340;
-                        }
-                        jQuery(".sub_bg").css("height", clientHeight);
-                        jQuery(".gnb_depth02").css("height", contentHeight);
-                        jQuery(".content").css("height", contentHeight);
-                        jQuery("#scroller1").css("height", contentHeight);
-                        jQuery("#scroller2").css("height", contentHeight);
-                    } else {
-                        jQuery(".sub_bg").css("height", clientHeight);
-                        var contentHeight = clientHeight - 240;
-                        jQuery(".gnb_depth02").css("height", contentHeight);
-                        jQuery(".content").css("height", contentHeight);
-                        jQuery("#scroller1").css("height", contentHeight);
-                        jQuery("#scroller2").css("height", contentHeight);
-                    }
-                } else {
-                    if (clientHeight < 700) {
-                        if (clientHeight < 520) {
-                            if (navigator.userAgent.indexOf("Safari") > 0) {
-                                clientHeight = clientHeight * 2.2;
-                            } else if (navigator.userAgent.indexOf("Chrome") > 0) {
-                                clientHeight = clientHeight * 1.83;
-                            }
-                            var contentHeight = clientHeight - 214;
-                        } else {
-                            clientHeight = clientHeight * 1.81;
-                            var contentHeight = clientHeight - 184;
-                        }
-                        jQuery(".sub_bg").css("height", clientHeight);
-                        jQuery(".gnb_depth02").css("height", contentHeight);
-                        jQuery(".content").css("height", contentHeight);
-                        jQuery("#scroller1").css("height", contentHeight);
-                        jQuery("#scroller2").css("height", contentHeight);
-                    } else {
-                        jQuery(".sub_bg").css("height", clientHeight);
-                        var contentHeight = clientHeight - 134;
-                        jQuery(".gnb_depth02").css("height", contentHeight);
-                        jQuery(".content").css("height", contentHeight);
-                        jQuery("#scroller1").css("height", contentHeight);
-                        jQuery("#scroller2").css("height", contentHeight);
-                    }
-                }
+                clientHeight = screen.height;
+                var scaledClient = clientHeight / zoomScale;
+                var contentHeight = scaledClient - 116;
+                
+                jQuery(".sub_bg").css("height", scaledClient);
+                jQuery(".gnb_depth02").css("height", contentHeight);
+                jQuery(".content").css("height", contentHeight);
+                jQuery("#scroller1").css("height", contentHeight);
+                jQuery("#scroller2").css("height", contentHeight);
             }
         });
 
@@ -239,12 +200,13 @@
     <div id="wrap">
         <!-- .page_title -->
         <div class="page_title">
-            <!-- [A11y: 대체 텍스트] 장식용 아이콘 화면낭독기 무시 속성 추가 -->
-            <h1><img src="../dtis/images/icon_logo.gif" alt="" aria-hidden="true" />학부학과</h1>
+            <!-- [초점 이동] 논리적 초점 이동을 위해 DOM 순서 변경 (btn_l -> h1 -> btn_r) -->
             <div class="btn_l">
                 <!-- [A11y: 대체 텍스트] 홈으로 이동 title 속성 부여 -->
                 <a href="home.html" title="홈으로 이동"><img src="../dtis/images/btn_home.png" alt="홈" /></a>
             </div>
+            <!-- [A11y: 대체 텍스트] 장식용 아이콘 화면낭독기 무시 속성 추가 -->
+            <h1><img src="../dtis/images/icon_logo.gif" alt="" aria-hidden="true" />학부학과</h1>
             <div class="btn_r">
                 <!-- [A11y: 대체 텍스트] 검색으로 이동 title 속성 부여 -->
                 <a href="search.html" title="검색으로 이동"><img src="../dtis/images/btn_search.png" alt="검색" /></a>

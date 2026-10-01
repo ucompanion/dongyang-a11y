@@ -36,10 +36,11 @@
     <div id="wrap">
         <!-- .page_title -->
         <header class="page_title">
-            <!-- [A11y: 대체 텍스트] 장식용 아이콘 화면낭독기 무시 속성 추가 -->
-        <h1><img src="../dtis/images/icon_logo.gif" alt="" aria-hidden="true" />상세정보</h1>
+            <!-- [초점 이동] 논리적 초점 이동을 위해 DOM 순서 변경 (btn_l -> h1) -->
             <!-- [A11y: 대체 텍스트] 이전 페이지 링크 title 속성 부여 -->
         <div class="btn_l"><a href="search.html" title="이전 페이지로 이동"><img src="../dtis/images/btn_back.png" alt="이전" /></a></div>
+            <!-- [A11y: 대체 텍스트] 장식용 아이콘 화면낭독기 무시 속성 추가 -->
+        <h1><img src="../dtis/images/icon_logo.gif" alt="" aria-hidden="true" />상세정보</h1>
         </header>
 
         <!-- .sendto_info -->

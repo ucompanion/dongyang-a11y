@@ -198,6 +198,13 @@ select {
     -webkit-background-size: 44px 44px; */
 }
 
+html {
+    /* [A11y: 초점 가려짐 방지(Focus Not Obscured)] 
+       포커스가 역방향으로 이동할 때 50px 상단 고정 헤더에 가려지지 않도록 
+       브라우저의 자동 스크롤 한계선을 60px 아래로 밀어냄 */
+    scroll-padding-top: 60px;
+}
+
 body {
     background-color: #ebebeb;
 }
